@@ -37,14 +37,12 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# Use Slim instead of erb
-gem 'slim'
-
 group :test, :development do
-  gem 'test'
-  gem 'rspec-rails'
+  gem 'thin' # Use Thin web servers
+  gem 'slim-rails' # Use Slim templates
+  gem 'rspec-rails' # Use RSpec tests
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
-  gem 'thin'
+  gem 'database_cleaner' # Allow us to truncate databases between tests
 end
