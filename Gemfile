@@ -37,6 +37,8 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem "omniauth-google-oauth2"
+
 group :test, :development do
   gem 'thin' # Use Thin web servers
   gem 'slim-rails' # Use Slim templates

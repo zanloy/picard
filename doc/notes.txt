@@ -1,5 +1,18 @@
 Models:
+  - Users:
+    - name:string
+    - admin:boolean
+  - Apps:
+    - name:string
+  - Change:
+    - user:integer
+    - when:datetime
+    - apps:array
+    - change:string
+    - description:string
 
 Controllers:
-
-Records:
+  - Captain's Log
+  - Reporting
+  - Apps List
+  - Users List
