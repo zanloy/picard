@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   resources :sessions, only: [:create, :destroy]
-  resources :log
+  resources :changes
   resources :users, only: [:index, :update, :destroy]
 
-  root 'log#index'
+  root 'changes#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
