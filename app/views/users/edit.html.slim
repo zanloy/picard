@@ -1,0 +1,9 @@
+h1 Edit User
+= form_for @user do |u|
+  = u.label :name
+  = u.text_field :name
+  = u.label :email
+  = u.text_field :email
+  = u.label :admin
+  = u.check_box :admin
+  = u.submit

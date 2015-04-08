@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :sessions, only: [:create, :destroy]
   resources :log
+  resources :users, only: [:index, :update, :destroy]
 
   root 'log#index'
 

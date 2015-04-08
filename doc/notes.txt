@@ -16,3 +16,8 @@ Controllers:
   - Reporting
   - Apps List
   - Users List
+  - Sessions *DONE*
+
+TODO:
+  - Fix authorization to allow only sparcedge.com addresses.
+  - Secure all the things!
