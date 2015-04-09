@@ -1,0 +1,16 @@
+h1 Log
+= render('form')
+table
+  thead
+    tr
+      th User
+      th When
+      th Tags
+      th Name
+  tbody
+  - for item in @logitems
+    tr[id="item_#{item[:id]}"]
+      td #{item.user.name}
+      td #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
+      td #{item.all_tags}
+      td #{item.name}

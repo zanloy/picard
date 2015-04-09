@@ -37,7 +37,11 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Use Google OAuth for authentication
 gem "omniauth-google-oauth2"
+
+# Detect end user timezone
+gem 'detect_timezone_rails'
 
 group :test, :development do
   gem 'thin' # Use Thin web servers
