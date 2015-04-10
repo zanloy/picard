@@ -20,7 +20,8 @@ ActiveRecord::Schema.define(version: 20150409165745) do
   end
 
   create_table "log_items", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "entered_by_id"
+    t.integer  "poc_id"
     t.datetime "when"
     t.integer  "environment_id"
     t.string   "name",           null: false
@@ -29,8 +30,9 @@ ActiveRecord::Schema.define(version: 20150409165745) do
     t.datetime "updated_at"
   end
 
+  add_index "log_items", ["entered_by_id"], name: "index_log_items_on_entered_by_id"
   add_index "log_items", ["environment_id"], name: "index_log_items_on_environment_id"
-  add_index "log_items", ["user_id"], name: "index_log_items_on_user_id"
+  add_index "log_items", ["poc_id"], name: "index_log_items_on_poc_id"
 
   create_table "taggings", force: true do |t|
     t.integer  "log_item_id"

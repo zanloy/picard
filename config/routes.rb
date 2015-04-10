@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'signin', to: 'sessions#login', as: 'signin'
   post 'sessions/login_attempt'
   get 'signout', to: 'sessions#destroy', as: 'signout'
+  get 'signup', to: 'users#new', as: 'signup'
 
   resources :log_items
   resources :sessions, only: [:login, :create, :destroy]

@@ -1,4 +1,7 @@
 class EnvironmentsController < ApplicationController
+
+  before_filter :require_admin, except: [:index, :show]
+
   def index
     @environment = Environment.new # For quick add form
     @environments = Environment.all

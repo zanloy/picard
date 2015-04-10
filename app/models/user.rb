@@ -2,6 +2,8 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
+  has_many :log_items
+  
   # Virtual attributes for password
   attr_accessor :new_password, :new_password_confirmation
   # Validate the password only if the password is changed

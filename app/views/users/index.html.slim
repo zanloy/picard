@@ -1,11 +1,21 @@
 h1 Users
-ul
-  - for user in @users
-    li[id="user_#{user[:id]}"]
-      = "#{user.name_or_email}"
-      - if user.admin
-        = ' (Admin)'
-      = ' | '
-      = link_to 'edit', edit_user_path(user)
-      = ' | '
-      = link_to 'delete', user, data: { method: 'delete', confirm: 'Are you sure?' }
+table
+  thead
+    tr
+      th Name
+      th Email
+      th Enabled
+      th Admin
+      - if is_admin?
+        th Edit
+        th Delete
+  tbody
+    - for user in @users
+      tr[id="user_#{user[:id]}"]
+        td #{user.name}
+        td #{user.email}
+        td #{user.enabled ? 'X' : ''}
+        td #{user.admin ? 'X' : ''}
+        - if is_admin?
+          td #{link_to 'edit', edit_user_path(user)}
+          td #{link_to 'delete', user, data: { method: 'delete', confirm: 'Are you sure?' }}

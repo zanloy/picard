@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_login
 
-  helper_method :current_user, :is_admin?
+  helper_method :current_user, :is_admin?, :require_admin
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -19,6 +19,12 @@ class ApplicationController < ActionController::Base
     return false
   end
 
+  def require_admin
+    if not is_admin?
+      redirect_to :back, notice: 'Admin rights are required to perform that activity.'
+    end
+  end
+
   private
 
   def require_login
@@ -26,5 +32,5 @@ class ApplicationController < ActionController::Base
       redirect_to signin_path
     end
   end
-  
+
 end
