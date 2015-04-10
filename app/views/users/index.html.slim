@@ -2,10 +2,10 @@ h1 Users
 ul
   - for user in @users
     li[id="user_#{user[:id]}"]
-      = "#{user.name} (#{user.email})"
+      = "#{user.name_or_email}"
       - if user.admin
         = ' (Admin)'
       = ' | '
       = link_to 'edit', edit_user_path(user)
       = ' | '
-      = link_to 'delete', user, method: 'delete'
+      = link_to 'delete', user, data: { method: 'delete', confirm: 'Are you sure?' }

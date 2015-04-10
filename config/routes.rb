@@ -2,11 +2,14 @@ Rails.application.routes.draw do
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
+  get 'signin', to: 'sessions#login', as: 'signin'
+  post 'sessions/login_attempt'
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   resources :log_items
-  resources :sessions, only: [:create, :destroy]
-  resources :users, only: [:edit, :index, :update, :destroy]
+  resources :sessions, only: [:login, :create, :destroy]
+  resources :users
+  resources :environments
 
   root 'log_items#index'
 

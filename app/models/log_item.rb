@@ -1,6 +1,7 @@
 class LogItem < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :environment
   has_many :taggings
   has_many :tags, through: :taggings
 

@@ -11,17 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409142701) do
+ActiveRecord::Schema.define(version: 20150409165745) do
+
+  create_table "environments", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "log_items", force: true do |t|
     t.integer  "user_id"
     t.datetime "when"
-    t.string   "name",        null: false
+    t.integer  "environment_id"
+    t.string   "name",           null: false
     t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "log_items", ["environment_id"], name: "index_log_items_on_environment_id"
   add_index "log_items", ["user_id"], name: "index_log_items_on_user_id"
 
   create_table "taggings", force: true do |t|
@@ -43,8 +51,9 @@ ActiveRecord::Schema.define(version: 20150409142701) do
   create_table "users", force: true do |t|
     t.string   "provider"
     t.string   "uid"
-    t.string   "name"
     t.string   "email"
+    t.string   "hashed_password"
+    t.string   "name"
     t.boolean  "enabled"
     t.boolean  "admin"
     t.string   "oauth_token"

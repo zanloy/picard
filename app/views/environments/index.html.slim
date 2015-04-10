@@ -1,0 +1,10 @@
+h1 Environments
+= render 'form'
+ul
+  - for environment in @environments
+    li[id="environment_#{environment[:id]}"]
+      = environment.name
+      = ' | '
+      = link_to 'Edit', edit_environment_path(environment)
+      = ' | '
+      = link_to 'Delete', environment_path(environment), data: { method: :delete, confirm: 'Are you sure?' }

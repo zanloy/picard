@@ -13,7 +13,7 @@ class LogItemsController < ApplicationController
   private
 
   def create_params
-    p = params.require(:log_item).permit(:name, :all_tags)
+    p = params.require(:log_item).permit(:environment_id, :name, :all_tags)
     p[:user_id] = session[:user_id]
     p[:when] = Time.now
     p

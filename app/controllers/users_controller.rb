@@ -4,6 +4,15 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def new
+    @user = User.new
+  end
+
+  def create
+    User.create create_params
+    redirect_to root_path
+  end
+
   def edit
     @user = User.find(edit_params)
   end
@@ -24,12 +33,16 @@ class UsersController < ApplicationController
 
   private
 
+  def create_params
+    params.require(:user).permit(:email, :new_password, :name)
+  end
+
   def edit_params
     params.require(:id)
   end
 
   def update_params
-    params.require(:user).permit(:admin)
+    params.require(:user).permit(:new_password, :name, :enabled, :admin)
   end
 
 end

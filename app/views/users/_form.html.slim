@@ -1,0 +1,12 @@
+= form_for @user do |u|
+  = u.label :email
+  = u.text_field :email
+  = u.label :new_password
+  = u.password_field :new_password
+  = u.label :name
+  = u.text_field :name
+  = u.label :enabled
+  = u.check_box :enabled
+  = u.label :admin
+  = u.check_box :admin
+  = u.submit

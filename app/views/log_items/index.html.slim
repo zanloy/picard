@@ -5,12 +5,14 @@ table
     tr
       th User
       th When
+      th Where
+      th What
       th Tags
-      th Name
   tbody
   - for item in @logitems
     tr[id="item_#{item[:id]}"]
-      td #{item.user.name}
+      td #{item.user.name_or_email}
       td #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
-      td #{item.all_tags}
+      td #{item.environment.name}
       td #{item.name}
+      td #{item.all_tags}
