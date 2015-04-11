@@ -1,6 +1,0 @@
-= form_for(@logitem, html: { class: 'form-inline' }) do |f|
-  = f.collection_select :poc_id, @pocs, :id, :name, {}, { class: 'form-control'}
-  = f.collection_select :environment_id, Environment.all, :id, :name, {}, { class: 'form-control' }
-  = f.text_field :name, { class: 'form-control', placeholder: 'Change'}
-  = f.text_field :all_tags, { class: 'form-control', placeholder: 'Tags'}
-  = f.submit 'Add Log Item', { class: 'btn btn-primary' }

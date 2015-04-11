@@ -1,16 +1,17 @@
 class LogItemsController < ApplicationController
 
   def index
-    # For the quick add form
+    @logitems = LogItem.all.order(when: :desc).limit(25)
+  end
+
+  def new
     @logitem = LogItem.new
     @pocs = User.where('enabled = ?', true)
-
-    @logitems = LogItem.all.order(when: :desc)
   end
 
   def create
     LogItem.create create_params
-    redirect_to :back
+    redirect_to log_items_path
   end
 
   private

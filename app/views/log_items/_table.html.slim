@@ -1,16 +1,23 @@
 table[class='table table-striped']
   thead
     tr
+      th &nbsp;
       th Who
       th When
       th Where
       th What
       th Tags
   tbody
-  - for item in @logitems
-    tr[id="item_#{item[:id]}"]
-      td #{link_to(item.poc.name_or_email, user_path(item.poc))}
-      td #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
-      td #{link_to(item.environment.name, environment_path(item.environment))}
-      td #{item.name}
-      td #{item.all_tags}
+    - for item in @logitems
+      tr[id="item_#{item[:id]}"]
+        - if @current_user == item.poc
+          td
+            = link_to log_item_path(item) do
+              i[class='glyphicon glyphicon-open']
+        - else
+          td &nbsp;
+        td #{link_to(item.poc.name_or_email, user_path(item.poc))}
+        td #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
+        td #{link_to(item.environment.name, environment_path(item.environment))}
+        td #{item.name}
+        td #{item.all_tags}
