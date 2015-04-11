@@ -45,6 +45,9 @@ gem 'detect_timezone_rails'
 # Use Puma concurrent web server
 gem 'puma'
 
+# Use Slim templates instead of erb
+gem 'slim-rails'
+
 group :production do
   gem 'rails_12factor'
 end
@@ -59,8 +62,6 @@ group :test, :development do
   gem 'dotenv-rails'
   # Use Thin webserver for development
   gem 'thin'
-  # Use Slim templates instead of erb
-  gem 'slim-rails'
   # Use RSpec instead of testunit
   gem 'rspec-rails'
   gem 'capybara'
