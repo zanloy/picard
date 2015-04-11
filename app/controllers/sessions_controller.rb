@@ -1,8 +1,9 @@
 class SessionsController < ApplicationController
 
   skip_before_filter :require_login
-  
+
   def login
+    render text: 'This is a test.'
   end
 
   def login_attempt
