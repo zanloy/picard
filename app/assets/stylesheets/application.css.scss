@@ -51,6 +51,10 @@ table {
   border: 1px solid black;
   border-spacing: 0px;
 
+  .collapsed {
+    width: 1px;
+  }
+
   th, td {
     padding-left: 5px;
   }

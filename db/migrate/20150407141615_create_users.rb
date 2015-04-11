@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :uid
       t.string :email
       t.string :hashed_password
-      t.string :name
+      t.string :name, default: ''
       t.boolean :enabled, default: false
       t.boolean :admin, default: false
       t.string :oauth_token

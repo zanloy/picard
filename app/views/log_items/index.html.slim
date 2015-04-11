@@ -4,7 +4,7 @@ div[class='quickadd_form']
 table
   thead
     tr
-      th POC
+      th Who
       th When
       th Where
       th What
@@ -14,6 +14,6 @@ table
     tr[id="item_#{item[:id]}"]
       td #{item.poc.name_or_email}
       td #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
-      td #{item.environment.name}
+      td #{link_to(item.environment.name, environment_path(item.environment))}
       td #{item.name}
       td #{item.all_tags}

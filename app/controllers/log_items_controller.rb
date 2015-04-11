@@ -5,7 +5,7 @@ class LogItemsController < ApplicationController
     @logitem = LogItem.new
     @pocs = User.where('enabled = ?', true)
 
-    @logitems = LogItem.all
+    @logitems = LogItem.all.order(when: :desc)
   end
 
   def create

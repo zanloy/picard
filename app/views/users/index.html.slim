@@ -14,8 +14,8 @@ table
       tr[id="user_#{user[:id]}"]
         td #{user.name}
         td #{user.email}
-        td #{user.enabled ? 'X' : ''}
-        td #{user.admin ? 'X' : ''}
+        td #{user.enabled ? image_tag('icons/16/check.png') : ''}
+        td #{user.admin ? image_tag('icons/16/check.png') : ''}
         - if is_admin?
           td #{link_to 'edit', edit_user_path(user)}
           td #{link_to 'delete', user, data: { method: 'delete', confirm: 'Are you sure?' }}
