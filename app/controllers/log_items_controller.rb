@@ -1,7 +1,10 @@
 class LogItemsController < ApplicationController
 
   def index
-    @logitem = LogItem.new # For the quick add form
+    # For the quick add form
+    @logitem = LogItem.new
+    @pocs = User.where('enabled = ?', true)
+
     @logitems = LogItem.all
   end
 
@@ -13,8 +16,8 @@ class LogItemsController < ApplicationController
   private
 
   def create_params
-    p = params.require(:log_item).permit(:environment_id, :name, :all_tags)
-    p[:user_id] = session[:user_id]
+    p = params.require(:log_item).permit(:poc_id, :environment_id, :name, :all_tags)
+    p[:entered_by_id] = session[:user_id]
     p[:when] = Time.now
     p
   end

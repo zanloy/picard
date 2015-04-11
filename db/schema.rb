@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150409165745) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "environments", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -30,9 +33,9 @@ ActiveRecord::Schema.define(version: 20150409165745) do
     t.datetime "updated_at"
   end
 
-  add_index "log_items", ["entered_by_id"], name: "index_log_items_on_entered_by_id"
-  add_index "log_items", ["environment_id"], name: "index_log_items_on_environment_id"
-  add_index "log_items", ["poc_id"], name: "index_log_items_on_poc_id"
+  add_index "log_items", ["entered_by_id"], name: "index_log_items_on_entered_by_id", using: :btree
+  add_index "log_items", ["environment_id"], name: "index_log_items_on_environment_id", using: :btree
+  add_index "log_items", ["poc_id"], name: "index_log_items_on_poc_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "log_item_id"
@@ -41,8 +44,8 @@ ActiveRecord::Schema.define(version: 20150409165745) do
     t.datetime "updated_at"
   end
 
-  add_index "taggings", ["log_item_id"], name: "index_taggings_on_log_item_id"
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+  add_index "taggings", ["log_item_id"], name: "index_taggings_on_log_item_id", using: :btree
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"

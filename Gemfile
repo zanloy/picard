@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use PostgreSQL as the database for Active Record
+gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -21,9 +21,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
-
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
@@ -43,12 +40,23 @@ gem "omniauth-google-oauth2"
 # Detect end user timezone
 gem 'detect_timezone_rails'
 
+group :development do
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring',        group: :development
+end
+
 group :test, :development do
-  gem 'thin' # Use Thin web servers
-  gem 'slim-rails' # Use Slim templates
-  gem 'rspec-rails' # Use RSpec tests
+  # Load environment variables from .env files
+  gem 'dotenv-rails'
+  # Use Thin webserver for development
+  gem 'thin'
+  # Use Slim templates instead of erb
+  gem 'slim-rails'
+  # Use RSpec instead of testunit
+  gem 'rspec-rails'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
-  gem 'database_cleaner' # Allow us to truncate databases between tests
+  # Used to truncate databases between tests
+  gem 'database_cleaner'
 end
