@@ -12,14 +12,15 @@ body
       = link_to 'Home', root_path
       = link_to 'Environments', environments_path
       = link_to 'Users', users_path
-    div[id='login']
-      p
-        = "Signed in as #{current_user.name_or_email}."
-        - if is_admin?
-          = ' (Admin) '
-        - else
-          = ' '
-        = link_to "Sign out", signout_path, id: "sign_out"
+    - if @current_user
+      div[id='login']
+        p
+          = "Signed in as #{@current_user.name_or_email}."
+          - if is_admin?
+            = ' (Admin) '
+          - else
+            = ' '
+          = link_to "Sign out", signout_path, id: "sign_out"
 
   div[id='content']
     == yield

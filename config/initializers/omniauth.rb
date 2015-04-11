@@ -1,6 +1,6 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :google_oauth2,
-    Rails.application.secrets.client_id,
-    Rails.application.secrets.client_secret,
+    ENV['GOOGLE_CLIENT_ID'],
+    ENV['GOOGLE_SECRET'],
     { hd: 'sparcedge.com' }
 end
