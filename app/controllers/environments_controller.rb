@@ -7,6 +7,11 @@ class EnvironmentsController < ApplicationController
     @environments = Environment.all
   end
 
+  def show
+    @environment = Environment.find(edit_params)
+    @logitems = @environment.log_items
+  end
+
   def new
     @environment = Environment.new
   end

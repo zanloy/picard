@@ -5,16 +5,18 @@ h1 Environments
 table
   thead
     tr
+      th Name
+      th Logged Items
       - if is_admin?
         th &nbsp;
         th &nbsp;
-      th Name
-      th Logged Items
   tbody
     - for environment in @environments
       tr[id="environment_#{environment[:id]}"]
-        - if is_admin?
-          td[class='collapsed'] #{link_to image_tag('icons/16/edit.png'), edit_environment_path(environment)}
-          td[class='collapsed'] #{link_to image_tag('icons/16/delete.png'), environment_path(environment), data: { method: :delete, confirm: 'Are you sure?' }}
-        td #{environment.name}
+        td #{link_to(environment.name, environment_path(environment))}
         td #{environment.log_items.count}
+        - if is_admin?
+          td[class='collapsed']
+            | #{link_to image_tag('icons/16/edit.png'), edit_environment_path(environment)}
+          td[class='collapsed']
+            | #{link_to image_tag('icons/16/delete.png'), environment_path(environment), data: { method: :delete, confirm: 'Are you sure?' }}
