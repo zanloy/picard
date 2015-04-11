@@ -1,5 +1,7 @@
 h1 Environments
-= render 'form' if is_admin?
+- if is_admin?
+ div[class='quickadd_form']
+  = render 'form'
 table
   thead
     tr

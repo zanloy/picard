@@ -7,20 +7,24 @@ head
   = csrf_meta_tags
 
 body
-  div[id='header']
-    div[id='tabs']
-      = link_to 'Home', root_path
-      = link_to 'Environments', environments_path
-      = link_to 'Users', users_path
-    - if @current_user
-      div[id='login']
-        p
-          = "Signed in as #{@current_user.name_or_email}."
-          - if is_admin?
-            = ' (Admin) '
-          - else
-            = ' '
-          = link_to "Sign out", signout_path, id: "sign_out"
+  div[id='content_block']
+    div[id='hd']
+      div[id='tabs']
+        span[class='tab'] #{link_to 'Home', root_path}
+        span[class='tab'] #{link_to 'Environments', environments_path}
+        span[class='tab'] #{link_to 'Users', users_path}
+      - if @current_user
+        div[id='login']
+          p
+            = "Signed in as #{@current_user.name_or_email}."
+            - if is_admin?
+              = ' (Admin) '
+            - else
+              = ' '
+            = link_to "Sign out", signout_path, id: "sign_out"
 
-  div[id='content']
-    == yield
+    div[id='bd']
+      == yield
+
+    div[id='ft']
+      p &copy; Sparc, LLC. 2015
