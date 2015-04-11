@@ -48,6 +48,9 @@ gem 'puma'
 # Use Slim templates instead of erb
 gem 'slim-rails'
 
+# Use bootstrap css (http://getbootstrap.com)
+gem 'bootstrap-sass', '~> 3.3.4'
+
 group :production do
   gem 'rails_12factor'
 end

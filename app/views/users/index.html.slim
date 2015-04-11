@@ -17,5 +17,5 @@ table
         td #{user.enabled ? image_tag('icons/16/check.png') : ''}
         td #{user.admin ? image_tag('icons/16/check.png') : ''}
         - if is_admin?
-          td #{link_to 'edit', edit_user_path(user)}
-          td #{link_to 'delete', user, data: { method: 'delete', confirm: 'Are you sure?' }}
+          td #{link_to image_tag('icons/16/edit.png'), edit_user_path(user)}
+          td #{link_to image_tag('icons/16/delete.png'), user, data: { method: 'delete', confirm: 'Are you sure?' }}
