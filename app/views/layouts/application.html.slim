@@ -7,24 +7,37 @@ html
     = csrf_meta_tags
 
   body
-    div[id='content_block']
-      div[id='hd']
-        div[id='tabs']
-          span[class='tab'] #{link_to 'Home', root_path}
-          span[class='tab'] #{link_to 'Environments', environments_path}
-          span[class='tab'] #{link_to 'Users', users_path}
-        - if @current_user
-          div[id='login']
-            p
-              = "Signed in as #{@current_user.name_or_email}."
-              - if is_admin?
-                = ' (Admin) '
-              - else
-                = ' '
-              = link_to "Sign out", signout_path, id: "sign_out"
+    nav[class='navbar navbar-inverse', role='navigation']
+      div[class='container-fluid']
+        div[class='navbar-header']
+          a[class='navbar-brand', href='/'] Picard
+        div
+          ul[class='nav navbar-nav']
+            - if controller_name == 'log_items'
+              li[class='active'] #{link_to "Captain's Log", log_items_path}
+            - else
+              li #{link_to "Captain's Log", log_items_path}
+            - if controller_name == 'environments'
+              li[class='active'] #{link_to 'Environments', environments_path}
+            - else
+              li #{link_to 'Environments', environments_path}
+            - if controller_name == 'users'
+              li[class='active'] #{link_to 'Users', users_path}
+            - else
+              li #{link_to 'Users', users_path}
+          - if @current_user
+            div[class='nav navbar-nav navbar-right']
+              p[class='navbar-text']
+                | Signed in as #{@current_user.name_or_email}. &nbsp;
+                = link_to signout_path, class: 'navbar-link' do
+                  i[class='glyphicon glyphicon-log-out']
 
-      div[id='bd']
-        == yield
 
-      div[id='ft']
-        p &copy; Sparc, LLC. 2015
+    div[class='container']
+      - flash.each do |name, message|
+        - if name == 'notice'
+          div[class='alert alert-success', role='alert'] #{message}
+        - else
+          div[class='alert alert-danger', role='alert'] #{message}
+
+      == yield

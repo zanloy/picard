@@ -1,5 +1,5 @@
 h1 Users
-table
+table[class='table table-hover']
   thead
     tr
       th Name
@@ -14,8 +14,22 @@ table
       tr[id="user_#{user[:id]}"]
         td #{user.name}
         td #{user.email}
-        td #{user.enabled ? image_tag('icons/16/check.png') : ''}
-        td #{user.admin ? image_tag('icons/16/check.png') : ''}
+        - if user.enabled
+          td
+            i[class='glyphicon glyphicon-check', aria-hidden='true']
+        - else
+          td
+            i[class='glyphicon glyphicon-unchecked']
+        - if user.admin
+          td
+            i[class='glyphicon glyphicon-check', aria-hidden='true']
+        - else
+          td
+            i[class='glyphicon glyphicon-unchecked']
         - if is_admin?
-          td #{link_to image_tag('icons/16/edit.png'), edit_user_path(user)}
-          td #{link_to image_tag('icons/16/delete.png'), user, data: { method: 'delete', confirm: 'Are you sure?' }}
+          td
+            = link_to edit_user_path(user) do
+              i[class='glyphicon glyphicon-edit', aria-hidden='true']
+          td
+            = link_to user, data: { method: 'delete', confirm: 'Are you sure?' } do
+              i[class='glyphicon glyphicon-remove', aria-hidden='true']

@@ -2,7 +2,7 @@ h1 Environments
 - if is_admin?
  div[class='quickadd_form']
   = render 'form'
-table
+table[class='table table-hover']
   thead
     tr
       th Name
@@ -16,7 +16,9 @@ table
         td #{link_to(environment.name, environment_path(environment))}
         td #{environment.log_items.count}
         - if is_admin?
-          td[class='collapsed']
-            | #{link_to image_tag('icons/16/edit.png'), edit_environment_path(environment)}
-          td[class='collapsed']
-            | #{link_to image_tag('icons/16/delete.png'), environment_path(environment), data: { method: :delete, confirm: 'Are you sure?' }}
+          td
+            = link_to edit_environment_path(environment) do
+              i[class='glyphicon glyphicon-edit', aria-hidden='true']
+          td
+            = link_to environment_path(environment), data: { method: :delete, confirm: 'Are you sure?' } do
+              i[class='glyphicon glyphicon-remove', aria-hidden='true']

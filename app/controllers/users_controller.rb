@@ -8,6 +8,11 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def show
+    @user = User.find(edit_params)
+    @logitems = @user.log_items
+  end
+
   def new
     @user = User.new
   end

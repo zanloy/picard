@@ -2,7 +2,7 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
-  has_many :log_items
+  has_many :log_items, foreign_key: :poc_id
 
   # Virtual attributes for password
   attr_accessor :new_password, :new_password_confirmation

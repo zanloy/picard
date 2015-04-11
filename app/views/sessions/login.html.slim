@@ -1,10 +1,10 @@
-h1 Login
-= form_tag(action: :login_attempt)
-  = label_tag :email
-  = text_field_tag :email
-  = label_tag :password
-  = password_field_tag :password
-  = submit_tag
+= form_tag({ action: :login_attempt }, { class: 'form-signin' })
+  h2[class='form-signin-heading'] Login to Picard
+  = label_tag :email, nil, class: 'sr-only'
+  = email_field_tag :email, nil, { class: 'form-control', placeholder: 'Email address'}
+  = label_tag :password, nil, class: 'sr-only'
+  = password_field_tag :password, nil, { class: 'form-control', placeholder: 'Password' }
+  = submit_tag 'Sign in', { class: 'btn btn-lg btn-primary btn-block' }
 
 p #{link_to 'Sign in with Google.', 'auth/google_oauth2', id: 'sign_in'}
 p #{link_to 'Sign up.', signup_path}

@@ -1,4 +1,4 @@
-table
+table[class='table table-striped']
   thead
     tr
       th Who
@@ -9,7 +9,7 @@ table
   tbody
   - for item in @logitems
     tr[id="item_#{item[:id]}"]
-      td #{item.poc.name_or_email}
+      td #{link_to(item.poc.name_or_email, user_path(item.poc))}
       td #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
       td #{link_to(item.environment.name, environment_path(item.environment))}
       td #{item.name}
