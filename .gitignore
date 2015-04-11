@@ -16,4 +16,4 @@
 /tmp
 
 # Ignore local environment variables.
-/*.env
+.env
