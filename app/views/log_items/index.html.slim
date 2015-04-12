@@ -1,9 +1,10 @@
 h1 Captain's Log
-div[class='quickadd_form']
+div[class='quickadd']
   = form_for(LogItem.new, html: { class: 'form-inline' }) do |f|
-    = f.collection_select :environment_id, Environment.all, :id, :name, {}, { class: 'form-control' }
-    = f.text_field :name, { class: 'form-control', placeholder: 'Change'}
-    = f.text_field :all_tags, { class: 'form-control', placeholder: 'Tags'}
-    = f.submit 'Add Log Item', { class: 'btn btn-primary' }
+    div[class='form-group']
+      = f.collection_select :environment_id, Environment.all, :id, :name, {}, { class: 'form-control' }
+      = f.text_field :name, { class: 'form-control input-large', placeholder: 'Change'}
+      = f.text_field :all_tags, { class: 'form-control', placeholder: 'Tags'}
+      = f.submit 'Add Log Item', { class: 'btn btn-primary' }
 
 = render('table')
