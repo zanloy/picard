@@ -17,8 +17,9 @@ class LogItemsController < ApplicationController
   private
 
   def create_params
-    p = params.require(:log_item).permit(:poc_id, :environment_id, :name, :all_tags)
+    p = params.require(:log_item).permit(:poc_id, :environment_id, :name, :description, :all_tags)
     p[:entered_by_id] = session[:user_id]
+    p[:poc_id] = session[:user_id] if (p[:poc].nil? or p[:poc].empty?)
     p[:when] = Time.now
     p
   end
