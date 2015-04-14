@@ -6,6 +6,15 @@ class SessionsController < ApplicationController
     render layout: 'login'
   end
 
+  def disabled
+    user = current_user
+    if user and user.enabled
+      redirect_to root_path
+    else
+      render layout: 'login'
+    end
+  end
+
   def login_attempt
     user = User.authenticate(email_param, password_param)
     if user

@@ -1,8 +1,23 @@
 h1 Log Item Details
-h3 Who: #{@logitem.poc.name}
-h3 What: #{@logitem.name}
-h3 When: #{@logitem.when}
-h3 Where: #{@logitem.environment.name}
-h3 How: #{@logitem.description}
+div[class='row']
+  div[class='col-sm-2'] Point of Contact:
+  div[class='col-sm-10'] #{@logitem.poc.name}
+div[class='row']
+  div[class='col-sm-2'] When:
+  div[class='col-sm-10'] #{@logitem.when}
+div[class='row']
+  div[class='col-sm-2'] Where:
+  div[class='col-sm-10'] #{@logitem.environment.name}
+div[class='row']
+  div[class='col-sm-2'] What:
+  div[class='col-sm-10'] #{@logitem.name}
+div[class='row']
+  div[class='col-sm-2'] Tags:
+  div[class='col-sm-10'] #{@logitem.all_tags}
+div[class='row']
+  div[class='col-sm-2'] How:
+  div[class='col-sm-10'] #{@logitem.description}
 - if is_admin? || @current_user = @logitem.poc
-  p Editable.
+  br
+  = button_to 'Edit', edit_log_item_path, { method: :get, class: 'btn btn-primary', role: 'button' }
+  = button_to 'Delete', log_item_path, { method: :delete, class: 'btn btn-primary', role: 'button', confirm: 'Are you sure?' }

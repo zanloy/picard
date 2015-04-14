@@ -26,10 +26,20 @@
   }
 }
 
+form.button_to {
+  display: inline;
+
+  div {
+    display: inline;
+    margin-right: 5px;
+  }
+}
+
 .footer {
   background-color: #f5f5f5;
   bottom: 0;
   height: 30px;
+  margin-top: 40px;
 
   .container {
     padding: 5px 15px;;

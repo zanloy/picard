@@ -31,6 +31,9 @@ class ApplicationController < ActionController::Base
     unless current_user
       redirect_to signin_path
     end
+    if not current_user.enabled
+      redirect_to disabled_path
+    end
   end
 
 end

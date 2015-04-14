@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   post 'sessions/login_attempt'
   get 'signout', to: 'sessions#destroy', as: 'signout'
   get 'signup', to: 'users#new', as: 'signup'
+  get 'disabled', to: 'sessions#disabled', as: 'disabled'
 
-  resources :log_items
+  resources :log_items, path: 'log'
   resources :sessions, only: [:login, :create, :destroy]
   resources :users
   resources :environments

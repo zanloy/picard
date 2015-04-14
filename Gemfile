@@ -51,6 +51,10 @@ gem 'slim-rails'
 # Use bootstrap css (http://getbootstrap.com)
 gem 'bootstrap-sass', '~> 3.3.4'
 
+# Use bootstrap-datepicker for date fields
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+
 group :production do
   gem 'rails_12factor'
 end
