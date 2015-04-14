@@ -1,0 +1,8 @@
+h1 Log Item Details
+h3 Who: #{@logitem.poc.name}
+h3 What: #{@logitem.name}
+h3 When: #{@logitem.when}
+h3 Where: #{@logitem.environment.name}
+h3 How: #{@logitem.description}
+- if is_admin? || @current_user = @logitem.poc
+  p Editable.

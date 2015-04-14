@@ -4,6 +4,10 @@ class LogItemsController < ApplicationController
     @logitems = LogItem.all.order(when: :desc).limit(25)
   end
 
+  def show
+    @logitem = LogItem.find(edit_params)
+  end
+
   def new
     @logitem = LogItem.new
     @pocs = User.where('enabled = ?', true)
@@ -15,6 +19,10 @@ class LogItemsController < ApplicationController
   end
 
   private
+
+  def edit_params
+    params.require(:id)
+  end
 
   def create_params
     p = params.require(:log_item).permit(:poc_id, :environment_id, :name, :description, :all_tags)

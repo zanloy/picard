@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_login, only: [:new, :create]
 
-  before_filter :require_admin, only: [:edit, :destroy, :update]
+  before_filter :require_admin, only: [:index, :edit, :destroy, :update]
 
   def index
     @users = User.all

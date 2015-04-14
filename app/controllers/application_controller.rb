@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   def require_admin
     if not is_admin?
-      redirect_to :back, notice: 'Admin rights are required to perform that activity.'
+      redirect_to :back, alert: 'Admin rights are required to perform that activity.'
     end
   end
 

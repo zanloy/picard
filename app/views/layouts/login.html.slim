@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title Picard
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  body
+    div[class='container']
+      - flash.each do |name, message|
+        - if name == 'notice'
+          div[class='alert alert-success', role='alert'] #{message}
+        - else
+          div[class='alert alert-danger', role='alert'] #{message}
+
+      == yield
+
+    footer[class='footer']
+      div[class='container']
+        p[class='text-muted']
+          i>[class='glyphicon glyphicon-copyright-mark']
+          | 2015 Sparc, LLC

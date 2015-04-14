@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   skip_before_filter :require_login
 
   def login
-    #render layout: false
+    render layout: 'login'
   end
 
   def login_attempt

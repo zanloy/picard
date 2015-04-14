@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150409165745) do
   enable_extension "plpgsql"
 
   create_table "environments", force: true do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20150409165745) do
   add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
 
   create_table "tags", force: true do |t|
-    t.string   "name"
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -58,9 +58,9 @@ ActiveRecord::Schema.define(version: 20150409165745) do
     t.string   "uid"
     t.string   "email"
     t.string   "hashed_password"
-    t.string   "name"
-    t.boolean  "enabled"
-    t.boolean  "admin"
+    t.string   "name",             default: ""
+    t.boolean  "enabled",          default: false
+    t.boolean  "admin",            default: false
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
     t.datetime "created_at"
