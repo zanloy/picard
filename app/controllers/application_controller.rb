@@ -29,10 +29,9 @@ class ApplicationController < ActionController::Base
 
   def require_login
     user = current_user
-    unless user
+    if user == nil
       redirect_to signin_path
-    end
-    unless user and user.enabled
+    elsif user.enabled == false
       redirect_to disabled_path
     end
   end
