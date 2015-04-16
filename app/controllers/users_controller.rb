@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(edit_params)
-    @logitems = @user.log_items
+    @logitems = @user.log_items.order(when: :desc).limit(25)
   end
 
   def new

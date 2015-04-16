@@ -9,7 +9,7 @@ class EnvironmentsController < ApplicationController
 
   def show
     @environment = Environment.find(edit_params)
-    @logitems = @environment.log_items
+    @logitems = @environment.log_items.order(when: :desc).limit(25)
   end
 
   def new

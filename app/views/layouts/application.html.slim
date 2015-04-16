@@ -13,25 +13,18 @@ html
           a[class='navbar-brand', href='/'] Picard
         div
           ul[class='nav navbar-nav']
-            - if controller_name == 'log_items'
-              li[class='active'] #{link_to "Captain's Log", log_items_path}
-            - else
-              li #{link_to "Captain's Log", log_items_path}
-            - if controller_name == 'environments'
-              li[class='active'] #{link_to 'Environments', environments_path}
-            - else
-              li #{link_to 'Environments', environments_path}
-            - if controller_name == 'users'
-              li[class='active'] #{link_to 'Users', users_path}
-            - else
-              li #{link_to 'Users', users_path}
+            li[class="dropdown #{is_active? 'log_items'}"]
+              = link_to "Captain's Log", log_items_path
+              ul[class='dropdown-menu']
+                li #{link_to 'Add New Log Item', new_log_item_path}
+            li[class="#{is_active? 'environments'}"] #{link_to 'Environments', environments_path}
+            li[class="#{is_active? 'users'}"] #{link_to 'Users', users_path}
           - if @current_user
             div[class='nav navbar-nav navbar-right']
               p[class='navbar-text']
                 | Signed in as #{@current_user.name_or_email}. &nbsp;
                 = link_to signout_path, class: 'navbar-link' do
                   i[class='glyphicon glyphicon-log-out']
-
 
     div[class='container']
       - flash.each do |name, message|

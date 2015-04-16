@@ -18,6 +18,13 @@
 @import "bootstrap/theme";
 @import "*";
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.dropdown-menu {
+  margin-top: 0px;
+}
+
 .quickadd {
   margin: 15px 0px;
 

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_login
 
-  helper_method :current_user, :is_admin?, :require_admin
+  helper_method :current_user, :is_admin?, :require_admin, :is_active?
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
     if not is_admin?
       redirect_to :back, alert: 'Admin rights are required to perform that activity.'
     end
+  end
+
+  def is_active?(controller)
+    'active' if controller_name == controller
   end
 
   private
