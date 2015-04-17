@@ -11,6 +11,10 @@ table[class='table table-striped']
       tr[id="item_#{item[:id]}"]
         td[class='text-nowrap'] #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
         td[class='text-nowrap'] #{link_to(item.environment.name, environment_path(item.environment))}
-        td #{link_to(item.name, log_item_path(item))}
+        td
+          = link_to(item.name, log_item_path(item))
+          - if item.has_description?
+            .pull-right
+              i.glyphicon.glyphicon-file
         td #{item.all_tags}
         td[class='text-nowrap'] #{link_to(item.poc.name_or_email, user_path(item.poc))}
