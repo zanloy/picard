@@ -1,7 +1,7 @@
 class LogItemsController < ApplicationController
 
   def index
-    @logitems = LogItem.timeline.limit(25)
+    @logitems = LogItem.timeline
   end
 
   def show
