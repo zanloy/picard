@@ -1,0 +1,31 @@
+= form_for(@server, html: { class: 'form-horizontal' }) do |f|
+  - if @server.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@server.errors.count, "error")} prohibited this server from being saved:"
+      ul
+        - @server.errors.full_messages.each do |message|
+          li = message
+
+  .form-group
+    = f.label :name, { class: 'col-sm-2 control-label' }
+    .col-sm-10
+      = f.text_field :name, class: 'form-control'
+
+  .form-group
+    = f.label :environment, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.collection_select :environment_id, @environments, :id, :name, {}, { class: 'form-control' }
+
+  .form-group
+    = f.label :ip_address, 'IP Address', class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :ip_address, class: 'form-control'
+
+  .form-group
+    = f.label :ports, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.text_field :ports, class: 'form-control'
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: 'btn btn-primary'

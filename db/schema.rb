@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409165745) do
+ActiveRecord::Schema.define(version: 20150416131513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "environments", force: true do |t|
-    t.string   "name",       null: false
+    t.string   "name",                    null: false
+    t.string   "domain",     default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,6 +37,17 @@ ActiveRecord::Schema.define(version: 20150409165745) do
   add_index "log_items", ["entered_by_id"], name: "index_log_items_on_entered_by_id", using: :btree
   add_index "log_items", ["environment_id"], name: "index_log_items_on_environment_id", using: :btree
   add_index "log_items", ["poc_id"], name: "index_log_items_on_poc_id", using: :btree
+
+  create_table "servers", force: true do |t|
+    t.string   "name"
+    t.integer  "environment_id"
+    t.string   "ip_address"
+    t.string   "ports"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "servers", ["environment_id"], name: "index_servers_on_environment_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "log_item_id"

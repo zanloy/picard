@@ -18,6 +18,7 @@ html
               ul[class='dropdown-menu']
                 li #{link_to 'Add New Log Item', new_log_item_path}
             li[class="#{is_active? 'environments'}"] #{link_to 'Environments', environments_path}
+            li[class="#{is_active? 'servers'}"] #{link_to 'Servers', servers_path}
             li[class="#{is_active? 'users'}"] #{link_to 'Users', users_path}
           - if @current_user
             div[class='nav navbar-nav navbar-right']

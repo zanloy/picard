@@ -1,7 +1,7 @@
 class LogItemsController < ApplicationController
 
   def index
-    @logitems = LogItem.all.order(when: :desc).limit(25)
+    @logitems = LogItem.timeline.limit(25)
   end
 
   def show

@@ -1,0 +1,19 @@
+h1 Server Details
+.row
+  .col-sm-2.text-right Name:
+  .col-sm-10 #{@server.name}
+.row
+  .col-sm-2.text-right Environment:
+  .col-sm-10 #{@server.environment.name}
+.row
+  .col-sm-2.text-right IP Address:
+  .col-sm-10 #{@server.ip_address}
+.row
+  .col-sm-2.text-right Ports:
+  .col-sm-10 #{@server.ports}
+- if is_admin?
+  br
+  .row
+    .col-sm-offset-2.col-sm-10
+      = button_to 'Edit', edit_server_path(@server), { method: :get, class: 'btn btn-primary', role: 'button' }
+      = button_to 'Delete', server_path, { method: :delete, class: 'btn btn-primary', role: 'button', data: { confirm: 'Are you sure?' } }

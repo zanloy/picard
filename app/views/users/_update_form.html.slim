@@ -1,26 +1,26 @@
 = form_for(@user, html: { class: 'form-horizontal' }) do |u|
-  div[class='form-group']
+  .form-group
     = u.label :email, class: 'col-sm-2 control-label'
-    div[class='col-sm-10']
+    .col-sm-10
       = u.text_field :email, class: 'form-control'
-  div[class='form-group']
+  .form-group
     = u.label :new_password, class: 'col-sm-2 control-label'
-    div[class='col-sm-10']
+    .col-sm-10
       = u.password_field :new_password, class: 'form-control'
-  div[class='form-group']
+  .form-group
     = u.label :name, class: 'col-sm-2 control-label'
-    div[class='col-sm-10']
+    .col-sm-10
       = u.text_field :name, class: 'form-control'
-  div[class='form-group']
-    div[class='col-sm-offset-2 col-sm-10']
-      div[class='checkbox']
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
         = u.check_box :enabled
         | Enabled
-  div[class='form-group']
-    div[class='col-sm-offset-2 col-sm-10']
-      div[class='checkbox']
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
         = u.check_box :admin
         | Admin
-  div[class='form-group']
-    div[class='col-sm-offset-2 col-sm-10']
+  .form-group
+    .col-sm-offset-2.col-sm-10
       = u.submit class: 'btn btn-primary'

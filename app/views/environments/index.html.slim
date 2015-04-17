@@ -1,11 +1,13 @@
 h1 Environments
 - if is_admin?
- div[class='quickadd']
-  = render 'form'
+  .pull-right
+    small #{link_to 'Add New', new_environment_path}
 table[class='table table-hover']
   thead
     tr
       th Name
+      th Domain
+      th Servers
       th Logged Items
       - if is_admin?
         th Edit
@@ -14,6 +16,8 @@ table[class='table table-hover']
     - for environment in @environments
       tr[id="environment_#{environment[:id]}"]
         td #{link_to(environment.name, environment_path(environment))}
+        td #{environment.domain}
+        td #{environment.servers.count}
         td #{environment.log_items.count}
         - if is_admin?
           td

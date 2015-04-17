@@ -1,0 +1,6 @@
+h1 Servers
+.pull-right
+  small #{link_to 'Add New', new_server_path}
+- for environment in @environments
+  h2 #{environment.name}
+  = render partial: 'table', object: Server.where(environment_id: environment.id)

@@ -1,23 +1,25 @@
 h1 Log Item Details
-div[class='row']
-  div[class='col-sm-2'] Point of Contact:
-  div[class='col-sm-10'] #{@logitem.poc.name}
-div[class='row']
-  div[class='col-sm-2'] When:
-  div[class='col-sm-10'] #{@logitem.when}
-div[class='row']
-  div[class='col-sm-2'] Where:
-  div[class='col-sm-10'] #{@logitem.environment.name}
-div[class='row']
-  div[class='col-sm-2'] What:
-  div[class='col-sm-10'] #{@logitem.name}
-div[class='row']
-  div[class='col-sm-2'] Tags:
-  div[class='col-sm-10'] #{@logitem.all_tags}
-div[class='row']
-  div[class='col-sm-2'] How:
-  div[class='col-sm-10'] #{@logitem.description}
+.row
+  .col-sm-2.text-right Point of Contact:
+  .col-sm-10 #{@logitem.poc.name}
+.row.
+  .col-sm-2.text-right When:
+  .col-sm-10 #{@logitem.when}
+.row
+  .col-sm-2.text-right Where:
+  .col-sm-10 #{@logitem.environment.name}
+.row
+  .col-sm-2.text-right What:
+  .col-sm-10 #{@logitem.name}
+.row
+  .col-sm-2.text-right Tags:
+  .col-sm-10 #{@logitem.all_tags}
+.row
+  .col-sm-2.text-right How:
+  .col-sm-10 #{@logitem.description}
 - if is_admin? || @current_user = @logitem.poc
   br
-  = button_to 'Edit', edit_log_item_path, { method: :get, class: 'btn btn-primary', role: 'button' }
-  = button_to 'Delete', log_item_path, { method: :delete, class: 'btn btn-primary', role: 'button', confirm: 'Are you sure?' }
+  .row
+    .col-sm-offset-2.col-sm-10
+      = button_to 'Edit', edit_log_item_path, { method: :get, class: 'btn btn-primary', role: 'button' }
+      = button_to 'Delete', log_item_path, { method: :delete, class: 'btn btn-primary', role: 'button', data: { confirm: 'Are you sure?' } }

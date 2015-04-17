@@ -9,7 +9,8 @@ class EnvironmentsController < ApplicationController
 
   def show
     @environment = Environment.find(edit_params)
-    @logitems = @environment.log_items.order(when: :desc).limit(25)
+    @servers = @environment.servers.order(:name).limit(25)
+    @logitems = @environment.log_items.timeline.limit(25)
   end
 
   def new
@@ -42,7 +43,7 @@ class EnvironmentsController < ApplicationController
   private
 
   def create_params
-    params.require(:environment).permit(:name)
+    params.require(:environment).permit(:name, :domain)
   end
 
   def edit_params

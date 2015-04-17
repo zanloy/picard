@@ -1,20 +1,16 @@
 table[class='table table-striped']
   thead
     tr
-      th &nbsp;
-      th Who
       th When
       th Where
       th What
       th Tags
+      th Who
   tbody
     - for item in @logitems
       tr[id="item_#{item[:id]}"]
-        td
-          = link_to log_item_path(item) do
-            i[class='glyphicon glyphicon-open']
-        td[class='text-nowrap'] #{link_to(item.poc.name_or_email, user_path(item.poc))}
         td[class='text-nowrap'] #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
         td[class='text-nowrap'] #{link_to(item.environment.name, environment_path(item.environment))}
-        td #{item.name}
+        td #{link_to(item.name, log_item_path(item))}
         td #{item.all_tags}
+        td[class='text-nowrap'] #{link_to(item.poc.name_or_email, user_path(item.poc))}
