@@ -23,11 +23,6 @@ class LogItemsController < ApplicationController
     @pocs = User.where('enabled = ?', true)
   end
 
-  def destroy
-    LogItem.destroy(edit_params)
-    redirect_to log_items_path, notice: 'Log Item deleted.'
-  end
-
   def update
     logitem = LogItem.find(edit_params)
     if logitem.update_attributes(create_params)
@@ -35,6 +30,11 @@ class LogItemsController < ApplicationController
     else
       redirect_to log_item_path(logitem), error: 'Update failed.'
     end
+  end
+
+  def destroy
+    LogItem.destroy(edit_params)
+    redirect_to log_items_path, notice: 'Log Item deleted.'
   end
 
   private

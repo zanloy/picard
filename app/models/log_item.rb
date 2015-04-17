@@ -5,6 +5,7 @@ class LogItem < ActiveRecord::Base
   belongs_to :environment
   has_many :taggings
   has_many :tags, through: :taggings
+  has_many :comments, as: :commentable
 
   scope :timeline, -> { order(when: :desc) }
 
@@ -16,6 +17,14 @@ class LogItem < ActiveRecord::Base
     end
   end
 
+  def has_comments?
+    if self.comments.count > 0
+      return true
+    else
+      return false
+    end
+  end
+  
   def all_tags=(names)
     self.tags = names.split(',').map do |name|
       Tag.where(name: name.strip).first_or_create!

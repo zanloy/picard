@@ -23,3 +23,7 @@ h1 Log Item Details
     .col-sm-offset-2.col-sm-10
       = button_to 'Edit', edit_log_item_path, { method: :get, class: 'btn btn-primary', role: 'button' }
       = button_to 'Delete', log_item_path, { method: :delete, class: 'btn btn-primary', role: 'button', data: { confirm: 'Are you sure?' } }
+
+h2 Comments
+- form_for Comment.new, html: { class: 'form' } do |f|
+  - f.text_field :comment, { class: 'form-control', placeholder: 'Comment' }
