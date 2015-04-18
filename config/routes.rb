@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
 
+  root 'log_items#index'
+
+  resources :log_items, path: 'log' do
+    resources :comments, path: 'c', only: [:create, :edit, :update, :destroy]
+  end
+  resources :users
+  resources :environments
   resources :servers
+  resources :comments
+  resources :sessions, only: [:login, :create, :destroy]
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
@@ -10,13 +19,6 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
   get 'signup', to: 'users#new', as: 'signup'
   get 'disabled', to: 'sessions#disabled', as: 'disabled'
-
-  resources :log_items, path: 'log'
-  resources :sessions, only: [:login, :create, :destroy]
-  resources :users
-  resources :environments
-
-  root 'log_items#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

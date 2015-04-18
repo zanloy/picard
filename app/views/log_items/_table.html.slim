@@ -13,8 +13,11 @@ table[class='table table-striped']
         td[class='text-nowrap'] #{link_to(item.environment.name, environment_path(item.environment))}
         td
           = link_to(item.name, log_item_path(item))
-          - if item.has_description?
+          - if item.has_description? or item.has_comments?
             .pull-right
-              i.glyphicon.glyphicon-file
+              - if item.has_description?
+                i.glyphicon.glyphicon-file>
+              - if item.has_comments?
+                i.glyphicon.glyphicon-comment>
         td #{item.all_tags}
         td[class='text-nowrap'] #{link_to(item.poc.name_or_email, user_path(item.poc))}

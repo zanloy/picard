@@ -1,6 +1,10 @@
 h1 Log Item Details
 .row
-  .col-sm-2.text-right Point of Contact:
+  .col-sm-2.text-right What:
+  .col-sm-10
+    strong #{@logitem.name}
+.row
+  .col-sm-2.text-right Who:
   .col-sm-10 #{@logitem.poc.name}
 .row.
   .col-sm-2.text-right When:
@@ -8,9 +12,6 @@ h1 Log Item Details
 .row
   .col-sm-2.text-right Where:
   .col-sm-10 #{@logitem.environment.name}
-.row
-  .col-sm-2.text-right What:
-  .col-sm-10 #{@logitem.name}
 .row
   .col-sm-2.text-right Tags:
   .col-sm-10 #{@logitem.all_tags}
@@ -25,5 +26,19 @@ h1 Log Item Details
       = button_to 'Delete', log_item_path, { method: :delete, class: 'btn btn-primary', role: 'button', data: { confirm: 'Are you sure?' } }
 
 h2 Comments
-- form_for Comment.new, html: { class: 'form' } do |f|
-  - f.text_field :comment, { class: 'form-control', placeholder: 'Comment' }
+- for comment in @logitem.comments.order(:created_at)
+  .row
+    .col-sm-2.text-right #{comment.user.name_or_email}
+    .col-sm-10 #{comment.comment}
+  - if comment.user = @current_user
+    .row
+      .col-sm-10.text-right
+        = link_to 'Delete', comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' }
+  br
+br
+= form_for [@logitem, Comment.new], html: { class: 'form' } do |f|
+  .row
+    .col-sm-offset-2.col-sm-8
+      = f.text_field :comment, { class: 'form-control', placeholder: 'Comment' }
+    .col-sm-2
+      = f.submit 'Comment', class: 'btn btn-primary'
