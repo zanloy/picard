@@ -4,12 +4,14 @@ Rails.application.routes.draw do
 
   resources :log_items, path: 'log' do
     resources :comments, path: 'c', only: [:create, :edit, :update, :destroy]
+    resources :subscriptions, path: 'subscribe', only: :create
   end
   resources :users
   resources :environments
   resources :servers
   resources :comments
   resources :sessions, only: [:login, :create, :destroy]
+  resources :subscriptions, only: [:index, :destroy]
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')

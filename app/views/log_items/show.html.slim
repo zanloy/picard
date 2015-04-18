@@ -1,4 +1,13 @@
+.pull-right
+  - if @logitem.subscribed? @current_user[:id]
+    = link_to subscription_path(@logitem.subscription_for(@current_user[:id])), method: :delete do
+      i.glyphicon.glyphicon-heart
+  - else
+    = link_to log_item_subscriptions_path(@logitem), method: :post do
+      i.glyphicon.glyphicon-heart-empty
+
 h1 Log Item Details
+
 .row
   .col-sm-2.text-right What:
   .col-sm-10

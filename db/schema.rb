@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417224140) do
+ActiveRecord::Schema.define(version: 20150418191009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,20 @@ ActiveRecord::Schema.define(version: 20150417224140) do
   end
 
   add_index "servers", ["environment_id"], name: "index_servers_on_environment_id", using: :btree
+
+  create_table "subscriptions", force: true do |t|
+    t.integer  "subscribable_id",                   null: false
+    t.string   "subscribable_type",                 null: false
+    t.integer  "user_id",                           null: false
+    t.boolean  "on_new",            default: false
+    t.boolean  "on_change",         default: false
+    t.boolean  "on_comment",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "subscriptions", ["subscribable_id", "subscribable_type"], name: "index_subscriptions_on_subscribable_id_and_subscribable_type", using: :btree
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "log_item_id"

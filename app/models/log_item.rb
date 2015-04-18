@@ -7,6 +7,7 @@ class LogItem < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
   has_many :comments, as: :commentable
+  has_many :subscriptions, as: :subscribable
 
   # Scopes
   scope :timeline, -> { order(when: :desc) }
@@ -25,6 +26,18 @@ class LogItem < ActiveRecord::Base
 
   def has_comments?
     if self.comments.count > 0
+      return true
+    else
+      return false
+    end
+  end
+
+  def subscription_for(id)
+    self.subscriptions.find_by_user_id(id)
+  end
+
+  def subscribed?(id)
+    if self.subscription_for(id)
       return true
     else
       return false

@@ -1,6 +1,7 @@
 table[class='table table-striped']
   thead
     tr
+      th &nbsp;
       th When
       th Where
       th What
@@ -9,6 +10,13 @@ table[class='table table-striped']
   tbody
     - for item in @logitems
       tr[id="item_#{item[:id]}"]
+        td
+          - if item.subscribed? @current_user[:id]
+            = link_to subscription_path(item.subscription_for(@current_user[:id])), method: :delete do
+              i.glyphicon.glyphicon-heart
+          - else
+            = link_to log_item_subscriptions_path(item), method: :post do
+              i.glyphicon.glyphicon-heart-empty
         td[class='text-nowrap'] #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
         td[class='text-nowrap'] #{link_to(item.environment.name, environment_path(item.environment))}
         td

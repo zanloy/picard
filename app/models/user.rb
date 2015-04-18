@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   # Associations
   has_many :log_items, foreign_key: :poc_id
+  has_many :subscriptions
+  has_many :comments
 
   # Validation
   validates_presence_of :email
