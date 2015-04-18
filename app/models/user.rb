@@ -2,7 +2,11 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
+  # Associations
   has_many :log_items, foreign_key: :poc_id
+
+  # Validation
+  validates_presence_of :email
 
   # Virtual attributes for password
   attr_accessor :new_password, :new_password_confirmation

@@ -1,4 +1,5 @@
 class ServersController < ApplicationController
+
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
   before_filter :require_admin, only: [:new, :edit, :destroy, :update]
@@ -7,7 +8,7 @@ class ServersController < ApplicationController
   # GET /servers.json
   def index
     @environments = Environment.has_servers
-    #@servers = Server.all
+    @servers = Server.all
   end
 
   # GET /servers/1
@@ -75,4 +76,5 @@ class ServersController < ApplicationController
     def server_params
       params.require(:server).permit(:name, :environment_id, :ip_address, :ports)
     end
+
 end

@@ -1,5 +1,6 @@
 class LogItem < ActiveRecord::Base
 
+  # Associations
   belongs_to :entered_by, class_name: User
   belongs_to :poc, class_name: User
   belongs_to :environment
@@ -7,7 +8,12 @@ class LogItem < ActiveRecord::Base
   has_many :tags, through: :taggings
   has_many :comments, as: :commentable
 
+  # Scopes
   scope :timeline, -> { order(when: :desc) }
+
+  # Validation
+  validates_presence_of :when, :name
+  validates_length_of :name, maximum: 140
 
   def has_description?
     if self.description.nil? or self.description.empty?
@@ -24,7 +30,7 @@ class LogItem < ActiveRecord::Base
       return false
     end
   end
-  
+
   def all_tags=(names)
     self.tags = names.split(',').map do |name|
       Tag.where(name: name.strip).first_or_create!

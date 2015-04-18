@@ -19,7 +19,7 @@ class EnvironmentsController < ApplicationController
 
   def create
     Environment.create create_params
-    redirect_to :back, notice: 'Environment created successfully.'
+    redirect_to environments_path, notice: 'Environment created successfully.'
   end
 
   def edit

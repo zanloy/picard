@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20150417224140) do
   create_table "comments", force: true do |t|
     t.integer  "commentable_id"
     t.string   "commentable_type"
-    t.integer  "user_id"
-    t.string   "comment",          null: false
+    t.integer  "user_id",          null: false
+    t.text     "comment",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150417224140) do
     t.datetime "when"
     t.integer  "environment_id"
     t.string   "name",           null: false
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150417224140) do
   add_index "log_items", ["poc_id"], name: "index_log_items_on_poc_id", using: :btree
 
   create_table "servers", force: true do |t|
-    t.string   "name"
+    t.string   "name",           null: false
     t.integer  "environment_id"
     t.string   "ip_address"
     t.string   "ports"
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20150417224140) do
   create_table "users", force: true do |t|
     t.string   "provider"
     t.string   "uid"
-    t.string   "email"
+    t.string   "email",                            null: false
     t.string   "hashed_password"
     t.string   "name",             default: ""
     t.boolean  "enabled",          default: false

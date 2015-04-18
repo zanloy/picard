@@ -3,21 +3,26 @@ h1 Log Item Details
   .col-sm-2.text-right What:
   .col-sm-10
     strong #{@logitem.name}
+br
 .row
   .col-sm-2.text-right Who:
   .col-sm-10 #{@logitem.poc.name}
+br
 .row.
   .col-sm-2.text-right When:
   .col-sm-10 #{@logitem.when}
+br
 .row
   .col-sm-2.text-right Where:
   .col-sm-10 #{@logitem.environment.name}
+br
 .row
   .col-sm-2.text-right Tags:
   .col-sm-10 #{@logitem.all_tags}
+br
 .row
   .col-sm-2.text-right How:
-  .col-sm-10 #{@logitem.description}
+  .col-sm-10 #{simple_format(@logitem.description)}
 - if is_admin? || @current_user = @logitem.poc
   br
   .row

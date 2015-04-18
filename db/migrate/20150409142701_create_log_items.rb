@@ -6,7 +6,7 @@ class CreateLogItems < ActiveRecord::Migration
       t.datetime :when
       t.belongs_to :environment, index: true
       t.string :name, null: false
-      t.string :description
+      t.text :description
       t.timestamps
     end
   end

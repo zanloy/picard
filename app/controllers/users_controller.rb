@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_filter :require_admin, only: [:index, :edit, :destroy, :update]
 
   def index
-    @users = User.all
+    @users = User.all.order(:name)
   end
 
   def show
