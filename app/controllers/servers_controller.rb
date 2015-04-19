@@ -8,7 +8,7 @@ class ServersController < ApplicationController
   # GET /servers.json
   def index
     @environments = Environment.has_servers
-    @servers = Server.all
+    @servers = Server.all.order(:name)
   end
 
   # GET /servers/1

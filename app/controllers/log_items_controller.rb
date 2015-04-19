@@ -1,7 +1,7 @@
 class LogItemsController < ApplicationController
 
   def index
-    @logitems = LogItem.timeline
+    @logitems = LogItem.timeline.page(page_param)
   end
 
   def show
@@ -38,6 +38,14 @@ class LogItemsController < ApplicationController
   end
 
   private
+
+  def page_param
+    if params.has_key? :page
+      return params[:page]
+    else
+      return 1
+    end
+  end
 
   def edit_params
     params.require(:id)

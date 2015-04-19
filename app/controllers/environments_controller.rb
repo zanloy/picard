@@ -10,7 +10,7 @@ class EnvironmentsController < ApplicationController
   def show
     @environment = Environment.find(edit_params)
     @servers = @environment.servers.order(:name).limit(25)
-    @logitems = @environment.log_items.timeline.limit(25)
+    @logitems = @environment.log_items.timeline.limit(5)
   end
 
   def new

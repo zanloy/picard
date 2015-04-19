@@ -55,6 +55,9 @@ gem 'bootstrap-sass', '~> 3.3.4'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
+# User will_paginate for pagination helpers
+gem 'will_paginate', '~> 3.0.5'
+
 group :production do
   gem 'rails_12factor'
 end

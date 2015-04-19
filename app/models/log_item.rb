@@ -16,6 +16,8 @@ class LogItem < ActiveRecord::Base
   validates_presence_of :when, :name
   validates_length_of :name, maximum: 140
 
+  self.per_page = 15
+  
   def has_description?
     if self.description.nil? or self.description.empty?
       return false
