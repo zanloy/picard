@@ -13,7 +13,8 @@ environments = [
   { name: 'Share', domain: 'shr.vbms.vba.va.gov' },
   { name: 'Prod-Test', domain: 'prdtst.vbms.vba.va.gov' },
   { name: 'Pre-Prod', domain: 'pre.vbms.vba.va.gov' },
-  { name: 'Perf', domain: 'perf.vbms.vba.va.gov' }
+  { name: 'Perf', domain: 'perf.vbms.vba.va.gov' },
+  { name: 'All', domain: '' },
 ]
 
 users.each { |user| User.create(user) } if defined?(users)

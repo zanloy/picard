@@ -1,12 +1,12 @@
-.pull-right
-  - if @logitem.subscribed? @current_user[:id]
-    = link_to subscription_path(@logitem.subscription_for(@current_user[:id])), method: :delete do
-      i.glyphicon.glyphicon-heart
-  - else
-    = link_to log_item_subscriptions_path(@logitem), method: :post do
-      i.glyphicon.glyphicon-heart-empty
-
-h1 Log Item Details
+h1
+  ' Log Item Details
+  .pull-right
+    - if @logitem.subscribed? @current_user[:id]
+      = link_to subscription_path(@logitem.subscription_for(@current_user[:id])), method: :delete do
+        i.glyphicon.glyphicon-heart
+    - else
+      = link_to log_item_subscriptions_path(@logitem), method: :post do
+        i.glyphicon.glyphicon-heart-empty
 
 .row
   .col-sm-2.text-right What:
@@ -47,7 +47,8 @@ h2 Comments
   - if comment.user = @current_user
     .row
       .col-sm-10.text-right
-        = link_to 'Delete', comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' }
+        = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
+         i.glyphicon.glyphicon-remove
   br
 br
 = form_for [@logitem, Comment.new], html: { class: 'form' } do |f|

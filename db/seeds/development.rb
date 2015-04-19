@@ -45,6 +45,16 @@ log_items = [
   }
 ]
 
+50.times do |i|
+  log_items << {
+    entered_by_id: 1,
+    poc_id: 1,
+    when: '2015-01-01 12:34 PM',
+    environment_id: rand(1..6),
+    name: "Log Item ##{i}",
+  }
+end
+
 users.each { |user| User.create(user) } if defined?(users)
 environments.each { |env| Environment.create(env) } if defined?(environments)
 servers.each { |server| Server.create(server) } if defined?(servers)

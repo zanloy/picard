@@ -18,7 +18,10 @@ table[class='table table-striped']
             = link_to log_item_subscriptions_path(item), method: :post do
               i.glyphicon.glyphicon-heart-empty
         td[class='text-nowrap'] #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
-        td[class='text-nowrap'] #{link_to(item.environment.name, environment_path(item.environment))}
+        - if item.environment
+          td[class='text-nowrap'] #{link_to(item.environment.name, environment_path(item.environment))}
+        - else
+          td[class='text-nowrap'] &nbsp;
         td
           = link_to(item.name, log_item_path(item))
           - if item.has_description? or item.has_comments?
