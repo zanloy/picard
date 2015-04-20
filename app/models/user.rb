@@ -2,7 +2,10 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
+  before_create :build_profile
+
   # Associations
+  has_one :profile, dependent: :destroy
   has_many :log_items, foreign_key: :poc_id
   has_many :subscriptions
   has_many :comments

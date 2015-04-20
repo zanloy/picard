@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418191009) do
+ActiveRecord::Schema.define(version: 20150420172820) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "comments", force: true do |t|
-    t.integer  "commentable_id"
-    t.string   "commentable_type"
+    t.integer  "commentable_id",   null: false
+    t.string   "commentable_type", null: false
     t.integer  "user_id",          null: false
     t.text     "comment",          null: false
     t.datetime "created_at"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150418191009) do
     t.datetime "when"
     t.integer  "environment_id"
     t.string   "name",           null: false
-    t.text     "description"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,8 +50,22 @@ ActiveRecord::Schema.define(version: 20150418191009) do
   add_index "log_items", ["environment_id"], name: "index_log_items_on_environment_id", using: :btree
   add_index "log_items", ["poc_id"], name: "index_log_items_on_poc_id", using: :btree
 
+  create_table "profiles", force: true do |t|
+    t.integer  "user_id"
+    t.string   "address"
+    t.string   "company"
+    t.string   "phone"
+    t.string   "alternative_contact"
+    t.string   "im_address"
+    t.string   "va_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
   create_table "servers", force: true do |t|
-    t.string   "name",           null: false
+    t.string   "name"
     t.integer  "environment_id"
     t.string   "ip_address"
     t.string   "ports"
@@ -62,12 +76,9 @@ ActiveRecord::Schema.define(version: 20150418191009) do
   add_index "servers", ["environment_id"], name: "index_servers_on_environment_id", using: :btree
 
   create_table "subscriptions", force: true do |t|
-    t.integer  "subscribable_id",                   null: false
-    t.string   "subscribable_type",                 null: false
-    t.integer  "user_id",                           null: false
-    t.boolean  "on_new",            default: false
-    t.boolean  "on_change",         default: false
-    t.boolean  "on_comment",        default: false
+    t.integer  "subscribable_id",   null: false
+    t.string   "subscribable_type", null: false
+    t.integer  "user_id",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -91,10 +102,24 @@ ActiveRecord::Schema.define(version: 20150418191009) do
     t.datetime "updated_at"
   end
 
+  create_table "user_details", force: true do |t|
+    t.integer  "user_id"
+    t.string   "address"
+    t.string   "company"
+    t.string   "phone"
+    t.string   "alternative_contact"
+    t.string   "im_address"
+    t.string   "va_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_details", ["user_id"], name: "index_user_details_on_user_id", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "provider"
     t.string   "uid"
-    t.string   "email",                            null: false
+    t.string   "email"
     t.string   "hashed_password"
     t.string   "name",             default: ""
     t.boolean  "enabled",          default: false
