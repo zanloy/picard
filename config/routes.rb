@@ -1,27 +1,18 @@
 Rails.application.routes.draw do
 
-  get 'profiles/index'
-
-  get 'profiles/edit'
-
-  get 'profiles/update'
-
-  get 'profiles/destroy'
-
-  get 'profiles/show'
-
   root 'log_items#index'
 
   resources :log_items, path: 'log' do
     resources :comments, path: 'c', only: [:create, :edit, :update, :destroy]
     resources :subscriptions, path: 'subscribe', only: :create
   end
-  resources :users
-  resources :environments
   resources :servers
+  resources :environments
   resources :comments
-  resources :sessions, only: [:login, :create, :destroy]
+  resources :profiles
+  resources :users
   resources :subscriptions, only: [:index, :destroy]
+  resources :sessions, only: [:login, :create, :destroy]
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
