@@ -8,6 +8,9 @@ class CommentsController < ApplicationController
     parameters[:user_id] = @current_user[:id]
     @comment = @commentable.comments.build(parameters)
     if @comment.save
+      @commentable.subscriptions.each do |subscription|
+        Emailer.new_comment(subscription.user, @comment).deliver
+      end
       redirect_to :back, notice: 'Comment saved.'
     else
       redirect_to :back, error: 'There was an error while trying to save your comment.'
