@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'profiles/index'
+
+  get 'profiles/edit'
+
+  get 'profiles/update'
+
+  get 'profiles/destroy'
+
+  get 'profiles/show'
+
   root 'log_items#index'
 
   resources :log_items, path: 'log' do
