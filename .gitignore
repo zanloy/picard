@@ -17,3 +17,6 @@
 
 # Ignore local environment variables.
 .env
+
+# Ignore shared logs and sockets
+/shared
