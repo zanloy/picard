@@ -1,7 +1,7 @@
 class Tagging < ActiveRecord::Base
 
   # Associations
-  belongs_to :log_item
+  belongs_to :engineering_change
   belongs_to :tag
 
 end

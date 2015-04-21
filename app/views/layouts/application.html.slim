@@ -13,6 +13,10 @@ html
           a[class='navbar-brand', href='/'] Picard
         div
           ul[class='nav navbar-nav']
+            li[class="dropdown #{is_active? 'engineering_changes'}"]
+              = link_to "SE Changes", engineering_changes_path
+              ul[class='dropdown-menu']
+                li #{link_to 'Add New Engineering Change', new_engineering_change_path}
             li[class="dropdown #{is_active? 'log_items'}"]
               = link_to "Captain's Log", log_items_path
               ul[class='dropdown-menu']

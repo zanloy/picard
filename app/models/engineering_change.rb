@@ -1,4 +1,4 @@
-class LogItem < ActiveRecord::Base
+class EngineeringChange < ActiveRecord::Base
 
   # Associations
   belongs_to :entered_by, class_name: User
@@ -13,8 +13,8 @@ class LogItem < ActiveRecord::Base
   scope :timeline, -> { order(when: :desc) }
 
   # Validation
-  validates_presence_of :when, :name
-  validates_length_of :name, maximum: 140
+  validates_presence_of :when, :title
+  validates_length_of :title, maximum: 140
 
   self.per_page = 15
 

@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     resources :comments, path: 'c', only: [:create, :edit, :update, :destroy]
     resources :subscriptions, path: 'subscribe', only: :create
   end
+  resources :engineering_changes do
+    resources :comments, path: 'c', only: [:create, :edit, :update, :destroy]
+    resources :subscriptions, path: 'subscribe', only: :create
+  end
   resources :servers
   resources :environments
   resources :comments

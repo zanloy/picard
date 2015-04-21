@@ -1,0 +1,59 @@
+h1
+  ' Engineering Change Details
+  .pull-right
+    - if @change.subscribed? @current_user[:id]
+      = link_to subscription_path(@change.subscription_for(@current_user[:id])), method: :delete do
+        i.glyphicon.glyphicon-heart
+    - else
+      = link_to log_item_subscriptions_path(@change), method: :post do
+        i.glyphicon.glyphicon-heart-empty
+
+.row
+  .col-sm-2.text-right What:
+  .col-sm-10
+    strong #{@change.title}
+br
+.row
+  .col-sm-2.text-right Who:
+  .col-sm-10 #{@change.poc.name}
+br
+.row.
+  .col-sm-2.text-right When:
+  .col-sm-10 #{@change.when}
+br
+.row
+  .col-sm-2.text-right Where:
+  .col-sm-10 #{@change.environment.name}
+br
+.row
+  .col-sm-2.text-right Tags:
+  .col-sm-10 #{@change.all_tags}
+br
+.row
+  .col-sm-2.text-right How:
+  .col-sm-10 #{simple_format(@change.description)}
+- if is_admin? || @current_user == @change.poc
+  br
+  .row
+    .col-sm-offset-2.col-sm-10
+      = button_to 'Edit', edit_engineering_change_path, { method: :get, class: 'btn btn-primary', role: 'button' }
+      = button_to 'Delete', engineering_change_path, { method: :delete, class: 'btn btn-primary', role: 'button', data: { confirm: 'Are you sure?' } }
+
+h2 Comments
+- for comment in @change.comments.order(:created_at)
+  .row
+    .col-sm-2.text-right #{comment.user.name_or_email}
+    .col-sm-10 #{comment.comment}
+  - if comment.user = @current_user
+    .row
+      .col-sm-10.text-right
+        = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
+         i.glyphicon.glyphicon-remove
+  br
+br
+= form_for [@change, Comment.new], html: { class: 'form' } do |f|
+  .row
+    .col-sm-offset-2.col-sm-8
+      = f.text_field :comment, { class: 'form-control', placeholder: 'Comment' }
+    .col-sm-2
+      = f.submit 'Comment', class: 'btn btn-primary'
