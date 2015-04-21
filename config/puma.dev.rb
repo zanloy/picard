@@ -1,17 +1,9 @@
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
-threads 1, threads_count
+threads threads_count, threads_count
 
 app_dir = File.expand_path("../..", __FILE__)
-directory app_dir
 shared_dir = "#{app_dir}/shared"
-
-bind "unix://#{shared_dir}/sockets/puma.sock"
-
-stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
-
-pidfile "#{shared_dir}/pids/puma.pid"
-state_path "#{shared_dir}/pids/puma.state"
 
 preload_app!
 

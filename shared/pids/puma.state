@@ -1,0 +1,29 @@
+---
+pid: 13374
+config: !ruby/object:Puma::Configuration
+  options:
+    :min_threads: 1
+    :max_threads: 5
+    :quiet: false
+    :debug: false
+    :binds:
+    - unix:///srv/rails/picard/shared/sockets/puma.sock
+    - tcp://0.0.0.0:3000
+    :workers: 2
+    :daemon: false
+    :worker_directory: "/srv/rails/picard"
+    :config_file: config/puma.rb
+    :mode: :http
+    :worker_timeout: 60
+    :worker_shutdown_timeout: 30
+    :directory: "/srv/rails/picard"
+    :redirect_stdout: "/srv/rails/picard/shared/log/puma.stdout.log"
+    :redirect_stderr: "/srv/rails/picard/shared/log/puma.stderr.log"
+    :redirect_append: true
+    :pidfile: "/srv/rails/picard/shared/pids/puma.pid"
+    :state: "/srv/rails/picard/shared/pids/puma.state"
+    :preload_app: true
+    :rackup: config.ru
+    :environment: development
+    :control_auth_token: 411e41da4f5b4a997b8eb1e5e424bd8a
+    :tag: picard

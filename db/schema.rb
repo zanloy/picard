@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150420172820) do
     t.datetime "when"
     t.integer  "environment_id"
     t.string   "name",           null: false
-    t.string   "description"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20150420172820) do
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "servers", force: true do |t|
-    t.string   "name"
+    t.string   "name",           null: false
     t.integer  "environment_id"
     t.string   "ip_address"
     t.string   "ports"
@@ -102,24 +102,10 @@ ActiveRecord::Schema.define(version: 20150420172820) do
     t.datetime "updated_at"
   end
 
-  create_table "user_details", force: true do |t|
-    t.integer  "user_id"
-    t.string   "address"
-    t.string   "company"
-    t.string   "phone"
-    t.string   "alternative_contact"
-    t.string   "im_address"
-    t.string   "va_email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_details", ["user_id"], name: "index_user_details_on_user_id", using: :btree
-
   create_table "users", force: true do |t|
     t.string   "provider"
     t.string   "uid"
-    t.string   "email"
+    t.string   "email",                            null: false
     t.string   "hashed_password"
     t.string   "name",             default: ""
     t.boolean  "enabled",          default: false
