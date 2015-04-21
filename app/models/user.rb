@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
   # Validation
   validates_presence_of :email
 
+  # Scopes
+  scope :sorted, -> { order(:name) }
+  scope :enabled, -> { where(enabled: true) }
+
   # Virtual attributes for password
   attr_accessor :new_password, :new_password_confirmation
   # Validate the password only if the password is changed

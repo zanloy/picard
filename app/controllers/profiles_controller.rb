@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   def index
+    @users = User.enabled.sorted
   end
 
   def edit

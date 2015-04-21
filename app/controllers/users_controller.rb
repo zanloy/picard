@@ -2,15 +2,15 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_login, only: [:new, :create]
 
-  before_filter :require_admin, only: [:index, :edit, :destroy, :update]
+  before_filter :require_admin, only: [:edit, :destroy, :update]
 
   def index
-    @users = User.all.order(:name)
+    @users = User.sorted
   end
 
   def show
     @user = User.find(edit_params)
-    @logitems = @user.log_items.order(when: :desc).limit(25)
+    @logitems = @user.log_items.timeline.limit(25)
   end
 
   def new

@@ -32,7 +32,7 @@ br
 .row
   .col-sm-2.text-right How:
   .col-sm-10 #{simple_format(@logitem.description)}
-- if is_admin? || @current_user = @logitem.poc
+- if is_admin? || @current_user == @logitem.poc
   br
   .row
     .col-sm-offset-2.col-sm-10

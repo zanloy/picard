@@ -1,11 +1,12 @@
 class LogItemsController < ApplicationController
 
+  before_filter :set_log_item, except: [:index, :new]
+
   def index
     @logitems = LogItem.timeline.page(page_param)
   end
 
   def show
-    @logitem = LogItem.find(edit_params)
   end
 
   def new
@@ -19,25 +20,27 @@ class LogItemsController < ApplicationController
   end
 
   def edit
-    @logitem = LogItem.find(edit_params)
-    @pocs = User.where('enabled = ?', true)
+    @pocs = User.enabled.sorted
   end
 
   def update
-    logitem = LogItem.find(edit_params)
-    if logitem.update_attributes(create_params)
-      redirect_to log_item_path(logitem), notice: 'Update successful.'
+    if @logitem.update_attributes(create_params)
+      redirect_to log_item_path(@logitem), notice: 'Update successful.'
     else
-      redirect_to log_item_path(logitem), error: 'Update failed.'
+      redirect_to log_item_path(@logitem), error: 'Update failed.'
     end
   end
 
   def destroy
-    LogItem.destroy(edit_params)
+    @logitem.destroy
     redirect_to log_items_path, notice: 'Log Item deleted.'
   end
 
   private
+
+  def set_log_item
+    @logitem = LogItem.find(params.require(:id))
+  end
 
   def page_param
     if params.has_key? :page
@@ -47,14 +50,10 @@ class LogItemsController < ApplicationController
     end
   end
 
-  def edit_params
-    params.require(:id)
-  end
-
   def create_params
     p = params.require(:log_item).permit(:poc_id, :when, :environment_id, :name, :description, :all_tags)
     p[:entered_by_id] = session[:user_id]
-    p[:poc_id] = session[:user_id] if (p[:poc].nil? or p[:poc].empty?)
+    p[:poc_id] = session[:user_id] if (p[:poc_id].nil? or p[:poc_id].empty?)
     p[:when] = Time.now if not p.has_key? :when
     p
   end

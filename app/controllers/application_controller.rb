@@ -5,15 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_login
 
-  helper_method :current_user, :is_admin?, :require_admin, :is_active?
-
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end
+  helper_method :is_admin?, :require_admin, :is_active?
 
   def is_admin?
-    user = current_user
-    if user && user.admin
+    if @current_user && @current_user.admin
       return true
     end
     return false
@@ -30,6 +25,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
 
   def require_login
     user = current_user
