@@ -18,7 +18,7 @@ table[class='table table-hover']
         td #{link_to(environment.name, environment_path(environment))}
         td #{environment.domain}
         td #{environment.servers.count}
-        td #{environment.log_items.count}
+        td #{environment.engineering_changes.count}
         - if is_admin?
           td
             = link_to edit_environment_path(environment) do

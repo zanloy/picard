@@ -5,7 +5,7 @@ h1
       = link_to subscription_path(@change.subscription_for(@current_user[:id])), method: :delete do
         i.glyphicon.glyphicon-heart
     - else
-      = link_to log_item_subscriptions_path(@change), method: :post do
+      = link_to engineering_change_subscriptions_path(@change), method: :post do
         i.glyphicon.glyphicon-heart-empty
 
 .row

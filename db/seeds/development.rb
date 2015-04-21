@@ -1,3 +1,13 @@
+users = [
+  {
+    email: 'zan.loy@gmail.com',
+    new_password: 'test',
+    name: 'Zan Gmail',
+    enabled: true,
+    admin: false,
+  }
+]
+
 servers = [
   {
     name: 'extpxy001',
@@ -13,13 +23,13 @@ servers = [
   }
 ]
 
-log_items = [
+engineering_changes = [
   {
     entered_by_id: 1,
     poc_id: 1,
     when: '2015-01-01 12:34 PM',
     environment_id: 1,
-    name: 'Linux Patches',
+    title: 'Linux Patches',
     description: 'yum clean all && yum update -y'
   },
   {
@@ -27,35 +37,35 @@ log_items = [
     poc_id: 1,
     when: '2015-02-02 14:00',
     environment_id: 2,
-    name: 'Update Ansible hosts file to include new servers',
+    title: 'Update Ansible hosts file to include new servers',
   },
   {
     entered_by_id: 1,
     poc_id: 1,
     when: '2015-01-01 14:40',
     environment_id: 1,
-    name: 'Restart all servers',
+    title: 'Restart all servers',
   },
   {
     entered_by_id: 1,
     poc_id: 1,
     when: '2013-12-25',
     environment_id: 2,
-    name: 'Updated Splunk license and rebooted',
+    title: 'Updated Splunk license and rebooted',
   }
 ]
 
 50.times do |i|
-  log_items << {
+  engineering_changes << {
     entered_by_id: 1,
     poc_id: 1,
     when: '2015-01-01 12:34 PM',
     environment_id: rand(1..6),
-    name: "Log Item ##{i}",
+    title: "Log Item ##{i}",
   }
 end
 
 users.each { |user| User.create(user) } if defined?(users)
 environments.each { |env| Environment.create(env) } if defined?(environments)
 servers.each { |server| Server.create(server) } if defined?(servers)
-log_items.each { |log_item| LogItem.create(log_item) } if defined?(log_items)
+engineering_changes.each { |change| EngineeringChange.create(change) } if defined?(engineering_changes)

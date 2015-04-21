@@ -68,21 +68,6 @@ ActiveRecord::Schema.define(version: 20150421152603) do
 
   add_index "environments", ["name"], name: "index_environments_on_name", using: :btree
 
-  create_table "log_items", force: :cascade do |t|
-    t.integer  "entered_by_id"
-    t.integer  "poc_id"
-    t.datetime "when"
-    t.integer  "environment_id"
-    t.string   "name",           null: false
-    t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "log_items", ["entered_by_id"], name: "index_log_items_on_entered_by_id", using: :btree
-  add_index "log_items", ["environment_id"], name: "index_log_items_on_environment_id", using: :btree
-  add_index "log_items", ["poc_id"], name: "index_log_items_on_poc_id", using: :btree
-
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "address"

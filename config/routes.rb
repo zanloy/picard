@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'log/index'
+
   root 'log_items#index'
 
   resources :log_items, path: 'log' do

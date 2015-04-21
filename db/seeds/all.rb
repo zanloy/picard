@@ -1,7 +1,6 @@
 users = [
   {
     email: 'zan.loy@sparcedge.com',
-    new_password: 'test',
     name: 'Zan Loy',
     enabled: true,
     admin: true
@@ -20,4 +19,4 @@ environments = [
 users.each { |user| User.create(user) } if defined?(users)
 environments.each { |env| Environment.create(env) } if defined?(environments)
 servers.each { |server| Server.create(server) } if defined?(servers)
-log_items.each { |log_item| LogItem.create(log_item) } if defined?(log_items)
+engineering_changes.each { |change| EngineeringChange.create(change) } if defined?(engineering_changes)

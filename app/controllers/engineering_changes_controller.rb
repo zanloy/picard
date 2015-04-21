@@ -11,6 +11,7 @@ class EngineeringChangesController < ApplicationController
 
   def new
     @change = EngineeringChange.new
+    @change[:poc_id] = session[:user_id]
     @pocs = User.enabled.sorted
   end
 

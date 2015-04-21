@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(edit_params)
-    @logitems = @user.log_items.timeline.limit(25)
+    @changes = @user.engineering_changes.timeline.limit(25)
   end
 
   def new

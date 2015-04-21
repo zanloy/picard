@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   # Associations
   has_one :profile, dependent: :destroy
-  has_many :log_items, foreign_key: :poc_id
+  has_many :engineering_changes, foreign_key: :poc_id
   has_many :subscriptions
   has_many :comments
 

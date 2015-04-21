@@ -2,7 +2,7 @@ class Environment < ActiveRecord::Base
 
   # Associations
   has_many :servers
-  has_many :log_items
+  has_many :engineering_changes
 
   # Validation
   validates_presence_of :name
