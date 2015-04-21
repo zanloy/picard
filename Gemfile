@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.1.4'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.2.1'
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -26,9 +26,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -55,8 +52,11 @@ gem 'bootstrap-sass', '~> 3.3.4'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
-# User will_paginate for pagination helpers
+# Use will_paginate for pagination helpers
 gem 'will_paginate', '~> 3.0.5'
+
+# Allow us to set delayed_jobs
+gem 'delayed_job_active_record'
 
 group :production do
   gem 'rails_12factor'
