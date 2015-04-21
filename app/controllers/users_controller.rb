@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_login, only: [:new, :create]
 
+  before_filter :set_user, only: [:show, :edit, :update, :destroy]
   before_filter :require_admin, only: [:edit, :destroy, :update]
 
   def index
@@ -9,7 +10,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(edit_params)
     @changes = @user.engineering_changes.timeline.limit(25)
   end
 
@@ -23,31 +23,29 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(edit_params)
-  end
-
-  def destroy
-    User.destroy edit_params
-    redirect_to :back, notice: 'User was successfully deleted.'
   end
 
   def update
-    user = User.find(edit_params)
-    if user.update_attributes(update_params)
+    if @user.update_attributes(update_params)
       redirect_to users_path, notice: 'User was successfully updated.'
     else
       redirect_to :back, notice: 'There was an error updating user.'
     end
   end
 
+  def destroy
+    @user.destroy
+    redirect_to :back, notice: 'User was successfully deleted.'
+  end
+
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def create_params
     params.require(:user).permit(:email, :new_password, :name)
-  end
-
-  def edit_params
-    params.require(:id)
   end
 
   def update_params

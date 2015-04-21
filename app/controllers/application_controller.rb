@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_login
 
-  helper_method :is_admin?, :require_admin, :is_active?
+  helper_method :is_admin?, :require_admin, :is_active?, :display_checkbox
 
   def is_admin?
     if @current_user && @current_user.admin
@@ -22,6 +22,17 @@ class ApplicationController < ActionController::Base
 
   def is_active?(controller)
     'active' if controller_name == controller
+  end
+
+  def display_checkbox(value)
+    case value
+    when true
+      '<i class="glyphicon glyphicon-check"></i>'
+    when false
+      '<i class="glyphicon glyphicon-unchecked"></i>'
+    else
+      ''
+    end
   end
 
   private

@@ -2,7 +2,7 @@ html
   head
   body
     p Dear #{@user.name_or_email},
-    p There was a new comment on #{@commentable.name}
+    p There was a new comment on #{@commentable.title}
     p #{@comment.user.name_or_email} said the following:
     p #{simple_format @comment.comment}
     p #{link_to 'Link', polymorphic_url(@commentable)}

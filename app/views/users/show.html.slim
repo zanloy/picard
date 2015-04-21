@@ -1,4 +1,52 @@
 h1 #{@user.name_or_email}
 
+h2 Profile
+.row
+  .col-sm-2.text-right Name:
+  .col-sm-10
+    strong #{@user.name}
+br
+.row
+  .col-sm-2.text-right Email:
+  .col-sm-10
+    strong #{@user.email}
+br
+.row
+  .col-sm-2.text-right Company:
+  .col-sm-10
+    strong #{@user.profile.company}
+br
+.row
+  .col-sm-2.text-right Phone:
+  .col-sm-10
+    strong #{@user.profile.phone}
+br
+.row
+  .col-sm-2.text-right IM Address:
+  .col-sm-10
+    strong #{@user.profile.im_address}
+br
+.row
+  .col-sm-2.text-right VA Email:
+  .col-sm-10
+    strong #{@user.profile.va_email}
+br
+.row
+  .col-sm-2.text-right Alternative Contact:
+  .col-sm-10
+    strong #{@user.profile.alternative_contact}
+br
+
+h2 Notifications
+.row
+  .col-sm-2.text-right On New Change:
+  .col-sm-10 == display_checkbox(@user.notification.on_new_change)
+br
+.row
+  .col-sm-2.text-right On New Event:
+  .col-sm-10 == display_checkbox(@user.notification.on_new_event)
+br
+
+
 h2 Recent Activity
 = render('engineering_changes/table')

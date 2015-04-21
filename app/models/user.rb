@@ -2,12 +2,13 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
-  before_create :build_profile
+  before_create :build_profile, :build_notification
 
   # Associations
-  has_one :profile, dependent: :destroy
+  has_one :profile, autosave: true, dependent: :destroy
+  has_one :notification, autosave: true, dependent: :destroy
   has_many :engineering_changes, foreign_key: :poc_id
-  has_many :subscriptions
+  has_many :subscriptions, dependent: :destroy
   has_many :comments
 
   # Validation
