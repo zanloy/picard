@@ -11,16 +11,51 @@
     = u.label :name, class: 'col-sm-2 control-label'
     .col-sm-10
       = u.text_field :name, class: 'form-control'
-  .form-group
-    .col-sm-offset-2.col-sm-10
-      .checkbox
-        = u.check_box :enabled
-        | Enabled
-  .form-group
-    .col-sm-offset-2.col-sm-10
-      .checkbox
-        = u.check_box :admin
-        | Admin
+  - if is_admin?
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          = u.check_box :enabled
+          | Enabled
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          = u.check_box :admin
+          | Admin
+  h2 Profile
+  = u.fields_for :profile_attributes, @user.profile do |p|
+    .form-group
+      = p.label :company, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = p.text_field :company, class: 'form-control'
+    .form-group
+      = p.label :phone, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = p.text_field :phone, class: 'form-control'
+    .form-group
+      = p.label :im_address, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = p.text_field :im_address, class: 'form-control'
+    .form-group
+      = p.label :va_email, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = p.text_field :va_email, class: 'form-control'
+    .form-group
+      = p.label :alternative_contact, class: 'col-sm-2 control-label'
+      .col-sm-10
+        = p.text_field :alternative_contact, class: 'form-control'
+  h2 Notifications
+  = u.fields_for :notification_attributes, @user.notification do |n|
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          = n.check_box :on_new_change
+          | Email on new change
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        .checkbox
+          = n.check_box :on_new_event
+          | Email on new event
   .form-group
     .col-sm-offset-2.col-sm-10
       = u.submit class: 'btn btn-primary'

@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
   has_many :subscriptions, dependent: :destroy
   has_many :comments
 
+  accepts_nested_attributes_for :profile
+  accepts_nested_attributes_for :notification
+
   # Validation
   validates_presence_of :email
 

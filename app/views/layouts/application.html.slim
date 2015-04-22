@@ -23,7 +23,7 @@ html
           - if @current_user
             div[class='nav navbar-nav navbar-right']
               p[class='navbar-text']
-                | Signed in as #{@current_user.name_or_email}. &nbsp;
+                | Signed in as #{link_to @current_user.name_or_email, user_path(@current_user), class: 'text-muted'}. &nbsp;
                 = link_to signout_path, class: 'navbar-link' do
                   i[class='glyphicon glyphicon-log-out']
 
