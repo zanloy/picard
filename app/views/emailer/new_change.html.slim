@@ -7,7 +7,7 @@ html
       tbody
         tr
           td What:
-          td #{link_to @change.title, engineering_change_path(@change)}
+          td #{link_to @change.title, engineering_change_url(@change)}
         tr
           td Who:
           td #{@change.poc.name_or_email}

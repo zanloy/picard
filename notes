@@ -1,3 +1,5 @@
 todo:
-  - add icon for log_items with description
   - catch-all environment
+  - password requirements
+  - auto-subscribe to changes you create
+  - enabled email_on by default
