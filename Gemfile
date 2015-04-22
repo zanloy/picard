@@ -61,6 +61,9 @@ gem 'delayed_job_active_record'
 # Use foreman for process handling
 gem 'foreman'
 
+# Load environment variables from .env files
+gem 'dotenv-rails'
+
 group :production do
   gem 'rails_12factor'
 end
@@ -75,8 +78,6 @@ group :development do
 end
 
 group :test, :development do
-  # Load environment variables from .env files
-  gem 'dotenv-rails'
   # Use Thin webserver for development
   gem 'thin'
   # Use RSpec instead of testunit
