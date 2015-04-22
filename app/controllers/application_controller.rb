@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :require_login
+  before_filter :store_path, :require_login
 
   helper_method :is_admin?, :require_admin, :is_active?, :display_checkbox
 
@@ -48,6 +48,10 @@ class ApplicationController < ActionController::Base
     elsif user.enabled == false
       redirect_to disabled_path
     end
+  end
+
+  def store_path
+    session[:last_path] = request.env['PATH_INFO']
   end
 
 end

@@ -85,6 +85,11 @@ namespace :deploy do
   task :restart do
     on roles(:app) do
       invoke 'foreman:export'
+      #on roles(:app) do
+      #  within release_path do
+      #    execute :rake, "assets:precompile"
+      #  end
+      #end
       invoke 'foreman:restart'
     end
   end

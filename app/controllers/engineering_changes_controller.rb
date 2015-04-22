@@ -12,12 +12,20 @@ class EngineeringChangesController < ApplicationController
   def new
     @change = EngineeringChange.new
     @change[:poc_id] = session[:user_id]
+    @change[:when] = Time.now
     @pocs = User.enabled.sorted
   end
 
   def create
     @change = EngineeringChange.new create_params
     if @change.save
+      begin
+        @change.subscriptions.build({user_id: @current_user[:id]}).save
+        if @change[:poc_id] != @current_user[:id]
+          @change.subscriptions.build({user_id: @change[:poc_id]}).save
+        end
+      rescue
+      end
       Notification.where(on_new_change: true).each do |notification|
         NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, @change)
       end
