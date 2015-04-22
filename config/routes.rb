@@ -2,12 +2,8 @@ Rails.application.routes.draw do
 
   get 'log/index'
 
-  root 'log_items#index'
+  root 'engineering_changes#index'
 
-  resources :log_items, path: 'log' do
-    resources :comments, path: 'c', only: [:create, :edit, :update, :destroy]
-    resources :subscriptions, path: 'subscribe', only: :create
-  end
   resources :engineering_changes do
     resources :comments, path: 'c', only: [:create, :edit, :update, :destroy]
     resources :subscriptions, path: 'subscribe', only: :create
