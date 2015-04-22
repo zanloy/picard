@@ -12,7 +12,7 @@ class EngineeringChangesController < ApplicationController
   def new
     @change = EngineeringChange.new
     @change[:poc_id] = session[:user_id]
-    @change[:when] = Time.now
+    @change[:when] = Time.zone.now
     @pocs = User.enabled.sorted
   end
 
@@ -27,7 +27,9 @@ class EngineeringChangesController < ApplicationController
       rescue
       end
       Notification.where(on_new_change: true).each do |notification|
-        NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, @change)
+        if notification.user != @current_user
+          NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, @change)
+        end
       end
       redirect_to engineering_changes_path
     else

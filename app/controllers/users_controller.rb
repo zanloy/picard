@@ -20,8 +20,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    User.create create_params
-    redirect_to root_path
+    parms = create_params
+    if params[:new_password].length < 8
+      redirect_to :back, error: 'Password must be at least 8 characters.'
+    else
+      User.create create_params
+      redirect_to root_path
+    end
   end
 
   def edit

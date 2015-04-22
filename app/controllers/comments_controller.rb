@@ -9,8 +9,9 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.build(parameters)
     if @comment.save
       @commentable.subscriptions.each do |subscription|
-        NewCommentEmailJob.set(wait: 20.seconds).perform_later(subscription.user, @comment)
-        #Emailer.new_comment(subscription.user, @comment).deliver
+        if subscription.user != @current_user
+          NewCommentEmailJob.set(wait: 20.seconds).perform_later(subscription.user, @comment)
+        end
       end
       redirect_to :back, notice: 'Comment saved.'
     else
