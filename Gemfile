@@ -70,6 +70,7 @@ group :development do
   gem 'spring'
   # Deploy with capistrano!
   gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
   gem 'capistrano-file-permissions'
 end
 

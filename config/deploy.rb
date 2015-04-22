@@ -36,8 +36,11 @@ set :deploy_to, '/srv/rails/picard'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+set :rbenv_ruby, '2.1.4'
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+
 # Add some subdirectories to shared
-set :linked_dirs, %w{pids log socket}
+set :linked_dirs, %w{pids log sockets}
 
 # Fix permissions
 set :file_permissions_paths, ['/srv/rails/picard/shared']
