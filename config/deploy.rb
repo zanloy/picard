@@ -82,6 +82,15 @@ end
 
 namespace :deploy do
 
+  task :restart do
+    on roles(:app) do
+      invoke 'foreman:export'
+      invoke 'foreman:restart'
+    end
+  end
+
+  after :publishing, :restart
+
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
