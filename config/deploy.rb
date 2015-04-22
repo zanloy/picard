@@ -46,6 +46,40 @@ set :linked_files, %w{.env}
 set :file_permissions_paths, ['/srv/rails/picard/shared']
 set :file_permissions_user, 'apps'
 
+namespace :foreman do
+
+  desc 'Export the Procfile to upstart'
+  task :export do
+    on roles(:app) do
+      within release_path do
+        execute :sudo, "/home/apps/.rbenv/shims/foreman export upstart /etc/init -a picard -u apps -l /srv/rails/picard/shared/log"
+      end
+    end
+  end
+
+  desc 'Start the application services'
+  task :start do
+    on roles(:app) do
+      execute :sudo, "service picard start"
+    end
+  end
+
+  desc 'Stop the application services'
+  task :stop do
+    on roles(:app) do
+      execute :sudo, "service picard stop"
+    end
+  end
+
+  desc 'Restart the application services'
+  task :restart do
+    on roles(:app) do
+      execute :sudo, "service picard restart"
+    end
+  end
+
+end
+
 namespace :deploy do
 
   after :restart, :clear_cache do

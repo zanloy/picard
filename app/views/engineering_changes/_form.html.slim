@@ -32,6 +32,6 @@
 
   .form-group
     .col-sm-offset-2.col-sm-8
-      = f.submit class: 'btn btn-primary'
+      = f.submit 'Update', class: 'btn btn-primary'
     .col-sm-2.text-right
-      = link_to 'Cancel', :back, { class: 'btn btn-danger' }
+      = button_to 'Cancel', :back, { class: 'btn btn-danger' }

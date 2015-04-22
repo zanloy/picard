@@ -35,9 +35,9 @@ br
 - if is_admin? || @current_user == @change.poc
   br
   .row
-    .col-sm-offset-2.col-sm-10
+    .col-sm-offset-2.col-sm-10.button_row
       = button_to 'Edit', edit_engineering_change_path, { method: :get, class: 'btn btn-primary', role: 'button' }
-      = button_to 'Delete', engineering_change_path, { method: :delete, class: 'btn btn-primary', role: 'button', data: { confirm: 'Are you sure?' } }
+      = button_to 'Delete', engineering_change_path, { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
 
 h2 Comments
 - for comment in @change.comments.order(:created_at)

@@ -1,0 +1,27 @@
+html
+  head
+  body
+    p Dear #{@user.name_or_email}
+    p A new engineering change has been entered in Picard. Here are the details.
+    table
+      tbody
+        tr
+          td What:
+          td #{link_to @change.title, engineering_change_path(@change)}
+        tr
+          td Who:
+          td #{@change.poc.name_or_email}
+        tr
+          td When:
+          td #{@change.when}
+        tr
+          td Where:
+          td #{@change.environment.name}
+        tr
+          td Tags:
+          td #{@change.all_tags}
+        tr
+          td Description:
+          td #{simple_format(@change.description)}
+    p You received this email because you have asked to be notified on new changes.
+      You can update your setings by clicking #{link_to 'here', user_url(@user)}

@@ -38,6 +38,12 @@
   }
 }
 
+.button_row {
+  .btn {
+    margin-right: 5px;
+  }
+}
+
 form.button_to {
   display: inline;
 
@@ -48,7 +54,7 @@ form.button_to {
 }
 
 .footer {
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   bottom: 0;
   height: 30px;
   margin-top: 40px;

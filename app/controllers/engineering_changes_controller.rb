@@ -16,8 +16,15 @@ class EngineeringChangesController < ApplicationController
   end
 
   def create
-    EngineeringChange.create create_params
-    redirect_to engineering_changes_path
+    @change = EngineeringChange.new create_params
+    if @change.save
+      Notification.where(on_new_change: true).each do |notification|
+        NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, @change)
+      end
+      redirect_to engineering_changes_path
+    else
+      redirect_to engineering_changes_path, error: 'Saving change failed.'
+    end
   end
 
   def edit
@@ -25,10 +32,14 @@ class EngineeringChangesController < ApplicationController
   end
 
   def update
-    if @change.update_attributes(create_params)
-      redirect_to engineering_change_path(@change), notice: 'Update successful.'
+    if submitted?
+      if @change.update_attributes(create_params)
+        redirect_to engineering_change_path(@change), notice: 'Update successful.'
+      else
+        redirect_to engineering_change_path(@change), error: 'Update failed.'
+      end
     else
-      redirect_to engineering_change_path(@change), error: 'Update failed.'
+      redirect_to engineering_change_path(@change)
     end
   end
 
@@ -57,6 +68,14 @@ class EngineeringChangesController < ApplicationController
     p[:poc_id] = session[:user_id] if (p[:poc_id].nil? or p[:poc_id].empty?)
     p[:when] = Time.now if not p.has_key? :when
     p
+  end
+
+  def submitted?
+    if params.has_key? :commit
+      return true
+    else
+      return false
+    end
   end
 
 end
