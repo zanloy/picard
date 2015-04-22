@@ -37,7 +37,7 @@ set :deploy_to, '/srv/rails/picard'
 # set :keep_releases, 5
 
 # Add some subdirectories to shared
-set :shared_children, shared_children + %w{pid log socket}
+set :linked_dirs, %w{pids log socket}
 
 # Fix permissions
 set :file_permissions_paths, ['/srv/rails/picard/shared']

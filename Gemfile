@@ -58,6 +58,9 @@ gem 'will_paginate', '~> 3.0.5'
 # Allow us to set delayed_jobs
 gem 'delayed_job_active_record'
 
+# Use foreman for process handling
+gem 'foreman'
+
 group :production do
   gem 'rails_12factor'
 end

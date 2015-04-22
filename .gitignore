@@ -20,3 +20,5 @@
 
 # Ignore shared logs and sockets
 /shared
+/pids
+/socket
