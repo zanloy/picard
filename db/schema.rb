@@ -70,12 +70,14 @@ ActiveRecord::Schema.define(version: 20150421195635) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
-    t.boolean  "on_new_change"
-    t.boolean  "on_new_event"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.boolean  "on_new_change", default: false, null: false
+    t.boolean  "on_new_event",  default: false, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
+  add_index "notifications", ["on_new_change"], name: "index_notifications_on_on_new_change", using: :btree
+  add_index "notifications", ["on_new_event"], name: "index_notifications_on_on_new_event", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "profiles", force: :cascade do |t|
