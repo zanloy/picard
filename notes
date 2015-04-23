@@ -3,3 +3,6 @@ todo:
   - password requirements
   - auto-subscribe to changes you create
   - enabled email_on by default
+  - gracefully error on item that has been deleted
+feedback:
+  - subscribe to environment
