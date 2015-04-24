@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20150421195635) do
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
+    t.string   "apikey"
     t.string   "address"
     t.string   "company"
     t.string   "phone"

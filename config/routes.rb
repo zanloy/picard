@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root 'engineering_changes#index'
 
-  resources :engineering_changes do
+  resources :engineering_changes, path: 'changes' do
     resources :comments, path: 'c', only: [:create, :edit, :update, :destroy]
     resources :subscriptions, path: 'subscribe', only: :create
   end
@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :environments
   resources :comments
   resources :profiles
-  resources :users
+  resources :users do
+    get 'generate_apikey', to: 'users#generate_apikey'
+  end
   resources :subscriptions, only: [:index, :destroy]
   resources :sessions, only: [:login, :create, :destroy]
 

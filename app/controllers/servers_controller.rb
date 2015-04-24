@@ -22,10 +22,6 @@ class ServersController < ApplicationController
     @environments = Environment.all
   end
 
-  # GET /servers/1/edit
-  def edit
-  end
-
   # POST /servers
   # POST /servers.json
   def create
@@ -40,6 +36,10 @@ class ServersController < ApplicationController
         format.json { render json: @server.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /servers/1/edit
+  def edit
   end
 
   # PATCH/PUT /servers/1

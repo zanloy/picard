@@ -2,8 +2,8 @@ class UsersController < ApplicationController
 
   skip_before_filter :require_login, only: [:new, :create]
 
-  before_filter :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :require_admin_or_self, only: [:edit, :destroy, :update]
+  before_filter :set_user, only: [:show, :edit, :update, :destroy, :generate_apikey]
+  before_filter :require_admin_or_self, only: [:edit, :destroy, :update, :generate_apikey]
 
   helper_method :is_admin_or_self?
 
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @changes = @user.engineering_changes.timeline.limit(25)
+    @changes = @user.engineering_changes.timeline.limit(10)
   end
 
   def new
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
   def create
     parms = create_params
-    if params[:new_password].length < 8
+    if parms[:new_password].length < 8
       redirect_to :back, error: 'Password must be at least 8 characters.'
     else
       User.create create_params
@@ -37,6 +37,15 @@ class UsersController < ApplicationController
       redirect_to users_path, notice: 'User was successfully updated.'
     else
       redirect_to :back, notice: 'There was an error updating user.'
+    end
+  end
+
+  def generate_apikey
+    @user.profile.apikey = SecureRandom.hex(32)
+    if @user.profile.save!
+      redirect_to user_path(@user), notice: 'New APIKey was generated. The old key will no longer work.'
+    else
+      redirect_to :back, notice: 'There was an error updating your apikey.'
     end
   end
 
@@ -60,7 +69,8 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    id = params[:id] || params[:user_id]
+    @user = User.find(id)
   end
 
   def create_params

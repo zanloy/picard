@@ -18,22 +18,26 @@ class EngineeringChangesController < ApplicationController
 
   def create
     @change = EngineeringChange.new create_params
-    if @change.save
-      begin
-        @change.subscriptions.build({user_id: @current_user[:id]}).save
-        if @change[:poc_id] != @current_user[:id]
-          @change.subscriptions.build({user_id: @change[:poc_id]}).save
+    respond_to do |format|
+      if @change.save
+        begin
+          @change.subscriptions.build({user_id: @current_user[:id]}).save
+          if @change[:poc_id] != @current_user[:id]
+            @change.subscriptions.build({user_id: @change[:poc_id]}).save
+          end
+        rescue
         end
-      rescue
-      end
-      Notification.where(on_new_change: true).each do |notification|
-        if notification.user != @current_user
-          NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, @change)
+        Notification.where(on_new_change: true).each do |notification|
+          if notification.user != @current_user
+            NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, @change)
+          end
         end
+        format.html { redirect_to engineering_changes_path }
+        format.json { render :show, status: :created, location: @change }
+      else
+        format.html { redirect_to engineering_changes_path, error: 'Saving change failed.' }
+        format.json { render json: @change.errors, status: :unprocessable_entity }
       end
-      redirect_to engineering_changes_path
-    else
-      redirect_to engineering_changes_path, error: 'Saving change failed.'
     end
   end
 
@@ -43,10 +47,14 @@ class EngineeringChangesController < ApplicationController
 
   def update
     if submitted?
-      if @change.update_attributes(create_params)
-        redirect_to engineering_change_path(@change), notice: 'Update successful.'
-      else
-        redirect_to engineering_change_path(@change), error: 'Update failed.'
+      respond_to do |format|
+        if @change.update_attributes(create_params)
+          format.html { redirect_to engineering_change_path(@change), notice: 'Update successful.' }
+          format.json { render :show, status: :ok, location: @change }
+        else
+          format.html { redirect_to engineering_change_path(@change), error: 'Update failed.' }
+          format.json { render json: @change.errors, status: :unprocessable_entity }
+        end
       end
     else
       redirect_to engineering_change_path(@change)
@@ -55,7 +63,10 @@ class EngineeringChangesController < ApplicationController
 
   def destroy
     @change.destroy
-    redirect_to engineering_changes_path, notice: 'Engineering change deleted.'
+    respond_to do |format|
+      format.html { redirect_to engineering_changes_path, notice: 'Engineering change deleted.' }
+      format.json { head :no_content }
+    end
   end
 
   private

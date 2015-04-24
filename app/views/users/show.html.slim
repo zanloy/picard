@@ -13,6 +13,14 @@ br
   .col-sm-2.text-right Email:
   .col-sm-10
     strong #{@user.email}
+- if is_admin_or_self?
+  br
+  .row
+    .col-sm-2.text-right APIKey:
+    .col-sm-9
+      strong #{@user.profile.apikey}
+    .col-sm-1.text-right
+      = button_to 'Generate', user_generate_apikey_path(@user), method: :get
 br
 .row
   .col-sm-2.text-right Company:

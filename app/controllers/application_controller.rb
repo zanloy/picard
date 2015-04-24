@@ -38,15 +38,23 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    user = User.find(session[:user_id]) if session[:user_id]
+    user ||= authenticate_with_http_token { |t,o| user = Profile.find_by_apikey(t).user }
+    @current_user ||= user
   end
 
   def require_login
     user = current_user
     if user == nil
-      redirect_to signin_path
+      respond_to do |format|
+        format.html { redirect_to signin_path }
+        format.json { render nothing: true, status: :unauthorized }
+      end
     elsif user.enabled == false
-      redirect_to disabled_path
+      respond_to do |format|
+        format.html { redirect_to disabled_path }
+        format.json { render nothing: true, status: :unauthorized }
+      end
     end
   end
 
