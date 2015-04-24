@@ -1,5 +1,7 @@
 class EnvironmentsController < ApplicationController
 
+  before_action :set_environment, only: [:show, :edit, :update, :destroy]
+
   before_filter :require_admin, except: [:index, :show]
 
   def index
@@ -8,7 +10,6 @@ class EnvironmentsController < ApplicationController
   end
 
   def show
-    @environment = Environment.find(edit_params)
     @servers = @environment.servers.order(:name).limit(25)
     @changes = @environment.engineering_changes.timeline.limit(5)
   end
@@ -18,36 +19,49 @@ class EnvironmentsController < ApplicationController
   end
 
   def create
-    Environment.create create_params
-    redirect_to environments_path, notice: 'Environment created successfully.'
+    @environment = Environment.new(create_params)
+    respond_to do |format|
+      if @environment.save!
+        format.html { redirect_to environments_path, notice: 'Environment created successfully.' }
+        format.json { render :show, status: :created, location: @environment }
+      else
+        format.html { redirect_to :back, error: 'Saving environment failed.' }
+        format.json { render json: @environment.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit
-    @environment = Environment.find(edit_params)
   end
 
   def destroy
-    Environment.destroy(edit_params)
-    redirect_to environments_path, notice: 'Environment deleted.'
+    @environment.destroy
+    respond_to do |format|
+      format.html { redirect_to environments_url, notice: 'Environment was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   def update
-    environment = Environment.find(edit_params)
-    if environment.update_attributes(create_params)
-      redirect_to environments_path, notice: 'Environment was successfully updated.'
-    else
-      redirect_to :back, notice: 'There was an error updating environment.'
+    respond_to do |format|
+      if @environment.update_attributes(create_params)
+        format.html { redirect_to environments_path, notice: 'Environment was successfully updated.' }
+        format.json { render :show, status: :ok, location: @environment }
+      else
+        format.html { redirect_to :back, notice: 'There was an error updating environment.' }
+        format.json { render json: @environment.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   private
 
-  def create_params
-    params.require(:environment).permit(:name, :domain)
+  def set_environment
+    @environment = Environment.find(params[:id])
   end
 
-  def edit_params
-    params.require(:id)
+  def create_params
+    params.require(:environment).permit(:name, :domain)
   end
 
 end
