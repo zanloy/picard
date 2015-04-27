@@ -18,6 +18,7 @@ class EngineeringChangesController < ApplicationController
 
   def create
     @change = EngineeringChange.new create_params
+
     respond_to do |format|
       if @change.save
         begin
@@ -35,7 +36,7 @@ class EngineeringChangesController < ApplicationController
         format.html { redirect_to engineering_changes_path }
         format.json { render :show, status: :created, location: @change }
       else
-        format.html { redirect_to engineering_changes_path, error: 'Saving change failed.' }
+        format.html { render :new, error: 'Saving change failed.' }
         format.json { render json: @change.errors, status: :unprocessable_entity }
       end
     end
@@ -46,18 +47,14 @@ class EngineeringChangesController < ApplicationController
   end
 
   def update
-    if submitted?
-      respond_to do |format|
-        if @change.update_attributes(create_params)
-          format.html { redirect_to engineering_change_path(@change), notice: 'Update successful.' }
-          format.json { render :show, status: :ok, location: @change }
-        else
-          format.html { redirect_to engineering_change_path(@change), error: 'Update failed.' }
-          format.json { render json: @change.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if @change.update_attributes(create_params)
+        format.html { redirect_to engineering_change_path(@change), notice: 'Update successful.' }
+        format.json { render :show, status: :ok, location: @change }
+      else
+        format.html { render :edit, error: 'Update failed.' }
+        format.json { render json: @change.errors, status: :unprocessable_entity }
       end
-    else
-      redirect_to engineering_change_path(@change)
     end
   end
 
@@ -89,14 +86,6 @@ class EngineeringChangesController < ApplicationController
     p[:poc_id] = session[:user_id] if (p[:poc_id].nil? or p[:poc_id].empty?)
     p[:when] = Time.now if not p.has_key? :when
     p
-  end
-
-  def submitted?
-    if params.has_key? :commit
-      return true
-    else
-      return false
-    end
   end
 
 end

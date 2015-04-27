@@ -10,11 +10,11 @@ Rails.application.routes.draw do
   end
   resources :servers
   resources :environments
-  resources :comments
   resources :profiles
   resources :users do
     get 'generate_apikey', to: 'users#generate_apikey'
   end
+  resources :comments, only: :destroy
   resources :subscriptions, only: [:index, :destroy]
   resources :sessions, only: [:login, :create, :destroy]
 

@@ -19,12 +19,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
   def destroy
     @comment.destroy
     respond_to do |format|
