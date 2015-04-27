@@ -1,12 +1,12 @@
 users = [
   {
-    email: 'zan.loy@sparcedge.com',
-    name: 'Zan Loy',
+    email: 'zan.loy@gmail.com',
+    new_password: 'test',
+    name: 'Zan Gmail',
     enabled: true,
-    admin: true
+    admin: false,
   }
 ]
-
 
 users.each { |user| User.create(user) } if defined?(users)
 environments.each { |env| Environment.create(env) } if defined?(environments)

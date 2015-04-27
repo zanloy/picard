@@ -69,6 +69,8 @@ group :production do
 end
 
 group :development do
+  # Use Thin webserver for development
+  gem 'thin'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   # Deploy with capistrano!
@@ -78,12 +80,11 @@ group :development do
 end
 
 group :test, :development do
-  # Use Thin webserver for development
-  gem 'thin'
   # Use RSpec instead of testunit
   gem 'rspec-rails'
   gem 'capybara'
   gem 'guard-rspec'
+  gem 'ruby_gntp'
   gem 'launchy'
   # Used to truncate databases between tests
   gem 'database_cleaner'

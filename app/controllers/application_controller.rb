@@ -38,7 +38,11 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    user = User.find(session[:user_id]) if session[:user_id]
+    begin
+      user = User.find(session[:user_id]) if session[:user_id]
+    rescue
+      return nil
+    end
     user ||= authenticate_with_http_token { |t,o| user = Profile.find_by_apikey(t).user }
     @current_user ||= user
   end

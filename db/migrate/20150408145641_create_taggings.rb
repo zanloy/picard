@@ -4,7 +4,7 @@ class CreateTaggings < ActiveRecord::Migration
       t.references :taggable, polymorphic: true, index: true, null: false
       t.belongs_to :tag, index: true
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

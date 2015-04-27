@@ -4,7 +4,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.references :subscribable, polymorphic: true, index: true, null: false
       t.belongs_to :user, index: true, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

@@ -10,7 +10,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :im_address
       t.string :va_email
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

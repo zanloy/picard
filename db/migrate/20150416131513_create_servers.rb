@@ -6,7 +6,7 @@ class CreateServers < ActiveRecord::Migration
       t.string :ip_address
       t.string :ports
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

@@ -24,17 +24,25 @@ RSpec.describe ServersController, type: :controller do
   # Server. As you add validations to Server, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: 'extpxy001',
+      environment_id: 1,
+      ip_address: '192.168.0.1',
+      ports: '80/tcp 443/tcp',
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      name: nil,
+      invalid: true,
+    }
   }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ServersController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  let(:valid_session) { { user_id: 1 } }
 
   describe "GET #index" do
     it "assigns all servers as @servers" do
@@ -103,14 +111,16 @@ RSpec.describe ServersController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: 'extpxy002',
+        }
       }
 
       it "updates the requested server" do
         server = Server.create! valid_attributes
         put :update, {:id => server.to_param, :server => new_attributes}, valid_session
         server.reload
-        skip("Add assertions for updated state")
+        expect(server.name).to eq('extpxy002')
       end
 
       it "assigns the requested server as @server" do

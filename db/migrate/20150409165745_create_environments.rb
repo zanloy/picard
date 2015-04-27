@@ -4,7 +4,7 @@ class CreateEnvironments < ActiveRecord::Migration
       t.string :name, index: true, null: false
       t.string :domain, default: ''
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
