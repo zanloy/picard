@@ -6,7 +6,7 @@ class EnvironmentsController < ApplicationController
 
   def index
     @environment = Environment.new # For quick add form
-    @environments = Environment.all
+    @environments = Environment.all.order(:name)
   end
 
   def show
@@ -20,12 +20,13 @@ class EnvironmentsController < ApplicationController
 
   def create
     @environment = Environment.new(create_params)
+
     respond_to do |format|
-      if @environment.save!
+      if @environment.save
         format.html { redirect_to environments_path, notice: 'Environment created successfully.' }
         format.json { render :show, status: :created, location: @environment }
       else
-        format.html { redirect_to :back, error: 'Saving environment failed.' }
+        format.html { render :new, error: 'Environment failed to save.' }
         format.json { render json: @environment.errors, status: :unprocessable_entity }
       end
     end
@@ -48,7 +49,7 @@ class EnvironmentsController < ApplicationController
         format.html { redirect_to environments_path, notice: 'Environment was successfully updated.' }
         format.json { render :show, status: :ok, location: @environment }
       else
-        format.html { redirect_to :back, notice: 'There was an error updating environment.' }
+        format.html { render :edit, notice: 'There was an error updating environment.' }
         format.json { render json: @environment.errors, status: :unprocessable_entity }
       end
     end
