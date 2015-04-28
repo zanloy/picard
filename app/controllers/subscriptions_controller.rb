@@ -16,10 +16,15 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    @subscription.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Subscription deleted.' }
-      format.json { head :no_content }
+      if is_admin? or @subscription.user == @current_user
+        @subscription.destroy
+        format.html { redirect_to :back, notice: 'Subscription deleted.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to :back, error: 'You do not have access to do that.' }
+        format.json { head :no_content, status: :unauthorized }
+      end
     end
   end
 

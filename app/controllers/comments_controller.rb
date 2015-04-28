@@ -20,10 +20,15 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
     respond_to do |format|
-      format.html { redirect_to :back, notice: 'Comment deleted.' }
-      format.json { head :no_content }
+      if is_admin? or @comment.user == @current_user
+        @comment.destroy
+        format.html { redirect_to :back, notice: 'Comment deleted.' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to :back, error: 'You do not have access to do that.' }
+        format.json { head :no_content }
+      end
     end
   end
 

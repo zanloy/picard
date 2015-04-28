@@ -17,15 +17,24 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    render layout: 'login' if not @current_user
   end
 
   def create
     parms = create_params
+    errors = []
+    if User.find_by_email(parms[:email])
+      errors << 'That email address is already registered.'
+    end
     if parms[:new_password].length < 8
-      redirect_to :back, error: 'Password must be at least 8 characters.'
-    else
+      errors << 'Password must be at least 8 characters.'
+    end
+    if errors.empty?
       User.create create_params
       redirect_to root_path
+    else
+      @user = User.new(parms)
+      redirect_to :back, alert: errors.join
     end
   end
 
