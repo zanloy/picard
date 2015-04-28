@@ -64,6 +64,9 @@ gem 'foreman'
 # Load environment variables from .env files
 gem 'dotenv-rails'
 
+# Check password strength
+gem 'strong_password', '~> 0.0.3'
+
 group :production do
   gem 'rails_12factor'
 end

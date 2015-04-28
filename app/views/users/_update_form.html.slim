@@ -42,6 +42,12 @@
         = p.text_field :alternative_contact, class: 'form-control'
   h2 Notifications
   = u.fields_for :notification_attributes, @user.notification do |n|
+    - if is_admin? and @user.admin
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          .checkbox
+            = n.check_box :on_new_user
+            | Email on new user sign-up
     .form-group
       .col-sm-offset-2.col-sm-10
         .checkbox

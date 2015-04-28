@@ -278,6 +278,7 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    strong_password (0.0.4)
     temple (0.7.5)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
@@ -335,6 +336,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   slim-rails
   spring
+  strong_password (~> 0.0.3)
   therubyracer
   thin
   turbolinks

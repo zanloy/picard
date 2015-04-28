@@ -4,4 +4,5 @@ class NewChangeEmailJob < ActiveJob::Base
   def perform(user, change)
     Emailer.new_change(user, change).deliver_later
   end
+
 end

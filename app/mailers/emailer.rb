@@ -14,5 +14,11 @@ class Emailer < ActionMailer::Base
     @change = change
     mail(to: @user.email, subject: "Engineering Change: #{@change.title.truncate(50)}")
   end
+
+  def new_user(user, new_user)
+    @user = user
+    @new_user = new_user
+    mail(to: @user.email, subject: "New User: #{@new_user.name_or_email}")
+  end
   
 end

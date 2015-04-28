@@ -1,0 +1,16 @@
+html
+  head
+  body
+    p Dear #{@user.name_or_email}
+    p A new user signed up for Picard. Here are the details.
+    table
+      tbody
+        tr
+          td Email:
+          td #{@new_user.email}
+        tr
+          td Name:
+          td #{@new_user.name}
+    p You can view the user details for this user by clicking #{link_to 'here', user_url(@new_user)}.
+    p You received this email because you have asked to be notified on new users.
+      You can update your settings by clicking #{link_to 'here', user_url(@user)}.

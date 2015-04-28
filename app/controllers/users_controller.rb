@@ -24,17 +24,17 @@ class UsersController < ApplicationController
     parms = create_params
     errors = []
     if User.find_by_email(parms[:email])
-      errors << 'That email address is already registered.'
-    end
-    if parms[:new_password].length < 8
-      errors << 'Password must be at least 8 characters.'
-    end
-    if errors.empty?
-      User.create create_params
-      redirect_to root_path
+      redirect_to :back, alert: 'That email address is already registered.'
     else
-      @user = User.new(parms)
-      redirect_to :back, alert: errors.join
+      user = User.create(create_params)
+      if user.errors.empty?
+        Notification.where(on_new_user: true).each do |notification|
+          NewUserEmailJob.set(wait: 20.seconds).perform_later(notification.user, user)
+        end
+        redirect_to root_path
+      else
+        redirect_to :back, alert: user.errors.values.flatten.join('. ')
+      end
     end
   end
 
@@ -88,12 +88,13 @@ class UsersController < ApplicationController
 
   def update_params
     params.require(:user).permit(:new_password, :name).tap do |whitelist|
+      whitelist[:profile_attributes] = params[:user][:profile_attributes].permit(:company, :phone, :im_address, :va_email, :alternative_contact)
+      whitelist[:notification_attributes] = params[:user][:notification_attributes].permit(:on_new_change, :on_new_event)
       if is_admin?
         whitelist[:enabled] = params[:user][:enabled]
         whitelist[:admin] = params[:user][:admin]
+        whitelist[:notification_attributes][:on_new_user] = params[:user][:notification_attributes][:on_new_user] if @user.admin
       end
-      whitelist[:profile_attributes] = params[:user][:profile_attributes].permit(:company, :phone, :im_address, :va_email, :alternative_contact)
-      whitelist[:notification_attributes] = params[:user][:notification_attributes].permit(:on_new_change, :on_new_event)
     end
   end
 

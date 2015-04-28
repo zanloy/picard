@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # Associations
   has_one :profile, autosave: true, dependent: :destroy
   has_one :notification, autosave: true, dependent: :destroy
-  has_many :engineering_changes, foreign_key: :poc_id
+  has_many :engineering_changes, foreign_key: :poc_id, dependent: :nullify
   has_many :subscriptions, dependent: :destroy
   has_many :comments
 
@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   attr_accessor :new_password, :new_password_confirmation
   # Validate the password only if the password is changed
   validates_confirmation_of :new_password, if: :password_changed?
+  validates :new_password, password_strength: true, if: :password_changed?
 
   before_save :hash_new_password, if: :password_changed?
 
