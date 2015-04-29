@@ -7,11 +7,9 @@ class Server < ActiveRecord::Base
   validates_presence_of :name
 
   def fqdn
-    if self.environment.domain.nil? or self.environment.domain.empty?
-      return self.name
-    else
-      return "#{self.name}.#{self.environment.domain}"
-    end
+    return self.name if self.environment.nil?
+    return self.name if self.environment.domain.nil? or self.environment.domain.empty?
+    return "#{self.name}.#{self.environment.domain}"
   end
 
 end

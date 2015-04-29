@@ -14,7 +14,7 @@ class EngineeringChange < ActiveRecord::Base
 
   # Validation
   validates_presence_of :when, :title
-  validates_length_of :title, maximum: 140
+  validates_length_of :title, maximum: 142
 
   self.per_page = 15
 

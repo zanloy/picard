@@ -1,8 +1,8 @@
 class Environment < ActiveRecord::Base
 
   # Associations
-  has_many :servers
-  has_many :engineering_changes
+  has_many :servers, dependent: :destroy
+  has_many :engineering_changes, dependent: :nullify
 
   # Validation
   validates_presence_of :name

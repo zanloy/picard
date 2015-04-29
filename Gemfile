@@ -85,8 +85,15 @@ end
 group :test, :development do
   # Use RSpec instead of testunit
   gem 'rspec-rails'
+  # Test with capybara
   gem 'capybara'
+  # Use factory_girl to create mock models for testing
+  gem 'factory_girl_rails'
+  # Use ffaker gem to generate fake data for testing
+  gem 'ffaker'
+  # Use guard for continous testing
   gem 'guard-rspec'
+  # Display notifications in mac os x
   gem 'ruby_gntp'
   gem 'launchy'
   # Used to truncate databases between tests

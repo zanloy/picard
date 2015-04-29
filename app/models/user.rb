@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   # Validation
   validates_presence_of :email
+  validates_uniqueness_of :email
 
   # Scopes
   scope :sorted, -> { order(:name) }
