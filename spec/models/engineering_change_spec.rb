@@ -72,12 +72,26 @@ RSpec.describe EngineeringChange, type: :model do
   end
 
   describe '#all_tags=' do
-    it 'creates tags for all values in comma separated string'
-    it 'associates all tags with this change'
+    before(:each) { @change = create(:engineering_change) }
+    it 'creates tags for all values in comma separated string' do
+      expect{@change.all_tags = 'one, two, three'}.to change {Tag.count}.by(3)
+    end
+    it 'associates all tags with this change' do
+      expect{@change.all_tags = 'one, two, three'}.to change {Tagging.count}.by(3)
+    end
+    it 'combines tags if duplicated' do
+      expect{@change.all_tags = 'one, two, three, one'}.to change {Tag.count}.by(3)
+    end
+    it 'only creates a single tagging for duplicate tag' do
+      expect{@change.all_tags = 'one, two, three, one'}.to change {Tagging.count}.by(3)
+    end
   end
 
   describe '#all_tags' do
-    it 'returns a comma separated list of associated tags'
+    before(:each) { @change = create(:engineering_change, all_tags: 'three,two,one') }
+    it 'returns a comma separated list of associated tags' do
+      expect(@change.all_tags).to eq('three, two, one')
+    end
   end
 
 end
