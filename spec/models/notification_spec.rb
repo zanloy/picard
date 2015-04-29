@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Notification, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'created notifications automatically' do
+    expect{create(:user)}.to change {Notification.count}.by(1)
+  end
 end

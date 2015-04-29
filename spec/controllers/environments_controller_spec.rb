@@ -26,7 +26,7 @@ RSpec.describe EnvironmentsController, type: :controller do
 
   describe "GET #index" do
     it "assigns all environments as @environments" do
-      environment = Environment.create! valid_attributes
+      environment = create(:environment)
       get :index, {}, valid_session
       expect(assigns(:environments)).to eq([environment])
     end

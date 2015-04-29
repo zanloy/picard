@@ -5,6 +5,6 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   # Validation
-  validates_presence_of :user_id, :comment
+  validates_presence_of :commentable_id, :commentable_type, :user_id, :comment
 
 end

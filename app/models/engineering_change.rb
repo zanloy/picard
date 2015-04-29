@@ -6,8 +6,8 @@ class EngineeringChange < ActiveRecord::Base
   belongs_to :environment
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
-  has_many :comments, as: :commentable
-  has_many :subscriptions, as: :subscribable
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :subscriptions, as: :subscribable, dependent: :destroy
 
   # Scopes
   scope :timeline, -> { order(when: :desc) }
