@@ -6,6 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
 require 'ffaker'
+require 'support/controller_macros'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -52,6 +53,9 @@ RSpec.configure do |config|
 
   # To use factory_girl to mock models for testing
   config.include FactoryGirl::Syntax::Methods
+
+  # Include controller macros for login testing
+  config.extend ControllerMacros, type: :controller
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

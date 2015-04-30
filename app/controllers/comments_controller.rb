@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
   def create
     @commentable = find_commentable
     parameters = comment_params
-    parameters[:user_id] = @current_user[:id]
+    parameters[:user_id] = @current_user.id
     @comment = @commentable.comments.build(parameters)
     if @comment.save
       @commentable.subscriptions.each do |subscription|

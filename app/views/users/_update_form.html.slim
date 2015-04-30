@@ -1,8 +1,11 @@
 = form_for(@user, html: { class: 'form-horizontal' }) do |u|
   .form-group
-    = u.label :name, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = u.text_field :name, class: 'form-control'
+    .control-group
+      .col-sm-2.text-right
+        = u.label :name, class: 'control-label'
+      .col-sm-10
+        .controls
+          = u.text_field :name, class: 'form-control'
   .form-group
     = u.label :new_password, class: 'col-sm-2 control-label'
     .col-sm-10

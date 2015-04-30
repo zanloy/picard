@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :user do
     email { FFaker::Internet.email }
     name { FFaker::Name.name }
+    new_password '1qazxsw2#EDCVFR$'
     enabled true
     admin false
 
@@ -11,6 +12,10 @@ FactoryGirl.define do
 
     trait :admin do
       admin true
+    end
+
+    trait :invalid do
+      email nil
     end
   end
 end

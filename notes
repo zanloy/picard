@@ -4,5 +4,7 @@ todo:
   - auto-subscribe to changes you create
   - enabled email_on by default
   - gracefully error on item that has been deleted
+  - fix css on forms with errors
+  - write controller tests for json responses
 feedback:
   - subscribe to environment

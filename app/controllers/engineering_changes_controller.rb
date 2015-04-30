@@ -1,6 +1,7 @@
 class EngineeringChangesController < ApplicationController
 
   before_filter :set_change, except: [:index, :new, :create]
+  before_filter :require_permission_to_edit, only: [:edit, :update, :destroy]
 
   def index
     @changes = EngineeringChange.timeline.page(page_param)
@@ -70,6 +71,14 @@ class EngineeringChangesController < ApplicationController
 
   def set_change
     @change = EngineeringChange.find(params.require(:id))
+  end
+
+  def require_permission_to_edit
+    if is_admin? or @change.poc_id == @current_user.id or @change.entered_by_id == @current_user.id
+      return
+    else
+      redirect_to :back, alert: 'You do not have permissions to do that.'
+    end
   end
 
   def page_param

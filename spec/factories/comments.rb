@@ -1,5 +1,9 @@
 FactoryGirl.define do
   factory :comment do
-    comment { FFaker::BaconIpsum.words(10) }
+    comment 'This is an amazing comment.'
+
+    trait :invalid do
+      comment nil
+    end
   end
 end

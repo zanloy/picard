@@ -2,7 +2,7 @@ class ServersController < ApplicationController
 
   before_action :set_server, only: [:show, :edit, :update, :destroy]
 
-  before_filter :require_admin, only: [:new, :edit, :destroy, :update]
+  before_filter :require_admin, only: [:new, :create, :edit, :destroy, :update]
 
   # GET /servers
   # GET /servers.json

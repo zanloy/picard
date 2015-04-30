@@ -2,55 +2,129 @@ require 'rails_helper'
 
 RSpec.describe CommentsController, type: :controller do
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ServersController. Be sure to keep this updated too.
-  let(:valid_session) { { user_id: 1 } }
+  context 'as an admin' do
+    login_admin
+    set_referer
 
-  let(:valid_comment) { { comment: 'This is a test comment.' } }
-  let(:commentable) do
-    environment = Environment.create!({ name: 'Production', domain: 'prod.test.com' })
-    change = EngineeringChange.create!({ entered_by_id: 1, poc_id: 1, environment_id: environment.id, when: Time.now, title: 'Testing'})
-  end
+    let(:commentable) { create(:engineering_change) }
 
-  before(:each) do
-      request.env["HTTP_REFERER"] = "http://test.host/"
-  end
+    describe "POST #create" do
+      context "with valid params" do
+        it "creates a new Comment" do
+          expect {
+            post :create, {engineering_change_id: commentable.to_param, comment: attributes_for(:comment)}, @session
+          }.to change {Comment.count}.by(1)
+        end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Comment" do
+        it "assigns a newly created comment as @comment" do
+          post :create, {engineering_change_id: commentable.id, comment: attributes_for(:comment)}, @session
+          expect(assigns(:comment)).to be_a(Comment)
+          expect(assigns(:comment)).to be_persisted
+        end
+
+        it "redirects to :back" do
+          post :create, {engineering_change_id: commentable.id, comment: attributes_for(:comment)}, @session
+          expect(response).to redirect_to(:back)
+        end
+      end
+      context 'with invalid params' do
+        it 'denies creation of Comment' do
+          expect do
+            post :create, {engineering_change_id: commentable.id, comment: attributes_for(:comment, :invalid)}, @session
+          end.not_to change {Comment.count}
+        end
+        it 'redirects :back' do
+          post :create, {engineering_change_id: commentable.id, comment: attributes_for(:comment, :invalid)}, @session
+          expect(response).to redirect_to(:back)
+        end
+      end
+
+    end
+    describe "DELETE #destroy" do
+
+      before(:each) do
+        @comment = create(:comment, commentable: commentable, user: @user)
+      end
+
+      it "destroys the requested comment" do
         expect {
-          post :create, { engineering_change_id: commentable.id, comment: valid_comment }, valid_session
-        }.to change(Comment, :count).by(1)
+          delete :destroy, {id: @comment.to_param}, @session
+        }.to change {Comment.count}.by(-1)
       end
 
-      it "assigns a newly created comment as @comment" do
-        post :create, { engineering_change_id: commentable.id, comment: valid_comment }, valid_session
-        expect(assigns(:comment)).to be_a(Comment)
-        expect(assigns(:comment)).to be_persisted
-      end
-
-      it "redirects to :back" do
-        post :create, { engineering_change_id: commentable.id, comment: valid_comment }, valid_session
+      it "redirects to the servers list" do
+        delete :destroy, {id: @comment.to_param}, @session
         expect(response).to redirect_to(:back)
       end
     end
+  end #context 'as an admin'
 
-  end
-  describe "DELETE #destroy" do
-    it "destroys the requested comment" do
-      comment = commentable.comments.create! valid_comment.merge({user_id: 1})
-      expect {
-        delete :destroy, {:id => comment.to_param}, valid_session
-      }.to change(Comment, :count).by(-1)
+  context 'as the comment owner' do
+    login_user
+    set_referer
+
+    let(:commentable) { create(:engineering_change) }
+
+    describe "POST #create" do
+      context "with valid params" do
+        it "creates a new Comment" do
+          expect {
+            post :create, {engineering_change_id: commentable.to_param, comment: attributes_for(:comment)}, @session
+          }.to change {Comment.count}.by(1)
+        end
+
+        it "assigns a newly created comment as @comment" do
+          post :create, {engineering_change_id: commentable.id, comment: attributes_for(:comment)}, @session
+          expect(assigns(:comment)).to be_a(Comment)
+          expect(assigns(:comment)).to be_persisted
+        end
+
+        it "redirects to :back" do
+          post :create, {engineering_change_id: commentable.id, comment: attributes_for(:comment)}, @session
+          expect(response).to redirect_to(:back)
+        end
+      end
+
+    end
+    describe "DELETE #destroy" do
+      before(:each) do
+        @comment = create(:comment, commentable: commentable, user: @user)
+      end
+      it "destroys the requested comment" do
+        expect {
+          delete :destroy, {id: @comment.to_param}, @session
+        }.to change {Comment.count}.by(-1)
+      end
+
+      it "redirects to the servers list" do
+        delete :destroy, {id: @comment.to_param}, @session
+        expect(response).to redirect_to(:back)
+      end
+    end
+  end #context 'as the comment owner'
+
+  context 'as an admin' do
+    login_user
+    set_referer
+
+    let(:commentable) { create(:engineering_change) }
+
+    before(:each) do
+      second_user = create(:user)
+      @comment = create(:comment, commentable: commentable, user: second_user)
     end
 
-    it "redirects to the servers list" do
-      comment = commentable.comments.create! valid_comment.merge({user_id: 1})
-      delete :destroy, {:id => comment.to_param}, valid_session
-      expect(response).to redirect_to(:back)
+    describe "DELETE #destroy" do
+      it 'denies destruction' do
+        expect {
+          delete :destroy, {id: @comment.to_param}, @session
+        }.not_to change {Comment.count}
+      end
+      it 'redirects :back' do
+        delete :destroy, {id: @comment.to_param}, @session
+        expect(response).to redirect_to(:back)
+      end
     end
-  end
+  end #context 'as a user (not owner)'
 
 end

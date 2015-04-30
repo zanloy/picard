@@ -21,19 +21,23 @@ class UsersController < ApplicationController
   end
 
   def create
-    parms = create_params
-    errors = []
-    if User.find_by_email(parms[:email])
-      redirect_to :back, alert: 'That email address is already registered.'
-    else
-      user = User.create(create_params)
-      if user.errors.empty?
+    @user = User.create(create_params)
+
+    respond_to do |format|
+      if @user.save
         Notification.where(on_new_user: true).each do |notification|
-          NewUserEmailJob.set(wait: 20.seconds).perform_later(notification.user, user)
+          NewUserEmailJob.set(wait: 20.seconds).perform_later(notification.user, @user)
         end
-        redirect_to root_path
+        if @current_user
+          format.html { redirect_to user_path(@user) }
+        else
+          session[:user_id] = @user.id
+          format.html { redirect_to root_path }
+        end
+        format.json { render :show, status: :created, location: @user }
       else
-        redirect_to :back, alert: user.errors.values.flatten.join('. ')
+        format.html { render :new, alert: @user.errors.values.flatten.join('. ') }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,10 +46,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(update_params)
-      redirect_to users_path, notice: 'User was successfully updated.'
-    else
-      redirect_to :back, notice: 'There was an error updating user.'
+    respond_to do |format|
+      if @user.update(update_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -60,7 +68,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to :back, notice: 'User was successfully deleted.'
+    redirect_to users_path, notice: 'User was successfully deleted.'
   end
 
   def is_admin_or_self?
@@ -88,12 +96,18 @@ class UsersController < ApplicationController
 
   def update_params
     params.require(:user).permit(:new_password, :name).tap do |whitelist|
-      whitelist[:profile_attributes] = params[:user][:profile_attributes].permit(:company, :phone, :im_address, :va_email, :alternative_contact)
-      whitelist[:notification_attributes] = params[:user][:notification_attributes].permit(:on_new_change, :on_new_event)
+      if params[:user].has_key? :profile_attributes
+        whitelist[:profile_attributes] = params[:user][:profile_attributes].permit(:company, :phone, :im_address, :va_email, :alternative_contact)
+      end
+      if params[:user].has_key? :notification_attributes
+        whitelist[:notification_attributes] = params[:user][:notification_attributes].permit(:on_new_change, :on_new_event)
+      end
       if is_admin?
         whitelist[:enabled] = params[:user][:enabled]
         whitelist[:admin] = params[:user][:admin]
-        whitelist[:notification_attributes][:on_new_user] = params[:user][:notification_attributes][:on_new_user] if @user.admin
+        if params[:user].has_key? :notification_attributes
+          whitelist[:notification_attributes][:on_new_user] = params[:user][:notification_attributes][:on_new_user] if @user.admin
+        end
       end
     end
   end

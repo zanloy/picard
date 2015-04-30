@@ -28,12 +28,7 @@ html
                   i[class='glyphicon glyphicon-log-out']
 
     div[class='container']
-      - flash.each do |name, message|
-        - if name == 'notice'
-          div[class='alert alert-success', role='alert'] #{message}
-        - else
-          div[class='alert alert-danger', role='alert'] #{message}
-
+      == render 'layouts/flash_messages'
       == yield
 
     footer[class='footer']

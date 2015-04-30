@@ -67,6 +67,9 @@ gem 'dotenv-rails'
 # Check password strength
 gem 'strong_password', '~> 0.0.3'
 
+# Use simple forms for easy form generation
+gem 'simple_form'
+
 group :production do
   gem 'rails_12factor'
 end
