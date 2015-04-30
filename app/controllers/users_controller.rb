@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   skip_before_filter :require_login, only: [:new, :create]
+  before_filter :current_user, only: [:new, :create]
 
   before_filter :set_user, only: [:show, :edit, :update, :destroy, :generate_apikey]
   before_filter :require_admin_or_self, only: [:edit, :destroy, :update, :generate_apikey]
