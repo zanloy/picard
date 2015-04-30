@@ -29,7 +29,17 @@ class EngineeringChangesController < ApplicationController
           end
         rescue
         end
-        format.html { redirect_to engineering_changes_path }
+        format.html do
+          if from_quick_add?
+            if add_details?
+              redirect_to edit_engineering_change_path(@change)
+            else
+              redirect_to engineering_changes_path
+            end
+          else
+            redirect_to engineering_change_path(@change)
+          end
+        end
         format.json { render :show, status: :created, location: @change }
       else
         format.html { render :new, error: 'Saving change failed.' }
@@ -92,4 +102,19 @@ class EngineeringChangesController < ApplicationController
     p
   end
 
+  def from_quick_add?
+    if params[:engineering_change].has_key? 'quick_add'
+      return true
+    else
+      return false
+    end
+  end
+
+  def add_details?
+    if from_quick_add? and params[:commit] != 'Quick Add'
+      return true
+    else
+      return false
+    end
+  end
 end

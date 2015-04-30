@@ -8,6 +8,7 @@ h1
       = link_to engineering_change_subscriptions_path(@change), method: :post do
         i.glyphicon.glyphicon-heart-empty
 
+br
 .row
   .col-sm-3.text-right What:
   .col-sm-9
@@ -40,6 +41,7 @@ br
       = button_to 'Delete', engineering_change_path, { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
 
 h2 Comments
+br
 - for comment in @change.comments.order(:created_at)
   .row
     .col-sm-3.text-right #{comment.user.name_or_email}

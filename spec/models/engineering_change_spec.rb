@@ -90,7 +90,7 @@ RSpec.describe EngineeringChange, type: :model do
   describe '#all_tags' do
     before(:each) { @change = create(:engineering_change, all_tags: 'three,two,one') }
     it 'returns a comma separated list of associated tags' do
-      expect(@change.all_tags).to eq('three, two, one')
+      expect(@change.all_tags).to eq('one, three, two')
     end
   end
 

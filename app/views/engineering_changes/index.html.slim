@@ -1,11 +1,13 @@
 h1 Changes
-div[class='quickadd']
+row.quickadd
   = simple_form_for(EngineeringChange.new, html: { class: 'form form-inline' }, wrapper: :inline_form) do |f|
-    = f.association :environment
-    = f.input :title, placeholder: 'Change'
+    = f.hidden_field :quick_add, value: true
+    = f.association :environment, include_blank: false
+    = f.input :title, placeholder: 'Change', input_html: { class: 'col-md-6' }
     = f.input :all_tags, placeholder: 'Tags'
     = f.submit 'Quick Add', { class: 'btn btn-primary' }
+    = f.submit 'Add Details', { class: 'btn btn-primary' }
 
-= render('table')
+== render('table')
 
 .text-center = will_paginate @changes

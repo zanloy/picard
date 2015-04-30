@@ -14,7 +14,7 @@ table[class='table table-striped']
         - date = item.when.to_date
         tr
           td.text-center colspan='6'
-            h5 = date.strftime('%m/%d/%Y')
+            h5 = date.strftime('%A, %m/%d/%Y')
       tr[id="item_#{item[:id]}"]
         td
           - if item.subscribed? @current_user[:id]

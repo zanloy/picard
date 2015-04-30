@@ -1,6 +1,6 @@
 = simple_form_for @user, wrapper: :horizontal_form do |u|
   = u.input :name
   = u.input :email
-  = u.input :new_password, label: 'Password'
+  = u.input :new_password, label: 'Password', required: true
   .col-sm-offset-3.col-sm-9
     = u.submit class: 'btn btn-primary'

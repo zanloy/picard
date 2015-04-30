@@ -56,9 +56,8 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     # Validate the only omniauth logins are allowed from sparcedge.com
     if auth.info.email.split('@')[1] != 'sparcedge.com'
-      redirect_to signin_path, notice: 'You must use an @sparcedge.com for Google Auth login.'
+      redirect_to signin_path, alert: 'You must use an @sparcedge.com for Google Auth login.'
     end
-    #where(email: auth.info.email, provider: auth.provider, uid: auth.uid).first_or_initialize.tap do |user|
     where(email: auth.info.email).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid

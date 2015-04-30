@@ -2,9 +2,8 @@
   = u.input :name
   = u.input :new_password
   - if is_admin?
-    .col-sm-offset-3.col-sm-9
-      = u.input :enabled
-      = u.input :admin
+    = u.input :enabled
+    = u.input :admin
   h2 Profile
   = u.simple_fields_for :profile_attributes, @user.profile do |p|
     = p.input :company
@@ -15,11 +14,8 @@
   h2 Notifications
   = u.simple_fields_for :notification_attributes, @user.notification do |n|
     - if is_admin? and @user.admin
-      .col-sm-offset-3.col-sm-9
-        = n.input :on_new_user, label: 'Email on new user sign-up'
-    .col-sm-offset-3.col-sm-9
-      = n.input :on_new_change, label: 'Email on new change'
-    .col-sm-offset-3.col-sm-9
-      = n.input :on_new_event, label: 'Email on new event'
+      = n.input :on_new_user, label: 'On new user'
+    = n.input :on_new_change, label: 'On new change'
+    = n.input :on_new_event, label: 'On new event'
   .col-sm-offset-3.col-sm-9
     = u.submit class: 'btn btn-primary'

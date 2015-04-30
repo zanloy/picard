@@ -56,7 +56,7 @@ class EngineeringChange < ActiveRecord::Base
   end
 
   def all_tags
-    self.tags.map(&:name).join(', ')
+    self.tags.map(&:name).sort.join(', ')
   end
 
   private

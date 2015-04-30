@@ -4,7 +4,7 @@
     = f.label :when, class: 'col-sm-3 control-label'
     .col-sm-9
       = f.datetime_select :when
-  = f.association :environment
+  = f.association :environment, include_blank: false
   = f.input :title
   = f.input :all_tags, label: 'Tags', placeholder: 'comma separated list of tags'
   .form-group

@@ -54,7 +54,7 @@ RSpec.describe EngineeringChangesController, type: :controller do
 
         it "redirects to the created change" do
           post :create, {engineering_change:  attributes_for(:engineering_change)}, @session
-          expect(response).to redirect_to(engineering_changes_url)
+          expect(response).to redirect_to(engineering_change_url(EngineeringChange.last))
         end
       end
 

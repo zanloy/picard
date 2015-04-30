@@ -15,6 +15,7 @@ FactoryGirl.define do
     end
 
     trait :invalid do
+      name nil
       email nil
     end
   end
