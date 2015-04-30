@@ -6,7 +6,9 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'capybara/rails'
 require 'ffaker'
+require 'support/factory_girl'
 require 'support/controller_macros'
+require 'support/features'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -50,9 +52,6 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
-
-  # To use factory_girl to mock models for testing
-  config.include FactoryGirl::Syntax::Methods
 
   # Include controller macros for login testing
   config.extend ControllerMacros, type: :controller

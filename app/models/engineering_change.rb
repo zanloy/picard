@@ -1,5 +1,7 @@
 class EngineeringChange < ActiveRecord::Base
 
+  after_create :send_notifications
+
   # Associations
   belongs_to :entered_by, class_name: User
   belongs_to :poc, class_name: User
@@ -57,4 +59,13 @@ class EngineeringChange < ActiveRecord::Base
     self.tags.map(&:name).join(', ')
   end
 
+  private
+
+  def send_notifications
+    Notification.where(on_new_change: true).each do |notification|
+      if notification.user != self.entered_by
+        NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, self)
+      end
+    end
+  end
 end

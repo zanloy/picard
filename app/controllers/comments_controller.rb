@@ -8,11 +8,6 @@ class CommentsController < ApplicationController
     parameters[:user_id] = @current_user.id
     @comment = @commentable.comments.build(parameters)
     if @comment.save
-      @commentable.subscriptions.each do |subscription|
-        if subscription.user != @current_user
-          NewCommentEmailJob.set(wait: 20.seconds).perform_later(subscription.user, @comment)
-        end
-      end
       redirect_to :back, notice: 'Comment saved.'
     else
       redirect_to :back, error: 'There was an error while trying to save your comment.'

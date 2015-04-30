@@ -3,6 +3,7 @@ require 'bcrypt'
 class User < ActiveRecord::Base
 
   before_create :build_profile, :build_notification
+  after_create :send_notifications
 
   # Associations
   has_one :profile, autosave: true, dependent: :destroy
@@ -73,6 +74,12 @@ class User < ActiveRecord::Base
 
   def hash_new_password
     self.hashed_password = BCrypt::Password.create(@new_password)
+  end
+
+  def send_notifications
+    Notification.where(on_new_user: true).each do |notification|
+      NewUserEmailJob.set(wait: 20.seconds).perform_later(notification.user, self)
+    end
   end
 
 end

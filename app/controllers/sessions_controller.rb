@@ -3,16 +3,11 @@ class SessionsController < ApplicationController
   skip_before_filter :store_path, :require_login
 
   def login
-    render layout: 'login'
   end
 
   def disabled
     user = current_user
-    if user and user.enabled
-      redirect_to root_path
-    else
-      render layout: 'login'
-    end
+    redirect_to root_path if user and user.enabled
   end
 
   def login_attempt
@@ -25,7 +20,7 @@ class SessionsController < ApplicationController
         redirect_to root_path
       end
     else
-      redirect_to signin_path, error: 'Login failed.'
+      redirect_to signin_path, alert: 'Login failed.'
     end
   end
 

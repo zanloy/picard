@@ -29,11 +29,6 @@ class EngineeringChangesController < ApplicationController
           end
         rescue
         end
-        Notification.where(on_new_change: true).each do |notification|
-          if notification.user != @current_user
-            NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, @change)
-          end
-        end
         format.html { redirect_to engineering_changes_path }
         format.json { render :show, status: :created, location: @change }
       else

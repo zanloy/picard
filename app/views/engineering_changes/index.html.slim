@@ -1,11 +1,10 @@
 h1 Changes
 div[class='quickadd']
-  = form_for(EngineeringChange.new, html: { class: 'form-inline' }) do |f|
-    div[class='form-group']
-      = f.collection_select :environment_id, Environment.all, :id, :name, {}, { class: 'form-control' }
-      = f.text_field :title, { class: 'form-control input-large', placeholder: 'Change'}
-      = f.text_field :all_tags, { class: 'form-control', placeholder: 'Tags'}
-      = f.submit 'Quick Add', { class: 'btn btn-primary' }
+  = simple_form_for(EngineeringChange.new, html: { class: 'form form-inline' }, wrapper: :inline_form) do |f|
+    = f.association :environment
+    = f.input :title, placeholder: 'Change'
+    = f.input :all_tags, placeholder: 'Tags'
+    = f.submit 'Quick Add', { class: 'btn btn-primary' }
 
 = render('table')
 

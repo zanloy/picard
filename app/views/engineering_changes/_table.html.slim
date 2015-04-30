@@ -18,10 +18,11 @@ table[class='table table-striped']
             = link_to engineering_change_subscriptions_path(item), method: :post do
               i.glyphicon.glyphicon-heart-empty
         td[class='text-nowrap'] #{item.when.strftime('%m/%d/%Y @ %l:%M%P')}
-        - if item.environment
-          td[class='text-nowrap'] #{link_to(item.environment.name, environment_path(item.environment))}
-        - else
-          td[class='text-nowrap'] &nbsp;
+        td[class='text-nowrap']
+          - if item.environment
+            = link_to(item.environment.name, environment_path(item.environment))
+          - else
+            | &nbsp;
         td
           = link_to(item.title, engineering_change_path(item))
           - if item.has_description? or item.has_comments?
@@ -31,4 +32,8 @@ table[class='table table-striped']
               - if item.has_comments?
                 i.glyphicon.glyphicon-comment>
         td #{item.all_tags}
-        td[class='text-nowrap'] #{link_to(item.poc.name_or_email, user_path(item.poc))}
+        td[class='text-nowrap']
+          - if item.poc
+            = link_to(item.poc.name_or_email, user_path(item.poc))
+          - else
+            | &nbsp;

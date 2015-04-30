@@ -17,7 +17,6 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-    render layout: 'login' if not @current_user
   end
 
   def create
@@ -25,10 +24,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        Notification.where(on_new_user: true).each do |notification|
-          NewUserEmailJob.set(wait: 20.seconds).perform_later(notification.user, @user)
-        end
-        if @current_user
+        if current_user
           format.html { redirect_to user_path(@user) }
         else
           session[:user_id] = @user.id

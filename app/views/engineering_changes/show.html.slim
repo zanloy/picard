@@ -15,7 +15,7 @@ h1
 br
 .row
   .col-sm-2.text-right Who:
-  .col-sm-10 #{@change.poc.name}
+  .col-sm-10 #{@change.poc.name if @change.poc}
 br
 .row.
   .col-sm-2.text-right When:
@@ -23,7 +23,7 @@ br
 br
 .row
   .col-sm-2.text-right Where:
-  .col-sm-10 #{@change.environment.name}
+  .col-sm-10 #{@change.environment.name if @change.environment}
 br
 .row
   .col-sm-2.text-right Tags:
@@ -32,7 +32,7 @@ br
 .row
   .col-sm-2.text-right How:
   .col-sm-10 #{simple_format(@change.description)}
-- if is_admin? || @current_user == @change.poc
+- if is_admin? || @change.poc == @current_user
   br
   .row
     .col-sm-offset-2.col-sm-10.button_row

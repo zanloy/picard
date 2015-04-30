@@ -10,13 +10,13 @@ html
           td #{link_to @change.title, engineering_change_url(@change)}
         tr
           td Who:
-          td #{@change.poc.name_or_email}
+          td #{@change.poc.name_or_email if @change.poc}
         tr
           td When:
           td #{@change.when}
         tr
           td Where:
-          td #{@change.environment.name}
+          td #{@change.environment.name if @change.environment}
         tr
           td Tags:
           td #{@change.all_tags}

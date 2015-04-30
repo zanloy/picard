@@ -1,16 +1,6 @@
-= form_for @user, html: { class: 'form form-horizontal' } do |u|
-  .form-group
-    = u.label :email, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = u.text_field :email, class: 'form-control'
-  .form-group
-    = u.label :new_password, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = u.password_field :new_password, class: 'form-control'
-  .form-group
-    = u.label :name, class: 'col-sm-2 control-label'
-    .col-sm-10
-      = u.text_field :name, class: 'form-control'
-  .form-group
-    .col-sm-offset-2.col-sm-10
-      = u.submit class: 'btn btn-primary'
+= simple_form_for @user, wrapper: :horizontal_form do |u|
+  = u.input :name
+  = u.input :email
+  = u.input :new_password, label: 'Password'
+  .col-sm-offset-3.col-sm-9
+    = u.submit class: 'btn btn-primary'
