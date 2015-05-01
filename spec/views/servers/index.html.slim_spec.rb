@@ -1,28 +1,42 @@
 require 'rails_helper'
 
-RSpec.describe "servers/index", type: :view do
-  before(:each) do
-    assign(:servers, [
-      Server.create!(
-        :name => "Name",
-        :environment_id => nil,
-        :ip_address => "Ip Address",
-        :ports => "Ports"
-      ),
-      Server.create!(
-        :name => "Name",
-        :environment_id => nil,
-        :ip_address => "Ip Address",
-        :ports => "Ports"
-      )
-    ])
+RSpec.describe 'servers/index', type: :view do
+  before do
+    controller.singleton_class.class_eval do
+      protected
+      def is_admin?
+        true
+      end
+      helper_method :is_admin?
+    end
   end
 
-  it "renders a list of servers" do
+  before(:each) do
+    @servers = []
+    @environments = create_pair(:environment)
+    @environments.each do |environment|
+      3.times do
+        @servers << create(:server, environment_id: environment.id)
+      end
+    end
+    assign(:servers, @servers)
     render
-    assert_select "tr>td", :text => "Name".to_s, :count => 2
-    assert_select "tr>td", :text => nil.to_s, :count => 2
-    assert_select "tr>td", :text => "Ip Address".to_s, :count => 2
-    assert_select "tr>td", :text => "Ports".to_s, :count => 2
+  end
+
+  it 'renders the environments' do
+    @environments.each do |environment|
+      assert_select 'h2', text: environment.name
+    end
+  end
+
+  it 'renders values' do
+    @servers.each do |server|
+      assert_select "tr#server_#{server.id}" do
+        assert_select 'td', text: server.name
+        assert_select 'td', text: server.environment.name
+        assert_select 'td', text: server.ip_address
+        assert_select 'td', text: server.ports
+      end
+    end
   end
 end

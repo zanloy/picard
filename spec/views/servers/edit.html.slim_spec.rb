@@ -1,27 +1,21 @@
 require 'rails_helper'
 
-RSpec.describe "servers/edit", type: :view do
+RSpec.describe 'servers/edit', type: :view do
   before(:each) do
-    @server = assign(:server, Server.create!(
-      :name => "MyString",
-      :environment_id => nil,
-      :ip_address => "MyString",
-      :ports => "MyString"
-    ))
-  end
-
-  it "renders the edit server form" do
+    @environment = create(:environment)
+    @server = assign(:server, build(:server, environment_id: @environment.id))
     render
-
-    assert_select "form[action=?][method=?]", server_path(@server), "post" do
-
-      assert_select "input#server_name[name=?]", "server[name]"
-
-      assert_select "input#server_environment_id_id[name=?]", "server[environment_id_id]"
-
-      assert_select "input#server_ip_address[name=?]", "server[ip_address]"
-
-      assert_select "input#server_ports[name=?]", "server[ports]"
-    end
   end
+
+  it 'renders the _form partial' do
+    expect(response).to render_template(partial: '_form')
+  end
+
+  it 'pre-populates the form' do
+    assert_select 'input#server_name[name=?]', 'server[name]', value: @server.name
+    assert_select 'select#server_environment_id[name=?]', 'server[environment_id]', value: @environment.name
+    assert_select 'input#server_ip_address[name=?]', 'server[ip_address]', value: @server.ip_address
+    assert_select 'input#server_ports[name=?]', 'server[ports]', value: @server.ports
+  end
+
 end

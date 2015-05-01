@@ -21,20 +21,24 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(create_params)
+    if create_params[:email] =~ /.*@sparcedge.com/i
+      redirect_to signin_path, alert: 'Use the Sign in with Google link to setup your sparcedge.com account.'
+    else
+      @user = User.create(create_params)
 
-    respond_to do |format|
-      if @user.save
-        if current_user
-          format.html { redirect_to user_path(@user) }
+      respond_to do |format|
+        if @user.save
+          if current_user
+            format.html { redirect_to user_path(@user) }
+          else
+            session[:user_id] = @user.id
+            format.html { redirect_to root_path }
+          end
+          format.json { render :show, status: :created, location: @user }
         else
-          session[:user_id] = @user.id
-          format.html { redirect_to root_path }
+          format.html { render :new, alert: @user.errors.values.flatten.join('. ') }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
         end
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new, alert: @user.errors.values.flatten.join('. ') }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end

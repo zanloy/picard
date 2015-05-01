@@ -1,8 +1,8 @@
-= simple_form_for(@server, wrapper: :horizontal_form) do |f|
+= simple_form_for @server do |f|
   = f.input :name
   = f.association :environment
   = f.input :ip_address
   = f.input :ports
   .form-group
-    .col-sm-offset-3.col-sm-10
-      = f.button :submit
+    .col-sm-offset-3.col-sm-9
+      = f.submit class: 'btn btn-primary'

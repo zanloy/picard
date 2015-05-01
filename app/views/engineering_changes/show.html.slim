@@ -1,4 +1,4 @@
-h1
+h1.col-md-offset-3.col-md-9
   ' Engineering Change Details
   .pull-right
     - if @change.subscribed? @current_user[:id]
@@ -37,8 +37,8 @@ br
   br
   .row
     .col-sm-offset-3.col-sm-9.button_row
-      = button_to 'Edit', edit_engineering_change_path, { method: :get, class: 'btn btn-primary', role: 'button' }
-      = button_to 'Delete', engineering_change_path, { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
+      = button_to 'Edit', edit_engineering_change_path(@change), { method: :get, class: 'btn btn-primary', role: 'button' }
+      = button_to 'Delete', engineering_change_path(@change), { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
 
 h2 Comments
 br

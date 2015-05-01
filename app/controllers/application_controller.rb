@@ -10,8 +10,9 @@ class ApplicationController < ActionController::Base
   def is_admin?
     if @current_user && @current_user.admin
       return true
+    else
+      return false
     end
-    return false
   end
 
   def require_admin

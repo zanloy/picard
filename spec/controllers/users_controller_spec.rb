@@ -55,6 +55,12 @@ RSpec.describe UsersController, type: :controller do
           expect(response).to redirect_to(User.last)
         end
       end
+      context 'with sparcedge.com email address' do
+        it 'should redirect to signin_path with error' do
+          post :create, {user: attributes_for(:user, email: 'user@sparcedge.com')}
+          expect(response).to redirect_to(signin_path)
+        end
+      end
       context 'with invalid params' do
         it 'assigns a newly created but unsaved user as @user' do
           post :create, {user: attributes_for(:user, :invalid)}, @session

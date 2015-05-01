@@ -1,35 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe "engineering_changes/_table", type: :view do
+RSpec.describe 'engineering_changes/_table', type: :view do
 
   before(:each) {
-    @current_user = User.first
+    @current_user = create(:user)
     assign(:current_user, @current_user)
-    @environment = Environment.create!({name: 'Test Environment'})
-    @changes = [
-      EngineeringChange.create!(
-        entered_by_id: @current_user.id,
-        poc_id: @current_user.id,
-        when: Time.now,
-        environment_id: @environment.id,
-        title: 'Log Item #1',
-        description: 'Log Item #1 Description',
-      ),
-      EngineeringChange.create!(
-        entered_by_id: @current_user.id,
-        poc_id: @current_user.id,
-        when: Time.now,
-        environment_id: @environment.id,
-        title: 'Log Item #2',
-        description: 'Log Item #2 Description',
-      ),
-    ]
+    @environment = create(:environment)
+    @changes = create_pair(:engineering_change, poc_id: @current_user.id, environment_id: @environment.id)
     assign(:changes, @changes)
     render partial: 'table'
   }
 
-  describe 'rendering changes' do
-
+  describe 'rendering the partial' do
     it 'renders all records in a table' do
       @changes.each do |change|
         assert_select 'tr' do
@@ -51,7 +33,5 @@ RSpec.describe "engineering_changes/_table", type: :view do
     it 'contains a link to the change' do
       expect(rendered).to have_link(@changes.first.title, href: engineering_change_path(@changes.first))
     end
-
   end
-
 end
