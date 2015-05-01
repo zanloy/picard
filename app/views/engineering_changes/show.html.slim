@@ -46,7 +46,7 @@ br
   .row
     .col-sm-3.text-right #{comment.user.name_or_email}
     .col-sm-9 #{comment.comment}
-  - if comment.user = @current_user
+  - if comment.user == @current_user
     .row
       .col-sm-9.text-right
         = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
