@@ -1,68 +1,71 @@
-h1 #{@user.name_or_email}
-
-- if is_admin_or_self?
-  .pull-right
-    = link_to 'Edit', edit_user_path(@user)
-h2 Profile
+.col-md-offset-2.col-md-10
+  h1
+    = @user.name_or_email
+    - if is_admin_or_self?
+      .pull-right
+        = button_to 'Edit', edit_user_path(@user), { method: :get, class: 'btn btn-primary' }
+.col-md-offset-2.col-md-10
+  h3 Profile
 .row
   .col-sm-3.text-right Name:
   .col-sm-9
-    strong #{@user.name}
+    strong = @user.name
 br
 .row
   .col-sm-3.text-right Email:
   .col-sm-9
-    strong #{@user.email}
+    strong == display_email(@user.email)
 - if is_admin_or_self?
   br
   .row
     .col-sm-3.text-right APIKey:
-    .col-sm-8
-      strong #{@user.profile.apikey}
-    .col-sm-1.text-right
-      = button_to 'Generate', user_generate_apikey_path(@user), method: :get
+    .col-sm-9
+      .pull-right
+        = button_to 'Generate', user_generate_apikey_path(@user), method: :get
+      strong = @user.profile.apikey
 br
 .row
   .col-sm-3.text-right Company:
   .col-sm-9
-    strong #{@user.profile.company}
+    strong = @user.profile.company
 br
 .row
   .col-sm-3.text-right Phone:
   .col-sm-9
-    strong #{@user.profile.phone}
+    strong = display_phone_number(@user.profile.phone)
 br
 .row
   .col-sm-3.text-right IM Address:
   .col-sm-9
-    strong #{@user.profile.im_address}
+    strong = @user.profile.im_address
 br
 .row
   .col-sm-3.text-right VA Email:
   .col-sm-9
-    strong #{@user.profile.va_email}
+    strong = @user.profile.va_email
 br
 .row
   .col-sm-3.text-right Alternative Contact:
   .col-sm-9
-    strong #{@user.profile.alternative_contact}
+    strong = @user.profile.alternative_contact
 br
 
-h2 Notifications
+.col-md-offset-2.col-md-10
+  h3 Notifications
 - if @user.admin
   .row
     .col-sm-3.text-right On New User:
-    .col-sm-9 == display_checkbox(@user.notification.on_new_user)
+    .col-sm-9 == check_box_icon(@user.notification.on_new_user)
   br
 .row
   .col-sm-3.text-right On New Change:
-  .col-sm-9 == display_checkbox(@user.notification.on_new_change)
+  .col-sm-9 == check_box_icon(@user.notification.on_new_change)
 br
 .row
   .col-sm-3.text-right On New Event:
-  .col-sm-9 == display_checkbox(@user.notification.on_new_event)
+  .col-sm-9 == check_box_icon(@user.notification.on_new_event)
 br
 
 
-h2 Recent Activity
-= render('engineering_changes/table')
+h3 Recent Activity
+== render('engineering_changes/table')

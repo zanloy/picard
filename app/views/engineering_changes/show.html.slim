@@ -1,56 +1,56 @@
-h1.col-md-offset-3.col-md-9
-  ' Engineering Change Details
-  .pull-right
+.row
+  h1.col-md-offset-1.col-md-1
     - if @change.subscribed? @current_user[:id]
       = link_to subscription_path(@change.subscription_for(@current_user[:id])), method: :delete do
-        i.glyphicon.glyphicon-heart
+        i.glyphicon.glyphicon-star
     - else
       = link_to engineering_change_subscriptions_path(@change), method: :post do
-        i.glyphicon.glyphicon-heart-empty
+        i.glyphicon.glyphicon-star-empty
+  h1.col-md-10
+    ' Engineering Change Details
+    .pull-right
+      - if is_admin? || @change.poc == @current_user
+        = button_to 'Edit', edit_engineering_change_path(@change), { method: :get, class: 'btn btn-primary', role: 'button' }
+        | &nbsp;
+        = button_to 'Delete', engineering_change_path(@change), { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
 
 br
 .row
   .col-sm-3.text-right What:
   .col-sm-9
-    strong #{@change.title}
+    strong = @change.title
 br
 .row
   .col-sm-3.text-right Who:
-  .col-sm-9 #{@change.poc.name if @change.poc}
+  .col-sm-9 == display_name(@change.poc) if @change.poc
 br
 .row.
   .col-sm-3.text-right When:
-  .col-sm-9 #{@change.when}
+  .col-sm-9 = @change.when
 br
 .row
   .col-sm-3.text-right Where:
-  .col-sm-9 #{@change.environment.name if @change.environment}
+  .col-sm-9 == display_environment(@change.environment) if @change.environment
 br
 .row
   .col-sm-3.text-right Tags:
-  .col-sm-9 #{@change.all_tags}
+  .col-sm-9 = @change.all_tags
 br
 .row
   .col-sm-3.text-right Description:
-  .col-sm-9 #{simple_format(@change.description)}
-- if is_admin? || @change.poc == @current_user
-  br
-  .row
-    .col-sm-offset-3.col-sm-9.button_row
-      = button_to 'Edit', edit_engineering_change_path(@change), { method: :get, class: 'btn btn-primary', role: 'button' }
-      = button_to 'Delete', engineering_change_path(@change), { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
+  .col-sm-9 == simple_format(@change.description)
 
 h2 Comments
 br
 - for comment in @change.comments.order(:created_at)
   .row
-    .col-sm-3.text-right #{comment.user.name_or_email}
-    .col-sm-9 #{comment.comment}
-  - if comment.user == @current_user
-    .row
-      .col-sm-9.text-right
-        = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
-         i.glyphicon.glyphicon-remove
+    .col-sm-3.text-right = comment.user.name_or_email
+    .col-sm-7
+      - if comment.user == @current_user
+        .pull-right
+          = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
+           == delete_icon
+      = comment.comment
   br
 br
 = form_for [@change, Comment.new], html: { class: 'form' } do |f|

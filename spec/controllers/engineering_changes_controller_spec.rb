@@ -125,7 +125,7 @@ RSpec.describe EngineeringChangesController, type: :controller do
     set_referer
 
     before(:each) do
-      @change = create(:engineering_change, poc_id: @user.id)
+      @change = create(:engineering_change, poc_id: @current_user.id)
     end
 
     describe "GET #edit" do

@@ -19,10 +19,10 @@ table[class='table table-striped']
         td
           - if item.subscribed? @current_user[:id]
             = link_to subscription_path(item.subscription_for(@current_user[:id])), method: :delete do
-              i.glyphicon.glyphicon-heart
+              i.glyphicon.glyphicon-star
           - else
             = link_to engineering_change_subscriptions_path(item), method: :post do
-              i.glyphicon.glyphicon-heart-empty
+              i.glyphicon.glyphicon-star-empty
         td[class='text-nowrap'] #{item.when.strftime('%l:%M%P')}
         td[class='text-nowrap']
           - if item.environment

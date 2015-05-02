@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   # Scopes
   scope :sorted, -> { order(:name) }
   scope :enabled, -> { where(enabled: true) }
+  scope :disabled, -> { where(enabled: false) }
 
   # Virtual attributes for password
   attr_accessor :new_password, :new_password_confirmation

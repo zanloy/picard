@@ -28,12 +28,15 @@ RSpec.feature "Engineering Changes Management", type: :feature do
 
     scenario 'using add new link' do
       visit new_engineering_change_path
-      select @user.name, from: 'POC'
+      select @current_user.name, from: 'POC'
       fill_in 'Title', with: 'Update AV'
+      fill_in 'Tags', with: 'av'
       click_on 'Create Engineering change'
 
       expect(current_path).to eq(engineering_change_path(EngineeringChange.last))
+      expect(page).to have_content(@current_user.name)
       expect(page).to have_content('Update AV')
+      expect(page).to have_content('av')
     end
   end
 end

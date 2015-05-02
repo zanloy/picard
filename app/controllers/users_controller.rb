@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   helper_method :is_admin_or_self?
 
   def index
-    @users = User.sorted
+    @users = User.enabled.sorted
   end
 
   def show

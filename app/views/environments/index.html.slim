@@ -1,7 +1,8 @@
-h1 Environments
-- if is_admin?
-  .pull-right
-    small #{link_to 'Add New', new_environment_path}
+h1
+  - if is_admin?
+    .pull-right
+      = button_to 'Add New', new_environment_path, { method: :get, class: 'btn btn-primary' }
+  ' Environments
 table[class='table table-hover']
   thead
     tr

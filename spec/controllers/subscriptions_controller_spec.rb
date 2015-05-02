@@ -30,14 +30,14 @@ RSpec.describe SubscriptionsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested subscription" do
-      subscription = subscribable.subscriptions.create!({ user_id: @user.id })
+      subscription = subscribable.subscriptions.create!({ user_id: @current_user.id })
       expect {
         delete :destroy, {id: subscription.to_param}, @session
       }.to change {Subscription.count}.by(-1)
     end
 
     it "redirects to the servers list" do
-      subscription = subscribable.subscriptions.create!({ user_id: @user.id })
+      subscription = subscribable.subscriptions.create!({ user_id: @current_user.id })
       delete :destroy, {id: subscription.to_param}, @session
       expect(response).to redirect_to(:back)
     end

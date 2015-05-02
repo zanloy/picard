@@ -8,12 +8,13 @@ RSpec.describe UsersController, type: :controller do
 
     before(:each) do
       @created_user = create(:user)
+      @disabled_user = create(:user, :disabled)
     end
 
     describe 'GET #index' do
-      it 'assigns all users as @users' do
+      it 'assigns enabled users as @users' do
         get :index, {}, @session
-        expect(assigns(:users)).to match_array([@user, @created_user])
+        expect(assigns(:users)).to match_array([@current_user, @created_user])
       end
     end
 

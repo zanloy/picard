@@ -1,27 +1,3 @@
 h1 Users
-.pull-right
-  small #{link_to 'Add New', new_user_path}
-table[class='table table-hover']
-  thead
-    tr
-      th Name
-      th Email
-      th Enabled
-      th Admin
-      - if is_admin?
-        th Edit
-        th Delete
-  tbody
-    - for user in @users
-      tr[id="user_#{user[:id]}"]
-        td #{link_to user.name, user_path(user)}
-        td #{user.email}
-        td == display_checkbox(user.enabled)
-        td == display_checkbox(user.admin)
-        - if is_admin?
-          td
-            = link_to edit_user_path(user) do
-              i.glyphicon.glyphicon-edit
-          td
-            = link_to user, data: { method: 'delete', confirm: 'Are you sure?' } do
-              i.glyphicon.glyphicon-remove
+
+== render partial: 'table', object: @users

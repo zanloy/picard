@@ -8,23 +8,23 @@ module ControllerMacros
 
   def login_admin
     before(:each) do
-      @user = create(:user, :admin)
-      @session = { user_id: @user.id }
+      @current_user = create(:user, :admin)
+      @session = { user_id: @current_user.id }
     end
   end
 
   def login_user
     before(:each) do
-      @user = create(:user)
-      @session = { user_id: @user.id }
+      @current_user = create(:user)
+      @session = { user_id: @current_user.id }
     end
   end
 
   def login_disabled
     before(:each) do
-      @user = create(:user, :disabled)
-      @session = { user_id: @user.id }
+      @current_user = create(:user, :disabled)
+      @session = { user_id: @current_user.id }
     end
   end
-  
+
 end

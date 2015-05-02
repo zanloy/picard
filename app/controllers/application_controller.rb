@@ -25,17 +25,6 @@ class ApplicationController < ActionController::Base
     'active' if controller_name == controller
   end
 
-  def display_checkbox(value)
-    case value
-    when true
-      '<i class="glyphicon glyphicon-check"></i>'
-    when false
-      '<i class="glyphicon glyphicon-unchecked"></i>'
-    else
-      ''
-    end
-  end
-
   private
 
   def current_user

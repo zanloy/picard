@@ -43,7 +43,7 @@ RSpec.describe CommentsController, type: :controller do
     describe "DELETE #destroy" do
 
       before(:each) do
-        @comment = create(:comment, commentable: commentable, user: @user)
+        @comment = create(:comment, commentable: commentable, user: @current_user)
       end
 
       it "destroys the requested comment" do
@@ -88,7 +88,7 @@ RSpec.describe CommentsController, type: :controller do
     end
     describe "DELETE #destroy" do
       before(:each) do
-        @comment = create(:comment, commentable: commentable, user: @user)
+        @comment = create(:comment, commentable: commentable, user: @current_user)
       end
       it "destroys the requested comment" do
         expect {

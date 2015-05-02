@@ -7,15 +7,16 @@ module Features
       click_on 'Create Account'
     end
 
-    def sign_in(admin = false)
+    def sign_in(role = :user)
       before(:each) do
-        if admin
-          @user = create(:user, :admin, new_password: '1qazxsw2#EDCVFR$')
+        case role
+        when :admin
+          @current_user = create(:user, :admin, new_password: '1qazxsw2#EDCVFR$')
         else
-          @user = create(:user, new_password: '1qazxsw2#EDCVFR$')
+          @current_user = create(:user, new_password: '1qazxsw2#EDCVFR$')
         end
         visit signin_path
-        fill_in 'Email', with: @user.email
+        fill_in 'Email', with: @current_user.email
         fill_in 'Password', with: '1qazxsw2#EDCVFR$'
         click_on 'Sign in'
       end

@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   resources :subscriptions, only: [:index, :destroy]
   resources :sessions, only: [:login, :create, :destroy]
 
+  get 'admin', to: 'admin#index'
+  get 'admin/enable_user/:user_id', to: 'admin#enable_user', as: :enable_user
+
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signin', to: 'sessions#login', as: 'signin'
