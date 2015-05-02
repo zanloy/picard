@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 20150428145733) do
     t.string   "commentable_type", null: false
     t.integer  "user_id",          null: false
     t.text     "comment",          null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20150428145733) do
   create_table "environments", force: :cascade do |t|
     t.string   "name",                    null: false
     t.string   "domain",     default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "environments", ["name"], name: "index_environments_on_name", using: :btree
@@ -83,15 +83,14 @@ ActiveRecord::Schema.define(version: 20150428145733) do
 
   create_table "profiles", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "apikey"
     t.string   "address"
     t.string   "company"
     t.string   "phone"
     t.string   "alternative_contact"
     t.string   "im_address"
     t.string   "va_email"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
@@ -101,8 +100,8 @@ ActiveRecord::Schema.define(version: 20150428145733) do
     t.integer  "environment_id"
     t.string   "ip_address"
     t.string   "ports"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "servers", ["environment_id"], name: "index_servers_on_environment_id", using: :btree
@@ -111,8 +110,8 @@ ActiveRecord::Schema.define(version: 20150428145733) do
     t.integer  "subscribable_id",   null: false
     t.string   "subscribable_type", null: false
     t.integer  "user_id",           null: false
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "subscriptions", ["subscribable_type", "subscribable_id"], name: "index_subscriptions_on_subscribable_type_and_subscribable_id", using: :btree
@@ -122,8 +121,8 @@ ActiveRecord::Schema.define(version: 20150428145733) do
     t.integer  "taggable_id",   null: false
     t.string   "taggable_type", null: false
     t.integer  "tag_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
@@ -131,8 +130,8 @@ ActiveRecord::Schema.define(version: 20150428145733) do
 
   create_table "tags", force: :cascade do |t|
     t.string   "name",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", using: :btree
@@ -147,8 +146,8 @@ ActiveRecord::Schema.define(version: 20150428145733) do
     t.boolean  "admin",            default: false
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

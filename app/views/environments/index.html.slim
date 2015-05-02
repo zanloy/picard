@@ -11,8 +11,7 @@ table[class='table table-hover']
       th Servers
       th Logged Items
       - if is_admin?
-        th Edit
-        th Delete
+        th Actions
   tbody
     - for environment in @environments
       tr[id="environment_#{environment[:id]}"]
@@ -23,7 +22,7 @@ table[class='table table-hover']
         - if is_admin?
           td
             = link_to edit_environment_path(environment) do
-              i[class='glyphicon glyphicon-edit', aria-hidden='true']
-          td
+              == glyphicon :edit
+            | &nbsp;
             = link_to environment_path(environment), data: { method: :delete, confirm: 'Are you sure?' } do
-              i[class='glyphicon glyphicon-remove', aria-hidden='true']
+              == delete_icon
