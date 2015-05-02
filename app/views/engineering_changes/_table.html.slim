@@ -40,6 +40,6 @@ table[class='table table-striped']
         td #{item.all_tags}
         td[class='text-nowrap']
           - if item.poc
-            = link_to(item.poc.name_or_email, user_path(item.poc))
+            == display_name(item.poc)
           - else
             | &nbsp;

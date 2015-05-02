@@ -7,21 +7,22 @@ html
       tbody
         tr
           td What:
-          td #{link_to @change.title, engineering_change_url(@change)}
+          td = link_to @change.title, engineering_change_url(@change)
         tr
           td Who:
-          td #{@change.poc.name_or_email if @change.poc}
+          td = @change.poc.name_or_email if @change.poc
         tr
           td When:
-          td #{@change.when}
+          td = @change.when
         tr
           td Where:
-          td #{@change.environment.name if @change.environment}
+          td = @change.environment.name if @change.environment
         tr
           td Tags:
-          td #{@change.all_tags}
+          td = @change.all_tags
         tr
-          td Description:
-          td #{simple_format(@change.description)}
+          td style='vertical-align: text-top;'
+            Description:
+          td = simple_format @change.description
     p You received this email because you have asked to be notified on new changes.
       You can update your settings by clicking #{link_to 'here', user_url(@user)}

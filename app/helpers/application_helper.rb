@@ -30,6 +30,7 @@ module ApplicationHelper
   end
 
   def display_name(user)
+    return '' if user == nil
     if user.admin
       "#{glyphicon(:king)} #{link_to user.name, user_path(user)}"
     else
@@ -40,7 +41,7 @@ module ApplicationHelper
   def display_environment(environment)
     link_to environment.name, environment_path(environment)
   end
-  
+
   def display_email(value)
     return if value.nil? or value.empty?
     link_to value, "mailto:#{value}"

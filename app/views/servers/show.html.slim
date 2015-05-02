@@ -6,14 +6,14 @@ h1.col-md-offset-2.col-md-10
       = button_to 'Delete', server_path(@server), { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
   ' Server Details
 .row
-  .col-sm-3.text-right Name:
-  .col-sm-9 = @server.name
+  .col-md-3.text-right Name:
+  .col-md-9 = @server.name
 .row
-  .col-sm-3.text-right Environment:
-  .col-sm-9 = @server.environment.name if @server.environment
+  .col-md-3.text-right Environment:
+  .col-md-9 = @server.environment.name if @server.environment
 .row
-  .col-sm-3.text-right IP Address:
-  .col-sm-9 = @server.ip_address
+  .col-md-3.text-right IP Address:
+  .col-md-9 = @server.ip_address
 .row
-  .col-sm-3.text-right Ports:
-  .col-sm-9 = @server.ports
+  .col-md-3.text-right Ports:
+  .col-md-9 = @server.ports
