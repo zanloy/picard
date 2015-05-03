@@ -26,15 +26,11 @@ br
 br
 .row.
   .col-md-3.text-right When:
-  .col-md-9 = @change.when
+  .col-md-9 = @change.when.strftime('%A, %m/%d/%Y @ %l:%M%P')
 br
 .row
   .col-md-3.text-right Where:
   .col-md-9 == display_environment(@change.environment) if @change.environment
-br
-.row
-  .col-md-3.text-right Tags:
-  .col-md-9 = @change.all_tags
 br
 .row
   .col-md-3.text-right Description:

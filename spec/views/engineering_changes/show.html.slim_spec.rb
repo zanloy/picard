@@ -25,14 +25,13 @@ RSpec.describe 'engineering_changes/show.html.slim', type: :view do
     expect(rendered).to match(/Who/)
     expect(rendered).to match(/When/)
     expect(rendered).to match(/Where/)
-    expect(rendered).to match(/Tags/)
     expect(rendered).to match(/Description/)
   end
 
   it 'renders values' do
     expect(rendered).to have_content(@change.title)
     expect(rendered).to have_content(@poc.name)
-    expect(rendered).to have_content(@change.when)
+    expect(rendered).to have_content(@change.when.strftime('%A, %m/%d/%Y'))
     expect(rendered).to have_content(@environment.name)
     expect(rendered).to have_content(@change.description)
   end

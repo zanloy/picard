@@ -1,12 +1,15 @@
 h1 Changes
-row.quickadd
-  = simple_form_for(EngineeringChange.new, html: { class: 'form form-inline' }, wrapper: :inline_form) do |f|
+
+= form_for(EngineeringChange.new, html: { class: 'form form-horizontal' }) do |f|
+  row.quickadd
     = f.hidden_field :quick_add, value: true
-    = f.association :environment, include_blank: false
-    = f.input :title, placeholder: 'Change', input_html: { class: 'col-md-6' }
-    = f.input :all_tags, placeholder: 'Tags'
-    = f.submit 'Quick Add', { class: 'btn btn-primary' }
-    = f.submit 'Add Details', { class: 'btn btn-primary' }
+    .col-md-2.text-right
+      = f.collection_select :environment_id, Environment.all, :id, :name, {}, { class: 'form-control' }
+    .col-md-7
+      = f.text_field :title, { class: 'form-control input-large', placeholder: 'Change'}
+    .col-md-3
+      = f.submit 'Quick Add', { class: 'btn btn-primary' }
+      = f.submit 'Add Details', { class: 'btn btn-primary' }
 
 == render('table')
 

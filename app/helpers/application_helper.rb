@@ -47,6 +47,15 @@ module ApplicationHelper
     link_to value, "mailto:#{value}"
   end
 
+  def display_tags(item)
+    return if not item.respond_to? :tags
+    result = ''
+    item.tags.each do |tag|
+      result += "<span class='tag'>#{tag.name}</span> "
+    end
+    return result
+  end
+
   def display_phone_number(value)
     return if value.nil? or value.empty?
     link_to value, "tel:#{value}"

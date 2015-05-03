@@ -19,6 +19,16 @@ RSpec.describe EngineeringChange, type: :model do
     expect(build(:engineering_change, title: long_title)).to_not be_valid
   end
 
+  context 'on create' do
+    before(:each) { @change = create(:engineering_change, title: 'This is a #test #change #reboot #test') }
+    it 'creates tags' do
+      expect(Tag.count).to eq(3)
+    end
+    it 'associates tags with this change' do
+      expect(@change.taggings.count).to eq(3)
+    end
+  end
+
   context 'on destroy' do
     before(:each) do
       @user = create(:user)
@@ -71,26 +81,10 @@ RSpec.describe EngineeringChange, type: :model do
     end
   end
 
-  describe '#all_tags=' do
-    before(:each) { @change = create(:engineering_change) }
-    it 'creates tags for all values in comma separated string' do
-      expect{@change.all_tags = 'one, two, three'}.to change {Tag.count}.by(3)
-    end
-    it 'associates all tags with this change' do
-      expect{@change.all_tags = 'one, two, three'}.to change {Tagging.count}.by(3)
-    end
-    it 'combines tags if duplicated' do
-      expect{@change.all_tags = 'one, two, three, one'}.to change {Tag.count}.by(3)
-    end
-    it 'only creates a single tagging for duplicate tag' do
-      expect{@change.all_tags = 'one, two, three, one'}.to change {Tagging.count}.by(3)
-    end
-  end
-
-  describe '#all_tags' do
-    before(:each) { @change = create(:engineering_change, all_tags: 'three,two,one') }
-    it 'returns a comma separated list of associated tags' do
-      expect(@change.all_tags).to eq('one, three, two')
+  describe '#tags_csv' do
+    before(:each) { @change = create(:engineering_change, title: 'This is a #test #change #reboot #test') }
+    it 'returns a csv with associated tags' do
+      expect(@change.tags_csv).to eq('test, change, reboot')
     end
   end
 

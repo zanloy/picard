@@ -1,5 +1,6 @@
 class EngineeringChange < ActiveRecord::Base
 
+  after_save :tagify
   after_create :send_notifications
 
   # Associations
@@ -48,18 +49,29 @@ class EngineeringChange < ActiveRecord::Base
     end
   end
 
-  def all_tags=(names)
-    names = names.split(',').map { |x| x.strip }.uniq
-    self.tags = names.map do |name|
-      Tag.where(name: name.strip).first_or_create!
-    end
-  end
+  #def all_tags=(names)
+  #  names = names.split(',').map { |x| x.strip }.uniq
+  #  self.tags = names.map do |name|
+  #    Tag.where(name: name.strip).first_or_create!
+  #  end
+  #end
 
-  def all_tags
-    self.tags.map(&:name).sort.join(', ')
+  def tags_csv
+    self.tags.map(&:name).join(', ')
   end
 
   private
+
+  def tagify
+    words = self.title.split
+    hashtags = words.select { |word| word[0] == '#' }
+    tags = hashtags.uniq.map do |hashtag|
+      hashtag[0] = ''
+      Tag.where(name: hashtag.strip).first_or_create!
+    end
+    logger.debug "tags = #{tags.inspect}"
+    self.tags = tags
+  end
 
   def send_notifications
     Notification.where(on_new_change: true).each do |notification|
