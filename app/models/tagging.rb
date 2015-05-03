@@ -1,7 +1,7 @@
 class Tagging < ActiveRecord::Base
 
   # Associations
-  belongs_to :engineering_change
+  belongs_to :taggable, polymorphic: true
   belongs_to :tag
 
 end

@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   resources :subscriptions, only: [:index, :destroy]
   resources :sessions, only: [:login, :create, :destroy]
 
+  get 'tags', to: 'tags#index'
+  get 'tags/:name', to: 'tags#show', as: :tag
+
   get 'admin', to: 'admin#index'
   get 'admin/enable_user/:user_id', to: 'admin#enable_user', as: :enable_user
 

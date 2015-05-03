@@ -2,13 +2,21 @@ class Tag < ActiveRecord::Base
 
   # Associations
   has_many :taggings
-  has_many :log_items, through: :taggings
+  has_many :engineering_changes, through: :taggings
 
   # Validation
   validates_presence_of :name
   validates_uniqueness_of :name
 
   before_save :normalize
+
+  def to_param
+    name
+  end
+
+  def self.find(name)
+    self.find_by! name: name
+  end
 
   private
 

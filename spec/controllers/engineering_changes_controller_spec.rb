@@ -8,9 +8,9 @@ RSpec.describe EngineeringChangesController, type: :controller do
 
     describe "GET #index" do
       it "assigns all servers as @changes" do
-        change = create(:engineering_change)
+        changes = create_pair(:engineering_change)
         get :index, {}, @session
-        expect(assigns(:changes)).to eq([change])
+        expect(assigns(:changes)).to match_array(changes)
       end
     end
 

@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jqcloud
 //= require turbolinks
 //= require detect_timezone
 //= require jquery.detect_timezone

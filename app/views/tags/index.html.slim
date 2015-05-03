@@ -1,0 +1,10 @@
+javascript:
+  var word_list = #{raw @tags_with_weight.to_json}
+  $(function() {
+        // When DOM is ready, select the container element and call the jQCloud method, passing the array of words as the first argument.
+        $("#tag_cloud").jQCloud(word_list);
+  });
+
+h1.text-center Tag Cloud
+
+#tag_cloud

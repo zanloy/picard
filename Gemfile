@@ -70,6 +70,9 @@ gem 'strong_password', '~> 0.0.3'
 # Use simple forms for easy form generation
 gem 'simple_form'
 
+# Use jqcloud for word clouds
+gem "jqcloud-rails"
+
 group :production do
   gem 'rails_12factor'
 end

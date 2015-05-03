@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :tag do
-    name { FFaker::BaconIpsum.word }
+    name { FFaker::Lorem.word }
   end
 end
