@@ -1,2 +1,6 @@
-h1 Tags#show
-p Find me in app/views/tags/show.html.slim
+h1
+  ==> glyphicon :tag
+  = @tag.name
+
+h2 Changes
+== render 'engineering_changes/table'

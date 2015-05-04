@@ -1,8 +1,13 @@
 module EngineeringChangesHelper
 
-  def display_title(change)
-    result = link_to(change.title, engineering_change_path(change))
-    #change.tags.each { |tag| result += content_tag(:span, "##{tag.name} ", class: 'tag') }
+  def display_title(change, with_icon = true)
+    if with_icon
+      result = link_to glyphicon(:'folder-open'), engineering_change_path(change)
+      result += raw '&nbsp;'
+    else
+      result = ''
+    end
+    result += raw linkify_tags change.title
     return result
   end
 

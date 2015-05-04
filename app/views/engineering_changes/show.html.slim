@@ -16,20 +16,20 @@
 
 br
 .row
-  .col-md-3.text-right What:
+  .col-md-3.text-right Title:
   .col-md-9
-    strong = @change.title
+    strong == display_title @change, false
 br
 .row
-  .col-md-3.text-right Who:
+  .col-md-3.text-right POC:
   .col-md-9 == display_name(@change.poc) if @change.poc
 br
 .row.
-  .col-md-3.text-right When:
+  .col-md-3.text-right Date:
   .col-md-9 = @change.when.strftime('%A, %m/%d/%Y @ %l:%M%P')
 br
 .row
-  .col-md-3.text-right Where:
+  .col-md-3.text-right Environment:
   .col-md-9 == display_environment(@change.environment) if @change.environment
 br
 .row

@@ -9,33 +9,43 @@ html
     body
       - if @current_user
         nav[class='navbar navbar-inverse', role='navigation']
-          div[class='container-fluid']
-            div[class='navbar-header']
-              a[class='navbar-brand', href='/'] Picard
+          .container-fluid
+            .navbar-header
+              a [class='navbar-brand', href='/'] Picard
             div
               - if @current_user.enabled
-                ul[class='nav navbar-nav']
-                  li[class="dropdown #{is_active? 'engineering_changes'}"]
+                ul class='nav navbar-nav'
+                  li class="dropdown #{is_active? 'engineering_changes'}"
                     = link_to "Changes", engineering_changes_path
-                    ul[class='dropdown-menu']
+                    ul class='dropdown-menu'
                       li #{link_to 'Add New Change', new_engineering_change_path}
-                  li[class="#{is_active? 'environments'}"] #{link_to 'Environments', environments_path}
-                  li[class="#{is_active? 'servers'}"] #{link_to 'Servers', servers_path}
-                  li[class="#{is_active? 'users'}"] #{link_to 'Users', users_path}
+                  li class="#{is_active? 'environments'}" = link_to 'Environments', environments_path
+                  li class="#{is_active? 'servers'}" = link_to 'Servers', servers_path
+                  li class="#{is_active? 'admin'}"
+                    = link_to tags_path do
+                      ==> glyphicon :tag
+                      ' Tags
+                  li class="#{is_active? 'users'}"
+                    = link_to users_path do
+                      ==> glyphicon :user
+                      ' Users
                   - if is_admin?
-                    li[class="#{is_active? 'admin'}"] = link_to 'Admin', admin_path
-              div[class='nav navbar-nav navbar-right']
-                p[class='navbar-text']
+                    li class="#{is_active? 'admin'}"
+                      = link_to admin_path do
+                        ==> glyphicon :king
+                        ' Admin
+              .nav.navbar-nav.navbar-right
+                p class='navbar-text'
                   | Signed in as #{link_to @current_user.name_or_email, user_path(@current_user), class: 'text-muted'}. &nbsp;
                   = link_to signout_path, class: 'navbar-link' do
-                    i[class='glyphicon glyphicon-log-out']
+                    == glyphicon :'log-out'
 
-    div[class='container']
+    .container
       == render 'layouts/flash_messages'
       == yield
 
-    footer[class='footer']
-      div[class='container']
-        p[class='text-muted']
-          i>[class='glyphicon glyphicon-copyright-mark']
-          | 2015 Sparc, LLC
+    footer.footer
+      .container
+        p.text-muted
+          ==> glyphicon :'copyright-mark'
+          ' 2015 Sparc, LLC

@@ -21,10 +21,10 @@ RSpec.describe 'engineering_changes/show.html.slim', type: :view do
   end
 
   it 'renders attributes' do
-    expect(rendered).to match(/What/)
-    expect(rendered).to match(/Who/)
-    expect(rendered).to match(/When/)
-    expect(rendered).to match(/Where/)
+    expect(rendered).to match(/Title/)
+    expect(rendered).to match(/POC/)
+    expect(rendered).to match(/Date/)
+    expect(rendered).to match(/Environment/)
     expect(rendered).to match(/Description/)
   end
 

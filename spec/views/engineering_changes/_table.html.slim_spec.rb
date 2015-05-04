@@ -11,27 +11,29 @@ RSpec.describe 'engineering_changes/_table', type: :view do
     render partial: 'table'
   }
 
-  describe 'rendering the partial' do
-    it 'renders all records in a table' do
+  describe 'renders the records' do
+    it 'with the environment name' do
       @changes.each do |change|
-        assert_select 'tr' do
-          assert_select 'td', text: change.environment.name
-          assert_select 'td', text: change.title
-          assert_select 'td', text: change.poc.name
-        end
+        expect(rendered).to have_content(change.environment.name)
       end
     end
 
-    it 'displays the POC name' do
-      expect(rendered).to match @current_user.name
+    it 'with the change title' do
+      @changes.each do |change|
+        expect(rendered).to have_content(change.title)
+      end
     end
 
-    it 'displays the change title' do
-      expect(rendered).to match @changes.first.title
+    it 'with the POC name' do
+      @changes.each do |change|
+        expect(rendered).to have_content(change.poc.name)
+      end
     end
 
-    it 'contains a link to the change' do
-      expect(rendered).to have_link(@changes.first.title, href: engineering_change_path(@changes.first))
+    it 'with a link to the change' do
+      @changes.each do |change|
+        expect(rendered).to have_link(nil, href: engineering_change_path(change))
+      end
     end
-  end
+  end # describe 'renders the records'
 end

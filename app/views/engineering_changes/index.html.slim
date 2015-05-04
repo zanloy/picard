@@ -6,7 +6,7 @@ h1 Changes
     .col-md-2.text-right
       = f.collection_select :environment_id, Environment.all, :id, :name, {}, { class: 'form-control' }
     .col-md-7
-      = f.text_field :title, { class: 'form-control input-large', placeholder: 'Change'}
+      = f.text_field :title, { class: 'form-control input-large', placeholder: 'Change (use #hashtag to tag change)'}
     .col-md-3
       = f.submit 'Quick Add', { class: 'btn btn-primary' }
       = f.submit 'Add Details', { class: 'btn btn-primary' }
