@@ -29,6 +29,14 @@ class EngineeringChangesController < ApplicationController
           end
         rescue
         end
+        begin
+          if ENV['SLACK_WEBHOOK']
+            notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: ENV['SLACK_CHANNEL'], username: 'Jean Luc Picard'
+            notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}"
+          end
+        rescue => e
+          logger.debug e
+        end
         format.html do
           if from_quick_add?
             if add_details?

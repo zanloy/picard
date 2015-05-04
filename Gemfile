@@ -73,6 +73,9 @@ gem 'simple_form'
 # Use jqcloud for word clouds
 gem "jqcloud-rails"
 
+# Use slack-notifier to alert the slack channel of new changes
+gem 'slack-notifier'
+
 group :production do
   gem 'rails_12factor'
 end
