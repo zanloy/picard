@@ -4,3 +4,17 @@ h1
 
 h2 Changes
 == render 'engineering_changes/table'
+
+- if not @taggables[:comments].nil?
+  h2 Comments
+  table.table.table-striped
+    thead
+      th Who
+      th On
+      th Comment
+    tbody
+      - for taggable in @taggables[:comments]
+        tr
+          td == link_to taggable.user.name, user_path(taggable.user)
+          td == display_title taggable.commentable
+          td == linkify_tags(taggable.comment)

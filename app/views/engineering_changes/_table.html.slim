@@ -33,9 +33,9 @@ table[class='table table-striped']
           - if item.has_description? or item.has_comments?
             .pull-right
               - if item.has_description?
-                i.glyphicon.glyphicon-file>
+                ==> glyphicon :file
               - if item.has_comments?
-                i.glyphicon.glyphicon-comment>
+                ==> glyphicon :comment
         td[class='text-nowrap']
           - if item.poc
             = item.poc.name

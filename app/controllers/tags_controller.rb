@@ -14,12 +14,15 @@ class TagsController < ApplicationController
   def show
     @tag = Tag.find(name_param)
     @taggables = {
-      changes: []
+      changes: [],
+      comments: [],
     }
     @tag.taggings.each do |tagging|
       case tagging.taggable_type
       when 'EngineeringChange'
         @taggables[:changes] << tagging.taggable
+      when 'Comment'
+        @taggables[:comments] << tagging.taggable
       end
     end
     # TODO: remove once we move ec/table to accept :object

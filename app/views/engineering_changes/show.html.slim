@@ -46,7 +46,7 @@ br
         .pull-right
           = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
            == delete_icon
-      = comment.comment
+      == linkify_tags(comment.comment)
   br
 br
 = form_for [@change, Comment.new], html: { class: 'form' } do |f|

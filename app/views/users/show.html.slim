@@ -4,8 +4,9 @@
     - if is_admin_or_self?
       .pull-right
         = button_to 'Edit', edit_user_path(@user), { method: :get, class: 'btn btn-primary' }
-.col-md-offset-2.col-md-10
-  h3 Profile
+.row
+  .col-md-offset-2.col-md-10
+    h3 Profile
 .row
   .col-md-3.text-right Name:
   .col-md-9
@@ -50,8 +51,9 @@ br
     strong = @user.profile.alternative_contact
 br
 
-.col-md-offset-2.col-md-10
-  h3 Notifications
+.row
+  .col-md-offset-2.col-md-10
+    h3 Notifications
 - if @user.admin
   .row
     .col-md-3.text-right On New User:
@@ -67,5 +69,7 @@ br
 br
 
 
-h3 Recent Activity
+.row
+  .col-md-offset-2.col-md-10
+    h3 Recent Activity
 == render('engineering_changes/table')
