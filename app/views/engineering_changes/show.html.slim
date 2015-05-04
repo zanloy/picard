@@ -34,7 +34,7 @@ br
 br
 .row
   .col-md-3.text-right Description:
-  .col-md-9 == simple_format(@change.description)
+  .col-md-9 == simple_format(linkify_tags(@change.description))
 
 h2.col-md-offset-2.col-md-10 Comments
 br

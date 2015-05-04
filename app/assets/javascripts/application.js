@@ -11,10 +11,21 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery-ui
+//= autocomplete-rails
 //= require jqcloud
+//= require bootstrap-sprockets
+//= require jquery.datetimepicker
 //= require turbolinks
 //= require detect_timezone
 //= require jquery.detect_timezone
 //= require_tree .
+
+$(document).on("page:load ready", function(){
+    $("input.datepicker").datepicker();
+});
+
+$(document).on("page:load ready", function() {
+  $('input.datetimepicker').datetimepicker({format: "Y-m-d H:i", formatDate: 'm/d/Y', formatTime:'g:i a'});
+});

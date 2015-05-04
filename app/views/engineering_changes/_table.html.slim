@@ -22,7 +22,7 @@ table[class='table table-striped']
           - else
             = link_to engineering_change_subscriptions_path(item), method: :post do
               i.glyphicon.glyphicon-star-empty
-        td[class='text-nowrap'] #{item.when.strftime('%l:%M%P')}
+        td[class='text-nowrap'] #{item.when.strftime('%l:%M %P')}
         td[class='text-nowrap']
           - if item.environment
             = link_to(item.environment.name, environment_path(item.environment))

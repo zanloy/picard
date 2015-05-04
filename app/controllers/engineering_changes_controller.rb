@@ -21,41 +21,42 @@ class EngineeringChangesController < ApplicationController
     @change = EngineeringChange.new create_params
 
     respond_to do |format|
-      if @change.save
-        begin
-          @change.subscriptions.build({user_id: @current_user[:id]}).save
-          if @change[:poc_id] != @current_user[:id]
-            @change.subscriptions.build({user_id: @change[:poc_id]}).save
-          end
-        rescue
-        end
-        begin
-          if ENV['SLACK_WEBHOOK']
-            notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: ENV['SLACK_CHANNEL'], username: 'Jean Luc Picard'
-            if ENV['SLACK_ICON_URL']
-              notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_url: view_context.asset_url('img/picard_avatar.png')
-            else
-              notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_emoji: ':shipit:'
-            end
-          end
-        rescue => e
-          logger.debug e
-        end
-        format.html do
-          if from_quick_add?
-            if add_details?
-              redirect_to edit_engineering_change_path(@change)
-            else
-              redirect_to engineering_changes_path
-            end
-          else
-            redirect_to engineering_change_path(@change)
-          end
-        end
-        format.json { render :show, status: :created, location: @change }
+      if from_quick_add? and add_details?
+        @change.parse_title
+        format.html { render :new, location: @change }
       else
-        format.html { render :new, error: 'Saving change failed.' }
-        format.json { render json: @change.errors, status: :unprocessable_entity }
+        if @change.save
+          begin
+            @change.subscriptions.build({user_id: @current_user[:id]}).save
+            if @change[:poc_id] != @current_user[:id]
+              @change.subscriptions.build({user_id: @change[:poc_id]}).save
+            end
+          rescue
+          end
+          begin
+            if ENV['SLACK_WEBHOOK']
+              notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: ENV['SLACK_CHANNEL'], username: 'Jean Luc Picard'
+              if ENV['SLACK_ICON_URL']
+                notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_url: view_context.asset_url('img/picard_avatar.png')
+              else
+                notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_emoji: ':shipit:'
+              end
+            end
+          rescue => e
+            logger.debug e
+          end
+          format.html do
+            if from_quick_add?
+              redirect_to engineering_changes_path
+            else
+              redirect_to engineering_change_path(@change)
+            end
+          end
+          format.json { render :show, status: :created, location: @change }
+        else
+          format.html { render :new, error: 'Saving change failed.' }
+          format.json { render json: @change.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

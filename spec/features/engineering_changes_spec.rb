@@ -18,7 +18,7 @@ RSpec.feature "Engineering Changes Management", type: :feature do
       fill_in 'engineering_change_title', with: 'Yum Updates'
       click_on 'Add Details'
 
-      expect(current_path).to eq(edit_engineering_change_path(EngineeringChange.last))
+      expect(current_path).to eq(engineering_changes_path)
       expect(page).to have_selector("input[value='Yum Updates']")
     end
 

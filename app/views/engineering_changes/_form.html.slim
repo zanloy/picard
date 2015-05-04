@@ -1,9 +1,6 @@
 = simple_form_for @change do |f|
   = f.association :poc, label: 'POC'
-  .form-group
-    = f.label :when, class: 'col-md-3 control-label'
-    .col-md-9
-      = f.datetime_select :when
+  = f.input :when, as: :string, input_html: { value: @change.when.nil? ? '' : @change.when.strftime('%m/%d/%Y %l:%M %P'), class: 'datetimepicker'}
   = f.association :environment, include_blank: false
   = f.input :title
   .form-group

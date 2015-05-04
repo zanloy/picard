@@ -23,7 +23,7 @@ class TagsController < ApplicationController
       end
     end
     # TODO: remove once we move ec/table to accept :object
-    @changes = @taggables[:changes]
+    @changes = @taggables[:changes].reverse
   end
 
   private

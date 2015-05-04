@@ -67,6 +67,22 @@ RSpec.describe EngineeringChange, type: :model do
 
   describe '#subscription_for'
 
+  describe '#parse_title' do
+    it 'sets the environment based on text' do
+      environment = create(:environment, name: 'Pre-Prod')
+      change = create(:engineering_change, title: 'Testing in pre-prod')
+      expect(change.environment).to eq(environment)
+    end
+  end
+
+  describe '#tagify' do
+    it 'associates tags based on title' do
+      change = create(:engineering_change, title: 'This is a #test with #tags')
+      expect(Tag.all).not_to be_nil
+      expect(change.tags).to eq(Tag.all)
+    end
+  end
+
   describe '#subscribed?' do
     before(:each) do
       @user = create(:user)

@@ -48,9 +48,12 @@ gem 'slim-rails'
 # Use bootstrap css (http://getbootstrap.com)
 gem 'bootstrap-sass', '~> 3.3.4'
 
-# Use bootstrap-datepicker for date fields
-gem 'momentjs-rails', '>= 2.8.1'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+## Use bootstrap-datepicker for date fields
+#gem 'momentjs-rails', '>= 2.8.1'
+#gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+
+# Use jquery datetimepicker
+gem 'jquery-datetimepicker-rails'
 
 # Use will_paginate for pagination helpers
 gem 'will_paginate', '~> 3.0.5'
@@ -70,11 +73,17 @@ gem 'strong_password', '~> 0.0.3'
 # Use simple forms for easy form generation
 gem 'simple_form'
 
+# Use slack-notifier to alert the slack channel of new changes
+gem 'slack-notifier'
+
 # Use jqcloud for word clouds
 gem "jqcloud-rails"
 
-# Use slack-notifier to alert the slack channel of new changes
-gem 'slack-notifier'
+# Use jquery-ui for pretty ui shit
+gem 'jquery-ui-rails'
+
+# Use jquery autocomplete to make shit nice
+gem 'rails-jquery-autocomplete'
 
 group :production do
   gem 'rails_12factor'

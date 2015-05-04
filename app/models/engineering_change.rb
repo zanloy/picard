@@ -61,6 +61,19 @@ class EngineeringChange < ActiveRecord::Base
     self.tags.map(&:name).join(', ')
   end
 
+  def parse_title
+    return if self.title.nil?
+    words = self.title.split
+    # Test for environment
+    if in_position = words.index('in')
+      environment_str = words[in_position + 1]
+      logger.debug "environment_str = #{environment_str}"
+      if environment = Environment.where("name ilike '#{environment_str}'").first
+        self.environment = environment
+      end
+    end
+  end
+
   private
 
   def tagify
@@ -73,20 +86,6 @@ class EngineeringChange < ActiveRecord::Base
     end
     logger.debug "tags = #{tags.inspect}"
     self.tags = tags
-  end
-
-  def parse_title
-    return if self.title.nil?
-    words = self.title.split
-    # Test for environment
-    if in_position = words.index('in')
-      environment_str = words[in_position + 1]
-      logger.debug "environment_str = #{environment_str}"
-      if environment = Environment.where("name ilike '#{environment_str}'").first
-        self.environment = environment
-      end
-    end
-    # Finally save everything
   end
 
   def send_notifications
