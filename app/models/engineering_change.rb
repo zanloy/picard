@@ -1,5 +1,6 @@
 class EngineeringChange < ActiveRecord::Base
 
+  before_save :parse_title
   after_save :tagify
   after_create :send_notifications
 
@@ -64,6 +65,7 @@ class EngineeringChange < ActiveRecord::Base
 
   def tagify
     words = self.title.split
+    words += self.description.split if self.description != nil
     hashtags = words.select { |word| word[0] == '#' }
     tags = hashtags.uniq.map do |hashtag|
       hashtag[0] = ''
@@ -71,6 +73,20 @@ class EngineeringChange < ActiveRecord::Base
     end
     logger.debug "tags = #{tags.inspect}"
     self.tags = tags
+  end
+
+  def parse_title
+    return if self.title.nil?
+    words = self.title.split
+    # Test for environment
+    if in_position = words.index('in')
+      environment_str = words[in_position + 1]
+      logger.debug "environment_str = #{environment_str}"
+      if environment = Environment.where("name ilike '#{environment_str}'").first
+        self.environment = environment
+      end
+    end
+    # Finally save everything
   end
 
   def send_notifications
