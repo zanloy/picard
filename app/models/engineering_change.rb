@@ -67,7 +67,7 @@ class EngineeringChange < ActiveRecord::Base
     hashtags = words.select { |word| word[0] == '#' }
     tags = hashtags.uniq.map do |hashtag|
       hashtag[0] = ''
-      Tag.where(name: hashtag.strip).first_or_create!
+      Tag.where(name: hashtag.downcase.strip).first_or_create!
     end
     logger.debug "tags = #{tags.inspect}"
     self.tags = tags

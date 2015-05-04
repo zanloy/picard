@@ -32,7 +32,7 @@ module ApplicationHelper
   def linkify_tags(body)
     body.gsub(/#[\w]*/) do |hashtag|
       tag = hashtag[1..-1]
-      link_to(hashtag, tag_path(tag))
+      link_to(hashtag, tag_path(tag.downcase))
     end
   end
 
