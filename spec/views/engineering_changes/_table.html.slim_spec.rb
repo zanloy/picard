@@ -7,8 +7,7 @@ RSpec.describe 'engineering_changes/_table', type: :view do
     assign(:current_user, @current_user)
     @environment = create(:environment)
     @changes = create_pair(:engineering_change, poc_id: @current_user.id, environment_id: @environment.id)
-    assign(:changes, @changes)
-    render partial: 'table'
+    render partial: 'table', object: @changes
   }
 
   describe 'renders the records' do

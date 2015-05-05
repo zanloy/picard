@@ -4,7 +4,9 @@ class EngineeringChangesController < ApplicationController
   before_filter :require_permission_to_edit, only: [:edit, :update, :destroy]
 
   def index
+    #@changes = EngineeringChange.timeline.page(page_param)
     @changes = EngineeringChange.timeline.page(page_param)
+    @grouped_changes = @changes.group_by { |c| c.when.to_date }
   end
 
   def show

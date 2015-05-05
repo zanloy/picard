@@ -1,9 +1,13 @@
-h1
-  ==> glyphicon :tag
-  = @tag.name
+.row
+  .col-md-12
+    h1
+      ==> glyphicon :tag
+      = @tag.name
 
-h2 Changes
-== render 'engineering_changes/table'
+.row
+  .col-md-12
+    h2 Changes
+== render partial: 'engineering_changes/table', object: @changes
 
 - if not @taggables[:comments].nil?
   h2 Comments

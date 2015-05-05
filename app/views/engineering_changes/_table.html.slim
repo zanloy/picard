@@ -7,13 +7,7 @@ table[class='table table-striped']
       th[class='col-md-7'] What
       th Who
   tbody
-    - date = nil
-    - for item in @changes
-      - if date != item.when.to_date
-        - date = item.when.to_date
-        tr
-          td.text-center colspan='5'
-            h5 = date.strftime('%A, %m/%d/%Y')
+    - for item in table
       tr[id="item_#{item[:id]}"]
         td
           - if item.subscribed? @current_user[:id]
@@ -22,7 +16,11 @@ table[class='table table-striped']
           - else
             = link_to engineering_change_subscriptions_path(item), method: :post do
               i.glyphicon.glyphicon-star-empty
-        td[class='text-nowrap'] #{item.when.strftime('%l:%M %P')}
+        td.text-nowrap
+          - if defined?(shortdate)
+            = item.when.strftime('%l:%M %P')
+          - else
+            = item.when.strftime('%m/%d/%Y %l:%M %p')
         td[class='text-nowrap']
           - if item.environment
             = link_to(item.environment.name, environment_path(item.environment))
