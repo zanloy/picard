@@ -1,13 +1,6 @@
 h1 Changes
 
-row.quickadd
-  = form_for(EngineeringChange.new, html: { class: 'form form-horizontal' }) do |f|
-    = f.hidden_field :quick_add, value: true
-    .col-md-9
-      = f.text_field :title, { class: 'form-control input-large', placeholder: 'Change (tip: use "in pre-prod" to override the default of Production, use #hashtag to tag change)', autofocus: true }
-    .col-md-3
-      = f.submit 'Quick Add', { class: 'btn btn-primary' }
-      = f.submit 'Add Details', { class: 'btn btn-primary' }
+== render 'quickadd'
 
 - for date in @grouped_changes
   h4.text-center = date[0].strftime('%A, %m/%d/%Y')

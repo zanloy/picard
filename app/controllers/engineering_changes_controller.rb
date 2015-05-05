@@ -1,10 +1,9 @@
 class EngineeringChangesController < ApplicationController
 
-  before_filter :set_change, except: [:index, :new, :create]
+  before_filter :set_change, except: [:index, :new, :create, :quickadd]
   before_filter :require_permission_to_edit, only: [:edit, :update, :destroy]
 
   def index
-    #@changes = EngineeringChange.timeline.page(page_param)
     @changes = EngineeringChange.timeline.page(page_param)
     @grouped_changes = @changes.group_by { |c| c.when.to_date }
   end
@@ -85,6 +84,10 @@ class EngineeringChangesController < ApplicationController
       format.html { redirect_to engineering_changes_path, notice: 'Engineering change deleted.' }
       format.json { head :no_content }
     end
+  end
+
+  def quickadd
+    render layout: 'minimal'
   end
 
   private

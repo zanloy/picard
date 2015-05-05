@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   root 'engineering_changes#index'
 
+  get 'changes/quickadd', to: 'engineering_changes#quickadd'
   resources :engineering_changes, path: 'changes' do
     resources :comments, path: 'c', only: :create
     resources :subscriptions, path: 'subscribe', only: :create
