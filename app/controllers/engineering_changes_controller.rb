@@ -26,6 +26,7 @@ class EngineeringChangesController < ApplicationController
         @change.parse_title
         format.html { render :new, location: @change }
       else
+        @change.environment = Environment.first unless @change.environment
         if @change.save
           begin
             @change.subscriptions.build({user_id: @current_user[:id]}).save
@@ -36,7 +37,7 @@ class EngineeringChangesController < ApplicationController
           end
           begin
             if ENV['SLACK_WEBHOOK']
-              notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: ENV['SLACK_CHANNEL'], username: 'Jean Luc Picard'
+              notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: ENV['SLACK_CHANNEL'], username: 'Jean-Luc Picard'
               if ENV['SLACK_ICON_URL']
                 notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_url: view_context.asset_url('img/picard_avatar.png')
               else
