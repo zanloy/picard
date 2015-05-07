@@ -16,7 +16,7 @@ RSpec.describe 'engineering_changes/index', type: :view do
 
   before(:each) do
     assign(:current_user, create(:user))
-    assign(:grouped_changes, create_pair(:engineering_change).group_by { |c| c.when.to_date })
+    assign(:changes, create_pair(:engineering_change))
     render
   end
 

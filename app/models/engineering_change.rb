@@ -75,6 +75,15 @@ class EngineeringChange < ActiveRecord::Base
         self.environment = environment
       end
     end
+    ## Setup affects for tagged servers
+    #hashtags = words.select { |w| w[0] == '#' }
+    #hashtags.each do |hashtag|
+    #  hashtag[0] = ''
+    #  if server = Server.find_by_name(hashtag)
+    #    logger.debug "Found server with name #{hashtag} for change #{self.id}"
+    #    self.servers << server
+    #  end
+    #end
   end
 
   def affects?(server)
@@ -93,6 +102,9 @@ class EngineeringChange < ActiveRecord::Base
     hashtags = words.select { |word| word[0] == '#' }
     tags = hashtags.uniq.map do |hashtag|
       hashtag[0] = ''
+      if server = Server.where(environment: self.environment, name: hashtag.downcase.strip).first
+        self.servers << server
+      end
       Tag.where(name: hashtag.downcase.strip).first_or_create!
     end
     logger.debug "tags = #{tags.inspect}"
@@ -108,6 +120,8 @@ class EngineeringChange < ActiveRecord::Base
   end
 
   def validate_servers
-    self.servers = self.servers.where(environment_id: self.environment.id)
+    if self.environment
+      self.servers = self.servers.where(environment_id: self.environment.id)
+    end
   end
 end

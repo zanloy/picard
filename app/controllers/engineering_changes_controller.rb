@@ -24,6 +24,7 @@ class EngineeringChangesController < ApplicationController
     respond_to do |format|
       if from_quick_add? and add_details?
         @change.parse_title
+        @environments = Environment.all
         format.html { render :new, location: @change }
       else
         @change.environment = Environment.first unless @change.environment

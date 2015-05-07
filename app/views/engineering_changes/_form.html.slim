@@ -3,12 +3,19 @@
   = f.input :when, as: :string, input_html: { value: @change.when.nil? ? '' : @change.when.strftime('%Y-%m-%d %H:%M'), class: 'datetimepicker'}
   = f.input :title, { autofocus: true }
   = f.association :environment, include_blank: false
-  .col-md-3 Affected Servers:
-  .col-md-9
-    - for environment in @environments
-      ul id="env_#{environment.id}"
-        - for server in environment.servers
-          ==> label_tag server.name, raw("#{check_box_tag('engineering_change[server_ids][]', server.id, @change.affects?(server))} #{server.name}")
+  .form-group
+    label.col-sm-3.control-label Affected Servers
+    .col-md-9
+      - for environment in @environments
+        - servers = environment.servers.to_a
+        - total = servers.length
+        .row id="env_#{environment.id}"
+          - until servers.empty?
+            .col-md-3
+              - (total / 4.0).ceil.times
+                - if server = servers.shift
+                  == label_tag server.name, raw("#{check_box_tag('engineering_change[server_ids][]', server.id, @change.affects?(server))} #{server.name}")
+                  br
   .form-group
     = f.label :description, class: 'col-md-3 control-label'
     .col-md-9

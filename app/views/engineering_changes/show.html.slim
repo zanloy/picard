@@ -34,7 +34,9 @@ br
 br
 .row
   .col-md-3.text-right Affected Servers:
-  .col-md-9 == @change.servers.map{|s| s.name}.join(', ')
+  .col-md-9
+    - for server in @change.servers
+      => link_to(server.name, server_path(server))
 br
 .row
   .col-md-3.text-right Description:

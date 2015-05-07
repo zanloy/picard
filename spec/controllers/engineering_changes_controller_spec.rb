@@ -27,10 +27,10 @@ RSpec.describe EngineeringChangesController, type: :controller do
         get :new, {}, @session
         expect(assigns(:change)).to be_a_new(EngineeringChange)
       end
-      it 'assigns all servers as @servers' do
-        servers = create_pair(:server)
-        get :index, {}, @session
-        expect(assigns(:servers)).to match_array(servers)
+      it 'assigns all environments as @environments' do
+        environments = create_pair(:environment)
+        get :new, {}, @session
+        expect(assigns(:environments)).to match_array(environments)
       end
     end
 
@@ -40,10 +40,11 @@ RSpec.describe EngineeringChangesController, type: :controller do
         get :edit, {id: change.to_param}, @session
         expect(assigns(:change)).to eq(change)
       end
-      it 'assigns all servers as @servers' do
-        servers = create_pair(:server)
-        get :index, {}, @session
-        expect(assigns(:servers)).to match_array(servers)
+      it 'assigns all environments as @environments' do
+        change = create(:engineering_change)
+        environments = create_pair(:environment)
+        get :edit, {id: change.to_param}, @session
+        expect(assigns(:environments)).to match_array(environments)
       end
     end
 

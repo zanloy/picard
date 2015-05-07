@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'engineering_changes/_form', type: :view do
   it 'renders a change form' do
     assign(:change, build(:engineering_change))
+    assign(:environments, create_pair(:environment))
     render partial: 'form'
     assert_select 'form[action=?][method=?]', engineering_changes_path, 'post' do
       assert_select 'select#engineering_change_poc_id[name=?]', 'engineering_change[poc_id]'

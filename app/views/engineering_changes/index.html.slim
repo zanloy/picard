@@ -2,8 +2,9 @@ h1 Changes
 
 == render 'quickadd'
 
-- for date in @changes.group_by { |c| c.when.to_date }
-  h4.text-center = date[0].strftime('%A, %m/%d/%Y')
-  == render partial: 'table', object: date[1], locals: { shortdate: true }
+- if @changes
+  - for date in @changes.group_by { |c| c.when.to_date }
+    h4.text-center = date[0].strftime('%A, %m/%d/%Y')
+    == render partial: 'table', object: date[1], locals: { shortdate: true }
 
-.text-center = will_paginate @changes
+  .text-center = will_paginate @changes

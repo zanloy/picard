@@ -5,6 +5,7 @@ RSpec.describe 'engineering_changes/edit.html.slim', type: :view do
     @poc = create(:user)
     @environment = create(:environment)
     @change = assign(:change, build(:engineering_change, poc_id: @poc.id, environment_id: @environment.id))
+    assign(:environments, [@environment])
     render
   end
 
