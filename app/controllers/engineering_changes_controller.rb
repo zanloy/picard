@@ -5,7 +5,6 @@ class EngineeringChangesController < ApplicationController
 
   def index
     @changes = EngineeringChange.timeline.page(page_param)
-    @grouped_changes = @changes.group_by { |c| c.when.to_date }
   end
 
   def show
@@ -16,6 +15,7 @@ class EngineeringChangesController < ApplicationController
     @change[:poc_id] = session[:user_id]
     @change[:when] = Time.zone.now
     @pocs = User.enabled.sorted
+    @environments = Environment.all
   end
 
   def create
@@ -64,6 +64,7 @@ class EngineeringChangesController < ApplicationController
 
   def edit
     @pocs = User.enabled.sorted
+    @environments = Environment.all
   end
 
   def update
@@ -113,7 +114,7 @@ class EngineeringChangesController < ApplicationController
   end
 
   def create_params
-    p = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description, :all_tags)
+    p = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description, :server_ids => [])
     p[:entered_by_id] = session[:user_id]
     p[:poc_id] = session[:user_id] if (p[:poc_id].nil? or p[:poc_id].empty?)
     p[:when] = Time.now if not p.has_key? :when

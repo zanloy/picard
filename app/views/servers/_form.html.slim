@@ -1,6 +1,6 @@
 = simple_form_for @server do |f|
   = f.input :name
-  = f.association :environment
+  = f.association :environment, include_blank: false
   = f.input :ip_address
   = f.input :ports
   .form-group

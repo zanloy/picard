@@ -2,12 +2,15 @@ class EngineeringChange < ActiveRecord::Base
 
   before_save :parse_title
   after_save :tagify
+  after_save :validate_servers
   after_create :send_notifications
 
   # Associations
   belongs_to :entered_by, class_name: User
   belongs_to :poc, class_name: User
   belongs_to :environment
+  has_many :affections, as: :affectable, autosave: true
+  has_many :servers, through: :affections, autosave: true
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
   has_many :comments, as: :commentable, dependent: :destroy
@@ -74,6 +77,14 @@ class EngineeringChange < ActiveRecord::Base
     end
   end
 
+  def affects?(server)
+    if self.affections.where(server_id: server.id).count != 0
+      return true
+    else
+      return false
+    end
+  end
+
   private
 
   def tagify
@@ -94,5 +105,9 @@ class EngineeringChange < ActiveRecord::Base
         NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, self)
       end
     end
+  end
+
+  def validate_servers
+    self.servers = self.servers.where(environment_id: self.environment.id)
   end
 end

@@ -7,10 +7,10 @@ RSpec.describe EngineeringChangesController, type: :controller do
     set_referer
 
     describe "GET #index" do
-      it "assigns all servers as @changes" do
-        changes = create_pair(:engineering_change)
+      before(:each) { @changes = create_pair(:engineering_change) }
+      it "assigns all changes as @changes" do
         get :index, {}, @session
-        expect(assigns(:changes)).to match_array(changes)
+        expect(assigns(:changes)).to match_array(@changes)
       end
     end
 
@@ -27,6 +27,11 @@ RSpec.describe EngineeringChangesController, type: :controller do
         get :new, {}, @session
         expect(assigns(:change)).to be_a_new(EngineeringChange)
       end
+      it 'assigns all servers as @servers' do
+        servers = create_pair(:server)
+        get :index, {}, @session
+        expect(assigns(:servers)).to match_array(servers)
+      end
     end
 
     describe "GET #edit" do
@@ -34,6 +39,11 @@ RSpec.describe EngineeringChangesController, type: :controller do
         change = create(:engineering_change)
         get :edit, {id: change.to_param}, @session
         expect(assigns(:change)).to eq(change)
+      end
+      it 'assigns all servers as @servers' do
+        servers = create_pair(:server)
+        get :index, {}, @session
+        expect(assigns(:servers)).to match_array(servers)
       end
     end
 
