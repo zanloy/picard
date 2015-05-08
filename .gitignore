@@ -20,5 +20,6 @@
 
 # Ignore shared logs and sockets
 /shared
-/pids
-/socket
+/pids/*.pid
+/pids/*.state
+/socket/*.sock
