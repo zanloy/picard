@@ -13,7 +13,7 @@ class WebhooksController < ApplicationController
     words = payload[:text].split
     trigger_word = words.shift
     action = words.shift
-    body = words.join(' ')
+    body = words.join(' ') unless words.empty?
     case action
     when 'add'
       change = EngineeringChange.create({title: body, :when => Time.zone.now})
