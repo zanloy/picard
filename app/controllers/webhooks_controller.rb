@@ -12,6 +12,7 @@ class WebhooksController < ApplicationController
     end
     words = payload[:text].split
     trigger_word = words.shift
+    return if trigger_word != 'picard'
     action = words.shift
     body = words.join(' ') unless words.empty?
     case action
