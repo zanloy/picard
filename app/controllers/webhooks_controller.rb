@@ -25,7 +25,7 @@ class WebhooksController < ApplicationController
     when 'list'
       changes = EngineeringChange.timeline.limit(5)
       response_body = ''
-      change.each do |change|
+      changes.each do |change|
         response_body += "<#{engineering_change_url(change)}|#{change.title}>\n"
       end
       response = {text: response_body}
