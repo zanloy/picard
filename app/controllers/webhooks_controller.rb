@@ -22,6 +22,13 @@ class WebhooksController < ApplicationController
       else
         response = {text: 'Failed.'}
       end
+    when 'list'
+      changes = EngineeringChange.timeline.limit(5)
+      response_body = ''
+      change.each do |change|
+        response_body += "<#{engineering_change_url(change)}|#{change.title}>\n"
+      end
+      response = {text: response_body}
     end
     if response
       render text: response.to_json
