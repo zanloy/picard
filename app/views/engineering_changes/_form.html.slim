@@ -2,7 +2,7 @@
   = f.association :poc, label: 'POC'
   = f.input :when, as: :string, input_html: { value: @change.when.nil? ? '' : @change.when.strftime('%Y-%m-%d %H:%M'), class: 'datetimepicker'}
   = f.input :title, { autofocus: true }
-  = f.association :environment, include_blank: false
+  = f.association :environment, include_blank: false, collection: Environment.order(:id)
   .form-group
     label.col-sm-3.control-label Affected Servers
     .col-md-9
