@@ -1,14 +1,22 @@
 class WebhooksController < ApplicationController
 
+  skip_before_filter :store_path, :require_login
   skip_before_action :verify_authenticity_token
 
   def slack
     token = 'eKLjCtS6I102bLvvjPV0RYXt'
     payload = slack_params
-    action = payload.split.first
+    unless payload[:token] == token
+      render text:'Bad or missing token.'
+      return
+    end
+    words = payload[:text].split
+    trigger_word = words.shift
+    action = words.shift
+    body = words.join(' ')
     case action
     when 'add'
-      change = EngineeringChange.create {title: payload.text, when: Time.zone.now}
+      change = EngineeringChange.create({title: body, :when => Time.zone.now})
       if change.save
         response = {text: 'Success!'}
       else
@@ -18,14 +26,14 @@ class WebhooksController < ApplicationController
     if response
       render text: response.to_json
     else
-      render body: nocontent
+      head :no_content
     end
   end
 
   private
 
   def slack_params
-    params.permit(:token, :user_name, :text)
+    params.permit(:token, :user_name, :text, :trigger_word)
   end
 
 end
