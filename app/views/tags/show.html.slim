@@ -7,7 +7,7 @@
 .row
   .col-md-12
     h2 Changes
-== render partial: 'engineering_changes/table', object: @changes
+== render partial: 'engineering_changes/table', object: @taggables[:changes]
 
 - if not @taggables[:comments].nil?
   h2 Comments

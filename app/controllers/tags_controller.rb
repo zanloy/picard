@@ -25,8 +25,6 @@ class TagsController < ApplicationController
         @taggables[:comments] << tagging.taggable
       end
     end
-    # TODO: remove once we move ec/table to accept :object
-    @changes = @taggables[:changes].reverse
   end
 
   private

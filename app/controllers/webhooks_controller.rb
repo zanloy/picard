@@ -37,7 +37,7 @@ class WebhooksController < ApplicationController
       changes = EngineeringChange.timeline.limit(5)
       response_body = ''
       changes.each do |change|
-        response_body += "<#{engineering_change_url(change)}|#{change.title}>\n"
+        response_body += "#{change.when.strftime('%m/%d/%Y @ %H:%M')}<#{engineering_change_url(change)}|#{change.title}>\n"
       end
       response = {text: response_body}
     end
