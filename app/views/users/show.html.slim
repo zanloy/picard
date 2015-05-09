@@ -4,53 +4,68 @@
     - if is_admin_or_self?
       .pull-right
         = button_to 'Edit', edit_user_path(@user), { method: :get, class: 'btn btn-primary' }
+
 .row
   .col-md-offset-2.col-md-10
     h3 Profile
 .row
-  .col-md-3.text-right Name:
+  .col-md-3.text-right
+    strong Name:
   .col-md-9
-    strong = @user.name
+    = @user.name
 br
 .row
-  .col-md-3.text-right Email:
+  .col-md-3.text-right
+    strong Email:
   .col-md-9
-    strong == display_email(@user.email)
+    == display_email(@user.email)
+br
+.row
+  .col-md-3.text-right
+    strong Company:
+  .col-md-9
+    = @user.profile.company
+br
+.row
+  .col-md-3.text-right
+    strong Phone:
+  .col-md-9
+    = display_phone_number(@user.profile.phone)
+br
+.row
+  .col-md-3.text-right
+    strong IM Address:
+  .col-md-9
+    = @user.profile.im_address
+br
+.row
+  .col-md-3.text-right
+    strong VA Email:
+  .col-md-9
+    = @user.profile.va_email
+br
+.row
+  .col-md-3.text-right
+    strong Alternative Contact:
+  .col-md-9
+    = @user.profile.alternative_contact
+br
+.row
+  .col-md-3.text-right
+    strong Slack Username:
+  .col-md-9
+    = @user.profile.slack_username
 - if is_admin_or_self?
   br
   .row
-    .col-md-3.text-right APIKey:
+    .col-md-3.text-right
+      strong APIKey:
     .col-md-9
       .pull-right
         = button_to 'Generate', user_generate_apikey_path(@user), method: :get
-      strong = @user.profile.apikey
-br
-.row
-  .col-md-3.text-right Company:
-  .col-md-9
-    strong = @user.profile.company
-br
-.row
-  .col-md-3.text-right Phone:
-  .col-md-9
-    strong = display_phone_number(@user.profile.phone)
-br
-.row
-  .col-md-3.text-right IM Address:
-  .col-md-9
-    strong = @user.profile.im_address
-br
-.row
-  .col-md-3.text-right VA Email:
-  .col-md-9
-    strong = @user.profile.va_email
-br
-.row
-  .col-md-3.text-right Alternative Contact:
-  .col-md-9
-    strong = @user.profile.alternative_contact
-br
+      = @user.profile.apikey
 
+br
 .row
   .col-md-offset-2.col-md-10
     h3 Notifications

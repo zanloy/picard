@@ -11,6 +11,7 @@
     = p.input :im_address
     = p.input :va_email
     = p.input :alternative_contact
+    = p.input :slack_username
   h2 Notifications
   = u.simple_fields_for :notification_attributes, @user.notification do |n|
     - if is_admin? and @user.admin

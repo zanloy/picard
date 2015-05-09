@@ -6,6 +6,8 @@ FactoryGirl.define do
     enabled true
     admin false
 
+    profile
+
     trait :disabled do
       enabled false
     end
