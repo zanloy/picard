@@ -12,10 +12,18 @@ require 'rails_helper'
 # end
 RSpec.describe ApplicationHelper, type: :helper do
   describe '#flash_class' do
-    it 'responds to :notice'
-    it 'responds to :success'
-    it 'responds to :error'
-    it 'responds to :alert'
+    it 'responds to :notice' do
+      expect(helper.flash_class(:notice)).to eq 'alert alert-info'
+    end
+    it 'responds to :success' do
+      expect(helper.flash_class(:success)).to eq 'alert alert-success'
+    end
+    it 'responds to :error' do
+      expect(helper.flash_class(:error)).to eq 'alert alert-error'
+    end
+    it 'responds to :alert' do
+      expect(helper.flash_class(:alert)).to eq 'alert alert-error'
+    end
   end
 
   describe '#linkify_tags' do

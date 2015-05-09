@@ -18,7 +18,7 @@ ul class='nav nav-pills'
           th &nbsp;
       tbody
         - for user in @disabled_users
-          tr
+          tr id="user_#{user.id}"
             td = user.name
             td = user.email
             td.text-right
