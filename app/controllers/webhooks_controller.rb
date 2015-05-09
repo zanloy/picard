@@ -4,7 +4,7 @@ class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def slack
-    token = 'eKLjCtS6I102bLvvjPV0RYXt'
+    token = 'NSXsNGcOQZiz2FAad3s13bze'
     payload = slack_params
     logger.debug "WebhooksController#slack :: payload = #{payload.inspect}"
     unless payload[:token] == token
