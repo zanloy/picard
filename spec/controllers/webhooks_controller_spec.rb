@@ -16,31 +16,28 @@ RSpec.describe WebhooksController, type: :controller do
   describe 'POST #slack' do
     describe 'responds to add action' do
       it 'adds a change corrently' do
-        @user.profile.slack_username = 'test'
-        @user.profile.save
         post :slack, slack_add_payload
         expect(response.body).to match /Success/
       end
-#      it 'is invalid with a bad or missing token' do
-#        bad_payload = slack_add_payload
-#        bad_payload[:token] = nil
-#        post :slack, bad_payload
-#        expect(response.body).to match /Bad or missing token/
-#      end
-#      it 'is invalid without a matching username' do
-#        bad_payload = slack_add_payload
-#        bad_payload[:user_name] = 'qwerty'
-#        post :slack, bad_payload
-#        expect(response.body).to match /No matching username in database/
-#      end
+      it 'is invalid with a bad or missing token' do
+        slack_add_payload[:token] = nil
+        post :slack, slack_add_payload
+        expect(response.body).to match /Bad or missing token/
+      end
+      it 'is invalid without a matching username' do
+        slack_add_payload[:user_name] = 'qwerty'
+        post :slack, slack_add_payload
+        expect(response.body).to match /No matching username in database/
+      end
     end
 
     describe 'responds to list action' do
-#      it 'displays the latest changes' do
-#        changes = create_pair(:engineering_change)
-#        post :slack, { token: slack_add_payload[:token], text: 'picard list', trigger_word: 'picard' }
-#        expect(response.body).to match changes.first[:title]
-#      end
+      it 'displays the latest changes' do
+        changes = create_pair(:engineering_change)
+        post :slack, { token: slack_add_payload[:token], text: 'picard list', trigger_word: 'picard' }
+        expect(response.body).to match changes.first[:title]
+        expect(response.body).to match changes.last[:title]
+      end
     end
   end
 

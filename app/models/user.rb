@@ -2,7 +2,8 @@ require 'bcrypt'
 
 class User < ActiveRecord::Base
 
-  before_create :build_profile, :build_notification
+  before_create :build_profile, if: :missing_profile?
+  before_create :build_notification
   after_create :send_notifications
 
   # Associations
@@ -77,9 +78,15 @@ class User < ActiveRecord::Base
   end
 
   def send_notifications
-    Notification.where(on_new_user: true).each do |notification|
-      NewUserEmailJob.set(wait: 20.seconds).perform_later(notification.user, self)
+    if Rails.env != 'test'
+      Notification.where(on_new_user: true).each do |notification|
+        NewUserEmailJob.set(wait: 20.seconds).perform_later(notification.user, self)
+      end
     end
+  end
+
+  def missing_profile?
+    return self.profile.nil?
   end
 
 end

@@ -6,7 +6,9 @@ FactoryGirl.define do
     enabled true
     admin false
 
-    profile
+    after(:build) do |user|
+      user.profile ||= FactoryGirl.build(:profile)
+    end
 
     trait :disabled do
       enabled false
