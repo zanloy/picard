@@ -36,18 +36,6 @@ class EngineeringChangesController < ApplicationController
             end
           rescue
           end
-          begin
-            if ENV['SLACK_WEBHOOK']
-              notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: ENV['SLACK_CHANNEL'], username: 'Jean-Luc Picard'
-              if ENV['SLACK_ICON_URL']
-                notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_url: view_context.asset_url('img/picard_avatar.png')
-              else
-                notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_emoji: ':shipit:'
-              end
-            end
-          rescue => e
-            logger.debug e
-          end
           format.html do
             if from_quick_add?
               redirect_to engineering_changes_path

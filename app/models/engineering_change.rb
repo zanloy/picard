@@ -3,7 +3,7 @@ class EngineeringChange < ActiveRecord::Base
   before_save :parse_title
   after_save :tagify
   after_save :validate_servers
-  after_create :send_notifications
+  after_create :send_notifications, :notify_slack, :setup_subscriptions
 
   # Associations
   belongs_to :entered_by, class_name: User
@@ -116,6 +116,31 @@ class EngineeringChange < ActiveRecord::Base
       if notification.user != self.entered_by
         NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, self)
       end
+    end
+  end
+
+  def setup_subscriptions
+    begin
+      @change.subscriptions.build({user_id: @current_user[:id]}).save
+      if @change[:poc_id] != @current_user[:id]
+        @change.subscriptions.build({user_id: @change[:poc_id]}).save
+      end
+    rescue
+    end
+  end
+  
+  def notify_slack
+    begin
+      if ENV['SLACK_WEBHOOK']
+        notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: ENV['SLACK_CHANNEL'], username: 'Jean-Luc Picard'
+        if ENV['SLACK_ICON_URL']
+          notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_url: view_context.asset_url('img/picard_avatar.png')
+        else
+          notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}", icon_emoji: ':shipit:'
+        end
+      end
+    rescue => e
+      logger.debug e
     end
   end
 
