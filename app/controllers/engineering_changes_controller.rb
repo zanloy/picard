@@ -29,13 +29,6 @@ class EngineeringChangesController < ApplicationController
       else
         @change.environment = Environment.first unless @change.environment
         if @change.save
-          begin
-            @change.subscriptions.build({user_id: @current_user[:id]}).save
-            if @change[:poc_id] != @current_user[:id]
-              @change.subscriptions.build({user_id: @change[:poc_id]}).save
-            end
-          rescue
-          end
           format.html do
             if from_quick_add?
               redirect_to engineering_changes_path
