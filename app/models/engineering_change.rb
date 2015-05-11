@@ -120,19 +120,19 @@ class EngineeringChange < ActiveRecord::Base
   end
 
   def setup_subscriptions
-    begin
-      @change.subscriptions.build({user_id: @current_user[:id]}).save
-      unless @change[:poc_id] == @current_user[:id]
-        @change.subscriptions.build({user_id: @change[:poc_id]}).save
-      end
-    rescue
+    self.subscriptions.build({user_id: @current_user[:id]}).save
+    unless self[:poc_id] == @current_user[:id]
+      self.subscriptions.build({user_id: self[:poc_id]}).save
     end
   end
 
   def notify_slack
-    if ENV['SLACK_WEBHOOK']
-      notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK']
-      notifier.ping "New Change: #{view_context.link_to(self.title, engineering_change_url(self))}"
+    begin
+      if ENV['SLACK_WEBHOOK']
+        notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK']
+        notifier.ping "New Change: #{view_context.link_to(self.title, engineering_change_url(self))}"
+      end
+    rescue
     end
   end
 
