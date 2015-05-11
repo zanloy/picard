@@ -120,8 +120,8 @@ class EngineeringChange < ActiveRecord::Base
   end
 
   def setup_subscriptions
-    self.subscriptions.build({user_id: @current_user[:id]}).save
-    unless self[:poc_id] == @current_user[:id]
+    self.subscriptions.build({user: self.entered_by}).save
+    unless self[:poc] == self.entered_by
       self.subscriptions.build({user_id: self[:poc_id]}).save
     end
   end
