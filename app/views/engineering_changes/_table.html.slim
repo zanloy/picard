@@ -36,6 +36,6 @@ table[class='table table-striped']
                 ==> glyphicon :comment
         td[class='text-nowrap']
           - if item.poc
-            = item.poc.name
+            = link_to item.poc.name, user_path(item.poc)
           - else
             | &nbsp;
