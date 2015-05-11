@@ -4,7 +4,7 @@ RSpec.describe WebhooksController, type: :controller do
 
   let(:slack_add_payload) {
     {
-      token: 'eKLjCtS6I102bLvvjPV0RYXt',
+      token: ENV['SLACK_TOKENS'].split(',').first,
       user_name: 'tester',
       text: 'picard add This is a new change!',
       trigger_word: 'picard',

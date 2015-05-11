@@ -21,4 +21,8 @@ class Emailer < ActionMailer::Base
     mail(to: @user.email, subject: "New User: #{@new_user.name_or_email}")
   end
 
+  def account_enabled(user)
+    @user = user
+    mail(to: @user.email, subject: "Picard Account Enabled")
+  end
 end

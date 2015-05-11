@@ -78,7 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Settings for email
-  config.action_mailer.default_url_options = { host: 'picard.sparcedge.com' }
+  config.action_mailer.default_url_options = { protocol: 'https', host: 'picard.sparcedge.com' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',

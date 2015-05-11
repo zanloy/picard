@@ -3,6 +3,8 @@ todo:
   - gracefully error on item that has been deleted
   - fix css on forms with errors
   - write controller tests for json responses
-  - email on account enabled
+changelog:
+  v0.4:
+    - email on account enabled
 feedback:
   - subscribe to environment

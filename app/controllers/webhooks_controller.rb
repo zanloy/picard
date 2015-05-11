@@ -3,14 +3,11 @@ class WebhooksController < ApplicationController
   skip_before_filter :store_path, :require_login
   skip_before_action :verify_authenticity_token
 
+  before_filter :validate_token, only: :slack
+
   def slack
-    token = 'NSXsNGcOQZiz2FAad3s13bze'
     payload = slack_params
     logger.debug "WebhooksController#slack :: payload = #{payload.inspect}"
-    unless payload[:token] == token
-      render text: {text: 'Bad or missing token.'}.to_json
-      return
-    end
     unless payload[:trigger_word] == 'picard'
       render text: {text: 'Bad trigger word.'}.to_json
       return
@@ -37,7 +34,7 @@ class WebhooksController < ApplicationController
       changes = EngineeringChange.timeline.limit(5)
       response_body = ''
       changes.each do |change|
-        response_body += "#{change.when.strftime('%m/%d/%Y @ %H:%M')}<#{engineering_change_url(change)}|#{change.title}>\n"
+        response_body += "#{change.when.strftime('%D @ %I:%M %p')} : <#{engineering_change_url(change)}|#{change.title}>\n"
       end
       response = {text: response_body}
     end
@@ -49,6 +46,12 @@ class WebhooksController < ApplicationController
   end
 
   private
+
+  def validate_token
+    unless ENV['SLACK_TOKENS'].split(',').include? params[:token]
+      render text: {text: 'Bad or missing token.'}.to_json
+    end
+  end
 
   def slack_params
     params.permit(:token, :user_name, :text, :trigger_word)
