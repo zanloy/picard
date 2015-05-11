@@ -132,7 +132,7 @@ class EngineeringChange < ActiveRecord::Base
   def notify_slack
     if ENV['SLACK_WEBHOOK']
       notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK']
-      notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}"
+      notifier.ping "New Change: #{view_context.link_to(self.title, engineering_change_url(self))}"
     end
   end
 
