@@ -47,6 +47,8 @@ gem 'slim-rails'
 
 # Use bootstrap css (http://getbootstrap.com)
 gem 'bootstrap-sass', '~> 3.3.4'
+gem 'font-awesome-sass'
+gem 'bootstrap-social-rails'
 
 ## Use bootstrap-datepicker for date fields
 #gem 'momentjs-rails', '>= 2.8.1'
