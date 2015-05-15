@@ -1,6 +1,7 @@
 = simple_form_for @environment, wrapper: :horizontal_form do |f|
   = f.input :name
   = f.input :domain
+  = f.input :shortname, label: 'Short Name'
   .form-group
     .col-md-offset-3.col-md-10
       = f.submit class: 'btn btn-primary'

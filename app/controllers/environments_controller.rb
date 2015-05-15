@@ -62,7 +62,7 @@ class EnvironmentsController < ApplicationController
   end
 
   def create_params
-    params.require(:environment).permit(:name, :domain)
+    params.require(:environment).permit(:name, :domain, :shortname)
   end
 
 end
