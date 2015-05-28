@@ -70,8 +70,9 @@ class EngineeringChange < ActiveRecord::Base
     # Test for environment
     if in_position = words.index('in')
       environment_str = words[in_position + 1]
+      environment_str[0] = '' if environment_str[0] == '#'
       logger.debug "environment_str = #{environment_str}"
-      if environment = Environment.where("name ilike '#{environment_str}'").first
+      if environment = Environment.where("name ilike '#{environment_str}' or shortname ilike '#{environment_str}'").first
         self.environment = environment
       end
     end
@@ -129,7 +130,7 @@ class EngineeringChange < ActiveRecord::Base
   def notify_slack
     begin
       if ENV['SLACK_WEBHOOK']
-        notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK']
+        notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: '#general', username: 'Jean-Luc Picard'
         notifier.ping "New Change: #{view_context.link_to(self.title, engineering_change_url(self))}"
       end
     rescue
