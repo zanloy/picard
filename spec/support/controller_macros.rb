@@ -2,7 +2,7 @@ module ControllerMacros
 
   def set_referer
     before(:each) do
-        request.env["HTTP_REFERER"] = "http://test.host/"
+      request.env["HTTP_REFERER"] = "http://test.host/"
     end
   end
 
