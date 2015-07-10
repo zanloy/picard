@@ -100,7 +100,10 @@ group :development do
   gem 'guard-rspec'
   gem 'capistrano-rbenv'
   gem 'capistrano-file-permissions'
+  gem 'rb-readline'
   gem 'pry-coolline'
+  gem 'pry-rails'
+  gem 'awesome_print'
 end
 
 group :test, :development do

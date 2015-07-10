@@ -48,6 +48,7 @@ class WebhooksController < ApplicationController
   private
 
   def validate_token
+    return if Rails.env.test?
     unless ENV['SLACK_TOKENS'].split(',').include? params[:token]
       render text: {text: 'Bad or missing token.'}.to_json
     end

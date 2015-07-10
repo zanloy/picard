@@ -10,7 +10,6 @@ class EnvironmentsController < ApplicationController
   end
 
   def show
-    @servers = @environment.servers.order(:name).limit(25)
     @changes = @environment.engineering_changes.timeline.limit(5)
   end
 

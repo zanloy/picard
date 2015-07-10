@@ -11,21 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515223852) do
+ActiveRecord::Schema.define(version: 20150710164755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "affections", force: :cascade do |t|
-    t.integer  "affectable_id",   null: false
-    t.string   "affectable_type", null: false
-    t.integer  "server_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "affections", ["affectable_type", "affectable_id"], name: "index_affections_on_affectable_type_and_affectable_id", using: :btree
-  add_index "affections", ["server_id"], name: "index_affections_on_server_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   null: false
@@ -109,17 +98,6 @@ ActiveRecord::Schema.define(version: 20150515223852) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
-  create_table "servers", force: :cascade do |t|
-    t.string   "name",           null: false
-    t.integer  "environment_id"
-    t.string   "ip_address"
-    t.string   "ports"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "servers", ["environment_id"], name: "index_servers_on_environment_id", using: :btree
-
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "subscribable_id",   null: false
     t.string   "subscribable_type", null: false
@@ -166,7 +144,6 @@ ActiveRecord::Schema.define(version: 20150515223852) do
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
-  add_foreign_key "affections", "servers"
   add_foreign_key "engineering_changes", "environments"
   add_foreign_key "notifications", "users"
 end

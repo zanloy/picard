@@ -2,15 +2,12 @@ class EngineeringChange < ActiveRecord::Base
 
   before_save :parse_title
   after_save :tagify
-  after_save :validate_servers
   after_create :send_notifications, :notify_slack, :setup_subscriptions
 
   # Associations
   belongs_to :entered_by, class_name: User
   belongs_to :poc, class_name: User
   belongs_to :environment
-  has_many :affections, as: :affectable, autosave: true
-  has_many :servers, through: :affections, autosave: true
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
   has_many :comments, as: :commentable, dependent: :destroy
@@ -98,9 +95,6 @@ class EngineeringChange < ActiveRecord::Base
     hashtags = words.select { |word| word[0] == '#' }
     tags = hashtags.uniq.map do |hashtag|
       hashtag.gsub!(/[^a-zA-Z0-9]/, '')
-      if server = Server.where(environment: self.environment, name: hashtag.downcase.strip).first
-        self.servers << server
-      end
       Tag.where(name: hashtag.downcase.strip).first_or_create!
     end
     logger.debug "tags = #{tags.inspect}"
@@ -132,9 +126,4 @@ class EngineeringChange < ActiveRecord::Base
     end
   end
 
-  def validate_servers
-    if self.environment
-      self.servers = self.servers.where(environment_id: self.environment.id)
-    end
-  end
 end

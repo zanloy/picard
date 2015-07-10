@@ -22,7 +22,6 @@ html
                       ul class='dropdown-menu'
                         li #{link_to 'Add New Change', new_engineering_change_path}
                     li class="#{is_active? 'environments'}" = link_to 'Environments', environments_path
-                    li class="#{is_active? 'servers'}" = link_to 'Servers', servers_path
                     li class="#{is_active? 'tags'}"
                       = link_to tags_path do
                         ==> glyphicon :tag

@@ -4,19 +4,6 @@
   = f.input :title, { autofocus: true }
   = f.association :environment, include_blank: false, collection: Environment.order(:id)
   .form-group
-    label.col-sm-3.control-label Affected Servers
-    .col-md-9
-      - for environment in @environments
-        - servers = environment.servers.to_a
-        - total = servers.length
-        .row id="env_#{environment.id}"
-          - until servers.empty?
-            .col-md-3
-              - (total / 4.0).ceil.times
-                - if server = servers.shift
-                  == label_tag server.name, raw("#{check_box_tag('engineering_change[server_ids][]', server.id, @change.affects?(server))} #{server.name}")
-                  br
-  .form-group
     = f.label :description, class: 'col-md-3 control-label'
     .col-md-9
       = f.text_area :description, { class: 'form-control', rows: 25, placeholder: 'Full Description' }

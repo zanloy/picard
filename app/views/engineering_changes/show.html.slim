@@ -33,12 +33,6 @@ br
   .col-md-9 == display_environment(@change.environment) if @change.environment
 br
 .row
-  .col-md-3.text-right Affected Servers:
-  .col-md-9
-    - for server in @change.servers
-      => link_to(server.name, server_path(server))
-br
-.row
   .col-md-3.text-right Description:
   .col-md-9 == simple_format(linkify_tags(@change.description))
 
