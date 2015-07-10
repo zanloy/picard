@@ -96,8 +96,11 @@ group :development do
   gem 'spring'
   # Deploy with capistrano!
   gem 'capistrano-rails'
+  # Use guard for continous testing
+  gem 'guard-rspec'
   gem 'capistrano-rbenv'
   gem 'capistrano-file-permissions'
+  gem 'pry-coolline'
 end
 
 group :test, :development do
@@ -109,10 +112,8 @@ group :test, :development do
   gem 'factory_girl_rails'
   # Use ffaker gem to generate fake data for testing
   gem 'ffaker'
-  # Use guard for continous testing
-  gem 'guard-rspec'
   # Display notifications in mac os x
-  gem 'ruby_gntp'
+  #gem 'ruby_gntp'
   gem 'launchy'
   # Used to truncate databases between tests
   gem 'database_cleaner'

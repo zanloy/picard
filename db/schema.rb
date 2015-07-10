@@ -64,7 +64,6 @@ ActiveRecord::Schema.define(version: 20150515223852) do
     t.text     "description"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.string   "shortname"
   end
 
   add_index "engineering_changes", ["entered_by_id"], name: "index_engineering_changes_on_entered_by_id", using: :btree

@@ -27,7 +27,7 @@ table[class='table table-striped']
           - else
             | &nbsp;
         td
-          == display_title(item)
+          = link_to item.title, engineering_change_path(item)
           - if item.has_description? or item.has_comments?
             .pull-right
               - if item.has_description?

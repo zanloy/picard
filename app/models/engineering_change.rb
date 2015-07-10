@@ -68,23 +68,18 @@ class EngineeringChange < ActiveRecord::Base
     return if self.title.nil?
     words = self.title.split
     # Test for environment
-    if in_position = words.index('in')
-      environment_str = words[in_position + 1]
-      environment_str[0] = '' if environment_str[0] == '#'
-      logger.debug "environment_str = #{environment_str}"
-      if environment = Environment.where("name ilike '#{environment_str}' or shortname ilike '#{environment_str}'").first
-        self.environment = environment
+    words.each_with_index do |word, index|
+      if word == 'in'
+        # Get the next word
+        environment_str = words[index + 1]
+        # Remove punctuation etc
+        environment_str.gsub!(/[^a-zA-Z0-9\-_]/, '')
+        logger.debug "environment_str = #{environment_str}"
+        if environment = Environment.where("name ilike '#{environment_str}' or shortname ilike '#{environment_str}'").first
+          self.environment = environment
+        end
       end
     end
-    ## Setup affects for tagged servers
-    #hashtags = words.select { |w| w[0] == '#' }
-    #hashtags.each do |hashtag|
-    #  hashtag[0] = ''
-    #  if server = Server.find_by_name(hashtag)
-    #    logger.debug "Found server with name #{hashtag} for change #{self.id}"
-    #    self.servers << server
-    #  end
-    #end
   end
 
   def affects?(server)
@@ -102,7 +97,7 @@ class EngineeringChange < ActiveRecord::Base
     words += self.description.split if self.description != nil
     hashtags = words.select { |word| word[0] == '#' }
     tags = hashtags.uniq.map do |hashtag|
-      hashtag[0] = ''
+      hashtag.gsub!(/[^a-zA-Z0-9]/, '')
       if server = Server.where(environment: self.environment, name: hashtag.downcase.strip).first
         self.servers << server
       end
@@ -129,7 +124,7 @@ class EngineeringChange < ActiveRecord::Base
 
   def notify_slack
     begin
-      if ENV['SLACK_WEBHOOK']
+      if ENV.has_key? 'SLACK_WEBHOOK'
         notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: '#general', username: 'Jean-Luc Picard'
         notifier.ping "New Change: #{view_context.link_to(self.title, engineering_change_url(self))}"
       end
