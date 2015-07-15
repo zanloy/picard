@@ -16,23 +16,36 @@ RSpec.describe "admin/index.html.slim", type: :view do
   end
 
   before(:each) do
-    @enabled_users = create_pair(:user)
-    @disabled_users = create_pair(:user, :disabled)
-    assign(:enabled_users, @enabled_users)
-    assign(:disabled_users, @disabled_users)
+    @enabled_users = assign(:enabled_users, create_pair(:user))
+    @disabled_users = assign(:disabled_users, create_pair(:user, :disabled))
+    @banned_users = assign(:banned_users, create_pair(:user, :banned))
     render
   end
 
   it 'displays enabled users' do
     @enabled_users.each do |user|
-      assert_select 'tr', id: "user_#{user.id}"
+      assert_select 'tr', id: "user_#{user.id}" do
+        assert_select 'td', user.name
+        assert_select 'td', user.email
+      end
     end
   end
 
   it 'displays disabled users' do
     @disabled_users.each do |user|
-      assert_select 'tr', id: "user_#{user.id}"
+      assert_select 'tr', id: "user_#{user.id}" do
+        assert_select 'td', user.name
+        assert_select 'td', user.email
+      end
     end
   end
 
+  it 'displays banned users' do
+    @banned_users.each do |user|
+      assert_select 'tr', id: "user_#{user.id}" do
+        assert_select 'td', user.name
+        assert_select 'td', user.email
+      end
+    end
+  end
 end

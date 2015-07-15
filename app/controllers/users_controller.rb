@@ -106,6 +106,7 @@ class UsersController < ApplicationController
       end
       if is_admin?
         whitelist[:enabled] = params[:user][:enabled]
+        whitelist[:banned] = params[:user][:banned]
         whitelist[:admin] = params[:user][:admin]
         if params[:user].has_key? :notification_attributes
           whitelist[:notification_attributes][:on_new_user] = params[:user][:notification_attributes][:on_new_user] if @user.admin

@@ -3,8 +3,9 @@ class AdminController < ApplicationController
   before_filter :require_admin
 
   def index
-    @disabled_users = User.all.disabled
     @enabled_users = User.enabled.sorted
+    @disabled_users = User.all.disabled
+    @banned_users = User.banned.sorted
   end
 
   def enable_user
