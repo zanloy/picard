@@ -8,20 +8,8 @@ ul class='nav nav-pills'
 
 .tab-content
   .tab-pane.fade.in.active id='enabled_users'
-    == render partial: 'users/table', object: @enabled_users
+    = render partial: 'users/table', object: @enabled_users
   .tab-pane.fade id='disabled_users'
-    table class='table table-hover'
-      thead
-        tr
-          th Name
-          th Email
-          th &nbsp;
-      tbody
-        - for user in @disabled_users
-          tr id="user_#{user.id}"
-            td = user.name
-            td = user.email
-            td.text-right
-              = button_to 'Enable', enable_user_path(user), {method: :get, class: 'btn btn-primary', id: "enable_user_#{user.id}", role: 'button'}
-              | &nbsp;
-              = button_to 'Delete', user_path(user), {method: :delete, class: 'btn btn-danger', id: "delete_user_#{user.id}", role: 'button'}
+    = render partial: 'simple_user_table', object: @disabled_users, as: 'users'
+  .tab-pane.fade id='banned_users'
+    = render partial: 'simple_user_table', object: @banned_users, as: 'users'

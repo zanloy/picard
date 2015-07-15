@@ -14,6 +14,10 @@ FactoryGirl.define do
       enabled false
     end
 
+    trait :banned do
+      banned true
+    end
+
     trait :admin do
       admin true
     end

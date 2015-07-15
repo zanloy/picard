@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
         format.html { redirect_to signin_path }
         format.json { render nothing: true, status: :unauthorized }
       end
-    elsif user.enabled == false
+    elsif user.enabled? == false
       respond_to do |format|
         format.html { redirect_to disabled_path }
         format.json { render nothing: true, status: :unauthorized }

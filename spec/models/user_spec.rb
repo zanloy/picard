@@ -19,6 +19,14 @@ RSpec.describe User, type: :model do
   end
 
   context 'on create' do
+    it 'starts disabled' do
+      user = User.new
+      expect(user.enabled).to eql(false)
+    end
+    it 'is not banned' do
+      user = User.new
+      expect(user.banned).to eql(false)
+    end
     it 'creates a profile' do
       expect{create(:user)}.to change {Profile.count}.by(1)
     end
@@ -60,6 +68,19 @@ RSpec.describe User, type: :model do
       user2 = create(:user, :disabled)
       user3 = create(:user)
       expect(User.enabled).to match_array([user1, user3])
+    end
+  end
+
+  describe '#enabled?' do
+    it 'returns false for a new User' do
+      user = User.new
+      expect(user.enabled?).to eql(false)
+    end
+    it 'returns true for an enabled user' do
+      expect(build(:user).enabled?).to eql(true)
+    end
+    it 'returns false for a banned user' do
+      expect(build(:user, :banned).enabled?).to eql(false)
     end
   end
 

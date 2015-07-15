@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
 
   # Scopes
   scope :sorted, -> { order(:name) }
-  scope :enabled, -> { where(enabled: true) }
+  scope :enabled, -> { where(enabled: true, banned: false) }
+  scope :banned, -> { where(banned: true) }
   scope :disabled, -> { where(enabled: false) }
 
   # Virtual attributes for password
@@ -69,6 +70,12 @@ class User < ActiveRecord::Base
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
       user.save!
     end
+  end
+
+  def enabled?
+    return false if banned
+    return false unless enabled
+    return true
   end
 
   private
