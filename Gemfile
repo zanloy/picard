@@ -89,6 +89,7 @@ gem 'rails-jquery-autocomplete'
 
 group :production do
   gem 'rails_12factor'
+  gem 'mailgun_rails'
 end
 
 group :development do

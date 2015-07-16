@@ -118,9 +118,11 @@ class EngineeringChange < ActiveRecord::Base
 
   def notify_slack
     begin
-      if ENV.has_key? 'SLACK_WEBHOOK'
-        notifier = Slack::Notifier.new ENV['SLACK_WEBHOOK'], channel: '#general', username: 'Jean-Luc Picard'
-        notifier.ping "New Change: #{view_context.link_to(self.title, engineering_change_url(self))}"
+      if ENV.has_key? 'SLACK_WEBHOOKS'
+        ENV['SLACK_WEBHOOKS'].split(',').each do |webhook|
+          notifier = Slack::Notifier.new webhook, channel: '#general', username: 'Jean-Luc Picard'
+          notifier.ping "New Change: #{view_context.link_to(self.title, engineering_change_url(self))}"
+        end
       end
     rescue
     end
