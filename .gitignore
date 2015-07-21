@@ -12,14 +12,17 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log/*
+!/log/.keep
 /tmp
 
 # Ignore local environment variables.
 .env
+.env.*
 
 # Ignore shared logs and sockets
 /shared
-/pids/*.pid
-/pids/*.state
-/socket/*.sock
+/pids/*
+!/pids/.keep
+/sockets/*
+!/sockets/.keep

@@ -1,7 +1,6 @@
 todo:
   - enabled email_on by default
   - gracefully error on item that has been deleted
-  - fix css on forms with errors
   - write controller tests for json responses
 changelog:
   v0.4:

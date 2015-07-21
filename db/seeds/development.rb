@@ -17,21 +17,6 @@ environments = [
   { name: 'All', domain: '' },
 ]
 
-servers = [
-  {
-    name: 'extpxy001',
-    environment_id: 1,
-    ip_address: 'x.x.1.100',
-    ports: '22/tcp, 443/tcp',
-  },
-  {
-    name: 'extpxy002',
-    environment_id: 1,
-    ip_address: 'x.x.1.102',
-    ports: '22/tcp, 443/tcp',
-  }
-]
-
 engineering_changes = [
   {
     entered_by_id: 1,
@@ -76,5 +61,4 @@ end
 
 users.each { |user| User.create(user) } if defined?(users)
 environments.each { |env| Environment.create(env) } if defined?(environments)
-servers.each { |server| Server.create(server) } if defined?(servers)
 engineering_changes.each { |change| EngineeringChange.create(change) } if defined?(engineering_changes)
