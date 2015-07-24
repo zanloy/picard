@@ -7,7 +7,6 @@ Rails.application.routes.draw do
     resources :comments, path: 'c', only: :create
     resources :subscriptions, path: 'subscribe', only: :create
   end
-  resources :servers
   resources :environments
   resources :users do
     get 'generate_apikey', to: 'users#generate_apikey'
