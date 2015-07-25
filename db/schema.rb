@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150715122025) do
+ActiveRecord::Schema.define(version: 20150724235501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,29 @@ ActiveRecord::Schema.define(version: 20150715122025) do
   end
 
   add_index "environments", ["name"], name: "index_environments_on_name", using: :btree
+
+  create_table "list_items", force: :cascade do |t|
+    t.integer  "list_id"
+    t.text     "payload"
+    t.integer  "updated_by_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "list_items", ["list_id"], name: "index_list_items_on_list_id", using: :btree
+
+  create_table "lists", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.text     "schema"
+    t.integer  "list_items_count"
+    t.integer  "last_added_by_id"
+    t.date     "last_added_on"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "lists", ["last_added_by_id"], name: "index_lists_on_last_added_by_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -146,5 +169,6 @@ ActiveRecord::Schema.define(version: 20150715122025) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
   add_foreign_key "engineering_changes", "environments"
+  add_foreign_key "list_items", "lists"
   add_foreign_key "notifications", "users"
 end

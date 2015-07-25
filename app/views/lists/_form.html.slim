@@ -1,0 +1,7 @@
+= simple_form_for @list, wrapper: :horizontal_form do |f|
+  = f.input :name
+  = f.input :description
+  = f.input :schema
+  .form-group
+    .col-md-offset-3.col-md-10
+      = f.submit class: 'btn btn-primary'

@@ -8,10 +8,14 @@ Rails.application.routes.draw do
     resources :subscriptions, path: 'subscribe', only: :create
   end
   resources :environments
+  resources :lists do
+    resources :list_items, only: :create
+  end
   resources :users do
     get 'generate_apikey', to: 'users#generate_apikey'
   end
   resources :comments, only: :destroy
+  resources :list_items, only: :destroy
   resources :subscriptions, only: [:index, :destroy]
   resources :sessions, only: [:login, :create, :destroy]
 
