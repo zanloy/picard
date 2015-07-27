@@ -6,8 +6,6 @@ class ListItemsController < ApplicationController
     parameters = list_item_params
     parameters[:list] = @list
     parameters[:updated_by_id] = @current_user.id
-    #render text: parameters
-    #return
     list_item = ListItem.new(parameters)
     if list_item.save
       redirect_to @list

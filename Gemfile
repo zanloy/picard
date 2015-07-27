@@ -100,6 +100,8 @@ group :development, :test do
   gem 'libnotify', require: false
   # Allow you to create mock items in testing
   gem 'rspec-activemodel-mocks'
+  # Add RSpec html matchers
+  gem 'rspec-html-matchers'
   # Use RSpec instead of testunit
   gem 'rspec-rails'
   # Access an IRB console on exception pages or by using <%= console %> in views

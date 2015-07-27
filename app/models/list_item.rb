@@ -4,6 +4,9 @@ class ListItem < ActiveRecord::Base
   belongs_to :list, counter_cache: true
   belongs_to :updated_by, class: User
 
+  # Validations
+  validates :payload, presence: true, json: true
+  
   # Callbacks
   after_find :create_methods
 
@@ -20,6 +23,11 @@ class ListItem < ActiveRecord::Base
       create_methods(list.fields)
     end
     super
+  end
+
+  def payload=(arg)
+    super
+    create_methods
   end
 
   def parsed
