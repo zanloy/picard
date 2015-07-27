@@ -1,14 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe "lists/new", type: :view do
-  before(:each) do
-    assign(:list, List.new())
-  end
+  
+    include RSpecHtmlMatchers
 
-  it "renders new list form" do
-    render
-
-    assert_select "form[action=?][method=?]", lists_path, "post" do
+    before(:each) do
+      @list = assign(:list, List.new)
+      render
     end
-  end
+
+    it 'renders the _form partial' do
+      expect(rendered).to render_template(partial: '_form')
+    end
+
 end

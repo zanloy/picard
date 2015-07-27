@@ -90,8 +90,6 @@ ActiveRecord::Schema.define(version: 20150724235501) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "lists", ["last_added_by_id"], name: "index_lists_on_last_added_by_id", using: :btree
-
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
     t.boolean  "on_new_change", default: false, null: false

@@ -6,7 +6,7 @@ class ListItem < ActiveRecord::Base
 
   # Validations
   validates :payload, presence: true, json: true
-  
+
   # Callbacks
   after_find :create_methods
 
@@ -57,7 +57,10 @@ class ListItem < ActiveRecord::Base
   end
 
   def create_methods(fields = nil)
-    fields ||= list.fields + self.fields
+    if fields == nil
+      fields ||= self.fields
+      fields += list.fields if list
+    end
     fields.each do |field|
       self.class.send(:define_method, field) { get_field(field) }
       self.class.send(:define_method, "#{field}=") { |arg| set_field(field, arg) }

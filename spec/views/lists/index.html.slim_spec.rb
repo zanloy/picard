@@ -16,10 +16,14 @@ RSpec.describe "lists/index", type: :view do
   end
 
   before(:each) do
-    assign(:lists, create_pair(:list))
+    @lists = assign(:lists, create_pair(:list))
+    render
   end
 
   it "renders a list of lists" do
-    render
+    @lists.each do |list|
+      expect(rendered).to match(list.name)
+    end
   end
+
 end

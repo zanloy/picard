@@ -14,7 +14,7 @@ table
         - for field in @list.fields
           td = item.get_field(field)
     tr
-      = simple_form_for [@list, ListItem.new], html: { class: 'form form-horizontal'} do |f|
+      = simple_form_for [@list, ListItem.new(list: @list)], html: { class: 'form form-horizontal'} do |f|
         - @list.parsed.each do |k,v|
           td = f.text_field k
         td = f.submit
