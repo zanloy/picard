@@ -37,7 +37,7 @@ class Emailer < ActionMailer::Base
       end
     end
     unless @lists == {}
-      mail(to: 'zan.loy@sparcedge.com', subject: 'Picard Daily List Alerts')
+      mail(to: User.emails, subject: 'Picard Daily List Alerts')
     end
   end
 

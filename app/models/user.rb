@@ -22,9 +22,10 @@ class User < ActiveRecord::Base
   validates_presence_of :name
 
   # Scopes
-  scope :sorted, -> { order(:name) }
-  scope :enabled, -> { where(enabled: true, banned: false) }
-  scope :banned, -> { where(banned: true) }
+  scope :sorted,   -> { order(:name) }
+  scope :emails,   -> { enabled.pluck(:email) }
+  scope :enabled,  -> { where(enabled: true, banned: false) }
+  scope :banned,   -> { where(banned: true) }
   scope :disabled, -> { where(enabled: false) }
 
   # Virtual attributes for password
