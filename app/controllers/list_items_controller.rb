@@ -42,6 +42,7 @@ class ListItemsController < ApplicationController
 
   def set_list_item
     @list_item = ListItem.find(params[:id])
+    @list = @list_item.list
   end
 
   def set_list
@@ -49,7 +50,7 @@ class ListItemsController < ApplicationController
   end
 
   def permitted_fields
-    @list_item.list.fields
+    @list.fields
   end
 
   def list_item_params
