@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, except: :index
+  before_action :set_list, except: [:index, :new, :create]
 
   # GET /lists
   # GET /lists.json
