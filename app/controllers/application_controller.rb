@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_active?(controller)
-    'active' if controller_name == controller
+    'active' if controller_name == controller.to_s
   end
 
   private
