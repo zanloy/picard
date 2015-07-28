@@ -1,0 +1,5 @@
+- @lists.each do |k,v|
+  h4 = v[:summary]
+  ul
+    - for item in v[:items]
+      li = item.to_s

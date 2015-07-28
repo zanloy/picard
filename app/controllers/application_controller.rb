@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :store_path, :require_login
 
-  helper_method :is_admin?, :require_admin, :is_active?, :display_checkbox
+  helper_method :is_admin?, :require_admin, :is_active?
 
   def is_admin?
     if @current_user && @current_user.admin
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_active?(controller)
-    'active' if controller_name == controller
+    'active' if controller_name == controller.to_s
   end
 
   private

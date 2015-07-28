@@ -7,6 +7,7 @@ require 'capistrano/deploy'
 require 'capistrano/rails'
 require 'capistrano/rbenv'
 require 'capistrano/bundler'
+require 'capistrano/crono'
 #require 'capistrano/file-permissions'
 
 # Include tasks from other gems included in your Gemfile

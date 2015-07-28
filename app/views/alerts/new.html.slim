@@ -1,0 +1,17 @@
+p
+  | Please remember that the value field is relative to the date the check is
+    run. This means that you *MUST* use a negative number if you are checking
+    into the future.
+p
+  | So this means expires_on >= -30 is anything that has expired and will expire
+    in the next 30 days.
+
+
+= simple_form_for [@list, @alert], wrapper: :horizontal_form do |f|
+  = f.association :list, disabled: true
+  = f.input :field, collection: @list.fields
+  = f.input :operator, collection: Alert::OPERATORS
+  = f.input :value
+  .form-group
+    .col-md-offset-3.col-md-10
+      = f.submit class: 'btn btn-primary'

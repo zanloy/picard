@@ -1,0 +1,19 @@
+h1
+  - if is_admin?
+    .pull-right
+      = button_to 'Add New', new_list_path, { method: :get, class: 'btn btn-primary' }
+  ' Lists
+
+- @lists.each do |list|
+  .row
+    .col-md-11
+      strong = link_to list.name, list
+    - if is_admin?
+      .col-md-1.text-right
+        .action-icons
+          = link_to edit_list_path(list) do
+            i.glyphicon.glyphicon-edit
+          = link_to list, data: { confirm: 'Are you sure?' }, method: :delete do
+            i.glyphicon.glyphicon-remove-circle
+  .row
+    .col-md-12 = simple_format list.description
