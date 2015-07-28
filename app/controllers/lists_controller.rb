@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_list, except: :index
 
   # GET /lists
   # GET /lists.json
@@ -12,6 +12,13 @@ class ListsController < ApplicationController
   def show
     @alerts = @list.alerts
     @list_items = @list.list_items
+  end
+
+  def edit
+  end
+
+  def update
+
   end
 
   # GET /lists/new

@@ -9,13 +9,15 @@ Rails.application.routes.draw do
   end
   resources :environments
   resources :lists do
-    resources :list_items, only: :create
+    resources :alerts, shallow: true, except: [:index, :show, :edit, :update]
+    resources :list_items, shallow: true, except: [:index, :show]
   end
   resources :users do
     get 'generate_apikey', to: 'users#generate_apikey'
   end
   resources :comments, only: :destroy
-  resources :list_items, only: :destroy
+  #resources :alerts, only: :destroy
+  #resources :list_items, only: [:edit, :update, :destroy]
   resources :subscriptions, only: [:index, :destroy]
   resources :sessions, only: [:login, :create, :destroy]
 

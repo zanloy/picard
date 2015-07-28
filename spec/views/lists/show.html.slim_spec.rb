@@ -4,10 +4,20 @@ RSpec.describe "lists/show", type: :view do
 
   include RSpecHtmlMatchers
 
+  before do
+    controller.singleton_class.class_eval do
+      protected
+      def is_admin?
+        true
+      end
+      helper_method :is_admin?
+    end
+  end
+
   before(:each) do
     @list = assign(:list, create(:list))
-    @alerts = assign(:alerts, build_pair(:alert, list: @list))
-    @list_items = assign(:list_items, build_pair(:list_item, list: @list))
+    @alerts = assign(:alerts, create_pair(:alert, list: @list))
+    @list_items = assign(:list_items, create_pair(:list_item, list: @list))
     render
   end
 

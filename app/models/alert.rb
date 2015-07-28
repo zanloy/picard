@@ -4,7 +4,7 @@ class Alert < ActiveRecord::Base
   belongs_to :list
 
   # Validations
-  validates_presence_of :list
+  validates_presence_of :list, :field, :operator, :value
   # TODO: Validate that the operator is in OPERATORS
 
   # Class Variables

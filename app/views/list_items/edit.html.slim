@@ -1,0 +1,6 @@
+= simple_form_for @list_item do |f|
+  - @list_item.list.parsed.each do |k,v|
+    = f.input k
+  .form-group
+    .col-md-offset-3.col-md-9
+      = f.submit value: 'Save'
