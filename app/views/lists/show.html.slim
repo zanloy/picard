@@ -2,6 +2,11 @@ h1 = @list.name
 
 p = simple_format @list.description
 
+h2 Alerts
+
+- for alert in @alerts
+  p = alert.to_s
+
 = simple_form_for [@list, ListItem.new(list: @list)], html: { class: 'form form-horizontal'} do |f|
   h2 List Items
   table.list_items

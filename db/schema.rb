@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724235501) do
+ActiveRecord::Schema.define(version: 20150728171208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alerts", force: :cascade do |t|
+    t.integer  "list_id"
+    t.string   "field"
+    t.string   "operator"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "alerts", ["list_id"], name: "index_alerts_on_list_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   null: false
@@ -27,6 +38,17 @@ ActiveRecord::Schema.define(version: 20150724235501) do
 
   add_index "comments", ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "crono_jobs", force: :cascade do |t|
+    t.string   "job_id",            null: false
+    t.text     "log"
+    t.datetime "last_performed_at"
+    t.boolean  "healthy"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "crono_jobs", ["job_id"], name: "index_crono_jobs_on_job_id", unique: true, using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -89,6 +111,8 @@ ActiveRecord::Schema.define(version: 20150724235501) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
+
+  add_index "lists", ["last_added_by_id"], name: "index_lists_on_last_added_by_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -166,6 +190,7 @@ ActiveRecord::Schema.define(version: 20150724235501) do
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
+  add_foreign_key "alerts", "lists"
   add_foreign_key "engineering_changes", "environments"
   add_foreign_key "list_items", "lists"
   add_foreign_key "notifications", "users"

@@ -66,6 +66,8 @@ gem 'strong_password', '~> 0.0.3'
 gem 'slack-notifier'
 # Use jqcloud for word clouds
 gem "jqcloud-rails"
+# Use Crono for scheduled tasks
+gem 'crono'
 
 group :production do
   gem 'mailgun_rails'
@@ -74,6 +76,7 @@ end
 group :development do
   gem 'awesome_print'
   # Deploy with capistrano!
+  gem 'capistrano-crono'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   #gem 'capistrano-file-permissions'

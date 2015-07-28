@@ -10,6 +10,7 @@ class ListsController < ApplicationController
   # GET /lists/1
   # GET /lists/1.json
   def show
+    @alerts = @list.alerts
     @list_items = @list.list_items
   end
 

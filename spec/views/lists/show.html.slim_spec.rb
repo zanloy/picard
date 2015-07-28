@@ -6,6 +6,7 @@ RSpec.describe "lists/show", type: :view do
 
   before(:each) do
     @list = assign(:list, create(:list))
+    @alerts = assign(:alerts, build_pair(:alert, list: @list))
     @list_items = assign(:list_items, build_pair(:list_item, list: @list))
     render
   end
@@ -13,6 +14,12 @@ RSpec.describe "lists/show", type: :view do
   it 'renders the list details' do
     expect(rendered).to match @list.name
     expect(rendered).to match simple_format(@list.description)
+  end
+
+  it 'renders the associated alerts' do
+    @alerts.each do |alert|
+      expect(rendered).to match CGI::escapeHTML(alert.to_s)
+    end
   end
 
   it 'renders the table headers' do
@@ -28,5 +35,5 @@ RSpec.describe "lists/show", type: :view do
       end
     end
   end
-  
+
 end

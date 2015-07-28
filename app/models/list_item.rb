@@ -72,21 +72,8 @@ class ListItem < ActiveRecord::Base
     end
   end
 
-  #def self.respond_to?(method_sym, include_private = false)
-  #  if fields.includes? method_sym.to_s
-  #    true
-  #  else
-  #    super
-  #  end
-  #end
-
-  #def self.method_missing(method_sym, *arguments, &block)
-  #  puts "Method missing called. #{method_sym}"
-  #  if fields.includes? method_sym.to_s
-  #    get_field(method_sym)
-  #  else
-  #    super
-  #  end
-  #end
+  def to_s
+    parsed.map { |k,v| "#{k}: #{v}" }.join(', ')
+  end
 
 end

@@ -58,6 +58,9 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-crono (0.1.2)
+      capistrano (>= 3.0.0)
+      crono
     capistrano-rails (1.1.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -81,6 +84,9 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
+    crono (0.9.0)
+      activerecord (~> 4.0)
+      activesupport (~> 4.0)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     delayed_job (4.0.6)
@@ -372,10 +378,12 @@ DEPENDENCIES
   bcrypt
   bootstrap-sass (~> 3.3.4)
   bootstrap-social-rails
+  capistrano-crono
   capistrano-rails
   capistrano-rbenv
   capybara
   coffee-rails
+  crono
   database_cleaner
   delayed_job_active_record
   detect_timezone_rails
