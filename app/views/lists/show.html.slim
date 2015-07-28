@@ -2,19 +2,20 @@ h1 = @list.name
 
 p = simple_format @list.description
 
-h2 List Items
-table
-  thead
-    tr
-      - for field in @list.fields
-        th = field
-  tbody
-    - for item in @list.list_items
+= simple_form_for [@list, ListItem.new(list: @list)], html: { class: 'form form-horizontal'} do |f|
+  h2 List Items
+  table.list_items
+    thead
       tr
         - for field in @list.fields
-          td = item.get_field(field)
-    tr
-      = simple_form_for [@list, ListItem.new(list: @list)], html: { class: 'form form-horizontal'} do |f|
-        - @list.parsed.each do |k,v|
-          td = f.text_field k
-        td = f.submit
+          th = field
+        th &nbsp;
+    tbody
+      tr
+          - @list.parsed.each do |k,v|
+            td = f.text_field k
+          td = f.submit value: 'Add'
+      - for item in @list_items
+        tr
+          - for field in @list.fields
+            td = item.get_field(field)

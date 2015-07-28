@@ -15,6 +15,7 @@ class ListItem < ActiveRecord::Base
   def initialize(attributes = nil, options = {})
     if attributes
       if attributes.has_key? :list
+        raise 'list is not type List' unless attributes[:list].is_a? List
         list = attributes[:list]
       else
         raise 'list_id is required' unless attributes.has_key? 'list_id'
@@ -54,6 +55,10 @@ class ListItem < ActiveRecord::Base
     buffer = parsed
     buffer[field.to_s] = value
     self.payload = JSON.generate(buffer)
+  end
+
+  def get_field_type(field)
+    list.get_field(field)
   end
 
   def create_methods(fields = nil)

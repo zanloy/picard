@@ -22,12 +22,14 @@ html
                       ul class='dropdown-menu'
                         li #{link_to 'Add New Change', new_engineering_change_path}
                     li class="#{is_active? :environments}" = link_to 'Environments', environments_path
+                    li class="#{is_active? :lists}"
+                      = link_to lists_path do
+                        ==> glyphicon 'th-list'
+                        ' Lists
                     li class="#{is_active? :tags}"
                       = link_to tags_path do
                         ==> glyphicon :tag
                         ' Tags
-                    li class="#{is_active? :lists}"
-                      = link_to 'Lists', lists_path
                     li class="#{is_active? :users}"
                       = link_to users_path do
                         ==> glyphicon :user

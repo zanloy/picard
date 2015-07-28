@@ -20,4 +20,8 @@ class List < ActiveRecord::Base
     end
   end
 
+  def get_field(field)
+    parsed[field.to_s]
+  end
+  
 end
