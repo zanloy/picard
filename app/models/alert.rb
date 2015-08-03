@@ -1,14 +1,14 @@
 class Alert < ActiveRecord::Base
 
+  # Class Variables
+  OPERATORS = %w[== != > < >= <=]
+
   # Associations
   belongs_to :list
 
   # Validations
   validates_presence_of :list, :field, :operator, :value
-  # TODO: Validate that the operator is in OPERATORS
-
-  # Class Variables
-  OPERATORS = %w[== != > < >= <=]
+  validates_inclusion_of :operator, in: OPERATORS
 
   # Instance Methods
   def to_s

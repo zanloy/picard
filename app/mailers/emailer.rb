@@ -26,19 +26,9 @@ class Emailer < ActionMailer::Base
     mail(to: @user.email, subject: "Picard Account Enabled")
   end
 
-  def daily_alerts
-    @lists = {}
-    List.all.each do |list|
-      alerted = list.alerted_items
-      if alerted
-        @lists[list] = {}
-        @lists[list][:summary] = "#{list.name} has #{alerted.length} alerts."
-        @lists[list][:items] = alerted
-      end
-    end
-    unless @lists == {}
-      mail(to: User.emails, subject: 'Picard Daily List Alerts')
-    end
+  def daily_alerts(email, lists)
+    @lists = lists
+    mail(to: email, subject: 'Picard Daily List Alerts')
   end
 
 end
