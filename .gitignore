@@ -26,3 +26,6 @@
 !/pids/.keep
 /sockets/*
 !/sockets/.keep
+
+# Ignore coveralls output
+coverage/
