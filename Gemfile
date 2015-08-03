@@ -91,6 +91,8 @@ end
 group :development, :test do
   # Test with capybara
   gem 'capybara'
+  # Use coveralls for code coverage testing
+  gem 'coveralls', require: false
   # Used to truncate databases between tests
   gem 'database_cleaner'
   # Use factory_girl to create mock models for testing
