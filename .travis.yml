@@ -1,0 +1,10 @@
+language: 'ruby'
+env:
+  - EMAIL_ADDRESS=picard@test.com
+rvm:
+  - '2.1.4'
+script:
+  - 'RAILS_ENV=test bundle exec rake --trace db:migrate spec'
+before_script:
+  - mysql -e 'create database picard_test'
+  - psql -c 'create database picard_test' -U postgres
