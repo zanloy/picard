@@ -1,7 +1,7 @@
 h1
   = @list.name
   .pull-right
-    - if is_admin? || @change.poc == @current_user
+    - if is_admin?
       = button_to 'Edit', edit_list_path(@list), { method: :get, class: 'btn btn-primary', role: 'button' }
       | &nbsp;
       = button_to 'Delete', @list, { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
