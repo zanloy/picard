@@ -1,13 +1,12 @@
 Rails.application.routes.draw do
 
-  root 'engineering_changes#index'
-
   get 'changes/quickadd', to: 'engineering_changes#quickadd'
   resources :engineering_changes, path: 'changes' do
     resources :comments, path: 'c', only: :create
     resources :subscriptions, path: 'subscribe', only: :create
   end
   resources :environments
+  resources :certificates
   resources :lists do
     resources :alerts, shallow: true, except: [:index, :show, :edit, :update]
     resources :list_items, shallow: true, except: [:index, :show]
@@ -16,8 +15,6 @@ Rails.application.routes.draw do
     get 'generate_apikey', to: 'users#generate_apikey'
   end
   resources :comments, only: :destroy
-  #resources :alerts, only: :destroy
-  #resources :list_items, only: [:edit, :update, :destroy]
   resources :subscriptions, only: [:index, :destroy]
   resources :sessions, only: [:login, :create, :destroy]
 
