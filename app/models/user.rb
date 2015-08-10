@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   scope :emails,   -> { enabled.pluck(:email) }
   scope :enabled,  -> { where(enabled: true, banned: false) }
   scope :banned,   -> { where(banned: true) }
-  scope :disabled, -> { where(enabled: false) }
+  scope :disabled, -> { where(enabled: false, banned: false) }
 
   # Virtual attributes for password
   attr_accessor :new_password, :new_password_confirmation
