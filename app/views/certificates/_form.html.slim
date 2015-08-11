@@ -1,0 +1,7 @@
+= simple_form_for @certificate, wrapper: :horizontal_form do |f|
+  .form-group
+    = f.label :certificate, class: 'col-md-3 control-label'
+    .col-md-9  = f.text_area :pem, { class: 'form-control', rows: 25, placeholder: 'Copy in entire PEM format certificate file.' }
+  .form-group
+    .col-md-offset-3.col-md-10
+      = f.submit class: 'btn btn-primary'

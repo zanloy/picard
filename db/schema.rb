@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728171208) do
+ActiveRecord::Schema.define(version: 20150810171018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,20 @@ ActiveRecord::Schema.define(version: 20150728171208) do
   end
 
   add_index "alerts", ["list_id"], name: "index_alerts_on_list_id", using: :btree
+
+  create_table "certificates", force: :cascade do |t|
+    t.string   "subject"
+    t.string   "cn"
+    t.string   "issuer"
+    t.datetime "not_before"
+    t.datetime "not_after"
+    t.string   "signature_algorithm"
+    t.integer  "key_length"
+    t.string   "modulus"
+    t.text     "pem",                 null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id",   null: false
