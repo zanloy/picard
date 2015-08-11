@@ -31,7 +31,11 @@ class Certificate < ActiveRecord::Base
     self.not_after = ssl.not_after
     self.signature_algorithm = ssl.signature_algorithm
     self.subject = ssl.subject.to_s
-    self.cn = self.subject.split('/').select{ |v| v =~ /^CN=/ }.first.split('=').last
+    if ssl.subject
+      self.cn = self.subject.split('/').select{ |v| v =~ /^CN=/ }.first.split('=').last
+    else
+      self.cn = 'Unknown CN'
+    end
     self.modulus = ssl.public_key.n.to_s(16)
   end
 
