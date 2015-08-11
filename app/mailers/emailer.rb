@@ -26,9 +26,9 @@ class Emailer < ActionMailer::Base
     mail(to: @user.email, subject: "Picard Account Enabled")
   end
 
-  def daily_alerts(email, lists)
-    @lists = lists
-    mail(to: email, subject: 'Picard Daily List Alerts')
+  def daily_alerts(email, certificates)
+    @certificates = certificates
+    mail(to: email, subject: "Picard Certificate Expirations - #{Date.today.strftime('%Y-%m-%d')}")
   end
 
 end

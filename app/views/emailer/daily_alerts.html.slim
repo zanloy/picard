@@ -1,5 +1,25 @@
-- @lists.each do |k,v|
-  h4 = v[:summary]
-  ul
-    - for item in v[:items]
-      li = item.to_s
+p Here are the certificates in Picard that are expiring soon.
+- @certificates.each do |cert|
+  table
+    tbody
+      tr
+        td CN:
+        td = cert.cn
+      tr
+        td Subject:
+        td = cert.subject
+      tr
+        td Issuer:
+        td = cert.issuer
+      tr
+        td Algorithm:
+        td = cert.signature_algorithm
+      tr
+        td Key Length:
+        td = cert.key_length
+      tr
+        td Valid From:
+        td = cert.not_before.strftime('%Y-%m-%d %H:%M %Z')
+      tr
+        td Valid Until:
+        td = cert.not_after.strftime('%Y-%m-%d %H:%M %Z')

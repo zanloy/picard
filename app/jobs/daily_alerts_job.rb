@@ -2,18 +2,9 @@ class DailyAlertsJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
-    @lists = {}
-    List.all.each do |list|
-      alerted = list.alerted_items
-      unless alerted == []
-        @lists[list.name] = {
-          summary: "#{list.name} has #{alerted.length} alerts.",
-          items: alerted,
-        }
-      end
-    end
-    unless @lists == {}
-      User.emails.each { |email| Emailer.daily_alerts(email, @lists).deliver_later }
+    expiring_certs = Certificate.expires_soon
+    if expiring_certs.count > 0
+      User.emails.each { |email| Emailer.daily_alerts(email, expiring_certs.to_a).deliver_later }
     end
   end
 end
