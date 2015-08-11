@@ -29,11 +29,13 @@ ActiveRecord::Schema.define(version: 20150810171018) do
 
   create_table "certificates", force: :cascade do |t|
     t.string   "subject"
+    t.string   "cn"
     t.string   "issuer"
     t.datetime "not_before"
     t.datetime "not_after"
     t.string   "signature_algorithm"
     t.integer  "key_length"
+    t.string   "modulus"
     t.text     "pem",                 null: false
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false

@@ -3,6 +3,7 @@ class CertificatesController < ApplicationController
   before_action :set_certificate, except: [:index, :new, :create]
 
   def index
+    @certificates = Certificate.sorted
   end
 
   def show
@@ -30,9 +31,24 @@ class CertificatesController < ApplicationController
   end
 
   def destroy
+    @certificate.destroy
+
+    respond_to do |format|
+      format.html { redirect_to certificates_path, notice: 'Certificate was deleted.' }
+      format.json { head :no_content }
+    end
   end
 
   def update
+    respond_to do |format|
+      if @certificate.update_attributes(create_params)
+        format.html { redirect_to @certificate, notice: 'Certificate updated.' }
+        format.json { render :show, status: :ok, location: @certificate }
+      else
+        format.html { render :edit, notice: 'There was an error updating the certificate.' }
+        format.json { render json: @certificate.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
@@ -42,7 +58,7 @@ class CertificatesController < ApplicationController
   end
 
   def create_params
-    #params.require(:certificate).permit(:pem)
+    params.require(:certificate).permit(:pem)
   end
 
 end

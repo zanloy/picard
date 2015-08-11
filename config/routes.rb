@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  root to: 'engineering_changes#index'
+  
   get 'changes/quickadd', to: 'engineering_changes#quickadd'
   resources :engineering_changes, path: 'changes' do
     resources :comments, path: 'c', only: :create

@@ -1,2 +1,38 @@
-h1 Certificates#show
-p Find me in app/views/certificates/show.html.slim
+.row
+  .col-md-9.col-md-offset-3
+    h1 Certificate ##{@certificate.id}
+
+.row
+  .col-md-3.text-right
+    strong CN:
+  .col-md-9 = @certificate.cn
+
+.row
+  .col-md-3.text-right
+    strong Subject:
+  .col-md-9 = @certificate.subject
+
+.row
+  .col-md-3.text-right
+    strong Issuer:
+  .col-md-9 = @certificate.issuer
+
+.row
+  .col-md-3.text-right
+    strong Signature Algorithm:
+  .col-md-9 = @certificate.signature_algorithm
+
+.row
+  .col-md-3.text-right
+    strong Key Length:
+  .col-md-9 = @certificate.key_length
+
+.row
+  .col-md-3.text-right
+    strong Valid From:
+  .col-md-9 = @certificate.not_before.strftime('%Y-%m-%d %H:%M %Z')
+
+.row
+  .col-md-3.text-right
+    strong Valid Until:
+  .col-md-9 = @certificate.not_after.strftime('%Y-%m-%d %H:%M %Z')

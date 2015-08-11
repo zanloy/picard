@@ -1,2 +1,14 @@
-h1 Certificates#index
-p Find me in app/views/certificates/index.html.slim
+h1 Certificates
+
+table[class='table table-striped']
+  thead
+    tr
+      th CN
+      th valid_from
+      th valid_until
+  tbody
+    - for certificate in @certificates
+      tr
+        td = link_to certificate.cn, certificate
+        td = certificate.not_before.strftime('%Y-%m-%d')
+        td = certificate.not_after.strftime('%Y-%m-%d')
