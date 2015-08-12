@@ -86,10 +86,8 @@ class User < ActiveRecord::Base
   end
 
   def send_notifications
-    if Rails.env != 'test'
-      Notification.where(on_new_user: true).each do |notification|
-        NewUserEmailJob.perform_later(notification.user, self)
-      end
+    Notification.where(on_new_user: true).each do |notification|
+      NewUserEmailJob.perform_later(notification.user, self)
     end
   end
 

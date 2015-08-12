@@ -5,5 +5,9 @@ FactoryGirl.define do
     schema { JSON.generate({ cn: "string", expires_on: "date" }) }
     association :last_added_by, factory: :user
     last_added_on "2015-07-24"
+
+    trait :invalid do
+      name nil
+    end
   end
 end

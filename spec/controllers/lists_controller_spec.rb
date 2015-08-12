@@ -2,139 +2,115 @@ require 'rails_helper'
 
 RSpec.describe ListsController, type: :controller do
 
-  # This should return the minimal set of attributes required to create a valid
-  # List. As you add validations to List, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  login_admin
+  before(:each) { @list = create(:list) }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # ListsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
-  describe "GET #index" do
-    it "assigns all lists as @lists" do
-      list = List.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:lists)).to eq([list])
+  describe 'GET #index' do
+    it 'assigns all lists as @lists' do
+      @lists = [@list, create_pair(:list)].flatten
+      get :index, {}, @session
+      expect(assigns(:lists)).to match_array(@lists)
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested list as @list" do
-      list = List.create! valid_attributes
-      get :show, {:id => list.to_param}, valid_session
-      expect(assigns(:list)).to eq(list)
+  describe 'GET #show' do
+    it 'assigns the requested list as @list' do
+      get :show, { id: @list.to_param}, @session
+      expect(assigns(:list)).to eq(@list)
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new list as @list" #do
-      #get :new, {}, valid_session
-      #expect(assigns(:list)).to be_a_new(List)
-    #end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested list as @list" do
-      list = List.create! valid_attributes
-      get :edit, {:id => list.to_param}, valid_session
-      expect(assigns(:list)).to eq(list)
+  describe 'GET #new' do
+    it 'assigns a new list as @list' do
+      get :new, {}, @session
+      expect(assigns(:list)).to be_a_new(List)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new List" do
+  describe 'GET #edit' do
+    it 'assigns the requested list as @list' do
+      get :edit, { id: @list.to_param}, @session
+      expect(assigns(:list)).to eq(@list)
+    end
+  end
+
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new List' do
         expect {
-          post :create, {:list => valid_attributes}, valid_session
+          post :create, { list: attributes_for(:list) }, @session
         }.to change(List, :count).by(1)
       end
 
-      it "assigns a newly created list as @list" do
-        post :create, {:list => valid_attributes}, valid_session
+      it 'assigns a newly created list as @list' do
+        post :create, { list: attributes_for(:list) }, @session
         expect(assigns(:list)).to be_a(List)
         expect(assigns(:list)).to be_persisted
       end
 
-      it "redirects to the created list" do
-        post :create, {:list => valid_attributes}, valid_session
+      it 'redirects to the created list' do
+        post :create, { list: attributes_for(:list) }, @session
         expect(response).to redirect_to(List.last)
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved list as @list" do
-        post :create, {:list => invalid_attributes}, valid_session
+    context 'with invalid params' do
+      it 'assigns a newly created but unsaved list as @list' do
+        post :create, { list: attributes_for(:list, :invalid) }, @session
         expect(assigns(:list)).to be_a_new(List)
       end
 
-      it "re-renders the 'new' template" do
-        post :create, {:list => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+      it 're-renders the :new template' do
+        post :create, { list: attributes_for(:list, :invalid) }, @session
+        expect(response).to render_template(:new)
       end
     end
   end
 
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
+  describe 'PUT #update' do
+    context 'with valid params' do
+      let(:new_attributes) { attributes_for(:list, name: 'New Name') }
 
-      it "updates the requested list" do
-        list = List.create! valid_attributes
-        put :update, {:id => list.to_param, :list => new_attributes}, valid_session
-        list.reload
-        skip("Add assertions for updated state")
+      it 'updates the requested list' do
+        put :update, { id: @list.to_param, list: new_attributes }, @session
+        @list.reload
+        expect(@list.name).to eq('New Name')
       end
 
-      it "assigns the requested list as @list" do
-        list = List.create! valid_attributes
-        put :update, {:id => list.to_param, :list => valid_attributes}, valid_session
-        expect(assigns(:list)).to eq(list)
+      it 'assigns the requested list as @list' do
+        put :update, { id: @list.to_param, list: new_attributes }, @session
+        expect(assigns(:list)).to eq(@list)
       end
 
-      it "redirects to the list" do
-        list = List.create! valid_attributes
-        put :update, {:id => list.to_param, :list => valid_attributes}, valid_session
-        expect(response).to redirect_to(list)
+      it 'redirects to the list' do
+        put :update, { id: @list.to_param, list: new_attributes}, @session
+        expect(response).to redirect_to(@list)
       end
     end
 
-    context "with invalid params" do
-      it "assigns the list as @list" do
-        list = List.create! valid_attributes
-        put :update, {:id => list.to_param, :list => invalid_attributes}, valid_session
-        expect(assigns(:list)).to eq(list)
+    context 'with invalid params' do
+      it 'assigns the list as @list' do
+        put :update, { id: @list.to_param, list: attributes_for(:list, :invalid) }, @session
+        expect(assigns(:list)).to eq(@list)
       end
 
-      it "re-renders the 'edit' template" do
-        list = List.create! valid_attributes
-        put :update, {:id => list.to_param, :list => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
+      it 're-renders the :edit template' do
+        put :update, { id: @list.to_param, list: attributes_for(:list, :invalid) }, @session
+        expect(response).to render_template(:edit)
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested list" do
-      list = List.create! valid_attributes
+  describe 'DELETE #destroy' do
+    it 'destroys the requested list' do
       expect {
-        delete :destroy, {:id => list.to_param}, valid_session
+        delete :destroy, { id: @list.to_param}, @session
       }.to change(List, :count).by(-1)
     end
 
-    it "redirects to the lists list" do
-      list = List.create! valid_attributes
-      delete :destroy, {:id => list.to_param}, valid_session
-      expect(response).to redirect_to(lists_url)
+    it 'redirects to the lists list' do
+      delete :destroy, { id: @list.to_param}, @session
+      expect(response).to redirect_to(lists_path)
     end
   end
 

@@ -44,7 +44,7 @@ RSpec.describe EngineeringChangesController, type: :controller do
         change = create(:engineering_change)
         environments = create_pair(:environment)
         get :edit, {id: change.to_param}, @session
-        expect(assigns(:environments)).to match_array(environments)
+        expect(assigns(:environments)).to match_array(Environment.all)
       end
     end
 
