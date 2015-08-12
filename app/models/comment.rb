@@ -21,7 +21,6 @@ class Comment < ActiveRecord::Base
       hashtag[0] = ''
       Tag.where(name: hashtag.downcase.strip).first_or_create!
     end
-    logger.debug "tags = #{tags.inspect}"
     self.tags = tags
   end
 

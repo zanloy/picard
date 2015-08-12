@@ -20,5 +20,5 @@
       - for taggable in @taggables[:comments]
         tr
           td == link_to taggable.user.name, user_path(taggable.user)
-          td == display_title taggable.commentable
+          td == link_to taggable.commentable.title, polymorphic_path(taggable.commentable)
           td == linkify_tags(taggable.comment)

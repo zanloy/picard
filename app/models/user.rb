@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
 
   def send_notifications
     Notification.where(on_new_user: true).each do |notification|
-      NewUserEmailJob.perform_later(notification.user, self)
+      Emailer.new_user(notification.user, self).deliver_later
     end
   end
 

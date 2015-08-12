@@ -104,7 +104,7 @@ class EngineeringChange < ActiveRecord::Base
   def send_notifications
     Notification.where(on_new_change: true).each do |notification|
       unless notification.user == self.entered_by
-        NewChangeEmailJob.set(wait: 20.seconds).perform_later(notification.user, self)
+        Emailer.new_change(notification.user, self).deliver_later
       end
     end
   end

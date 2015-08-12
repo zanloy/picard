@@ -13,7 +13,7 @@ class AdminController < ApplicationController
     user.enabled = true
     respond_to do |format|
       if user.save
-        AccountEnabledEmailJob.perform_later(user) unless Rails.env == 'test'
+        Emailer.account_enabled(user).deliver_later
         format.html { redirect_to admin_path, notice: "#{user.name_or_email} has been enabled." }
         format.json { render 'users/show', status: :ok, location: @user }
       else
