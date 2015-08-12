@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
 
   before_action :set_comment, only: [:update, :destroy]
 
+  load_and_authorize_resource
+  
   def create
     @commentable = find_commentable
     parameters = comment_params

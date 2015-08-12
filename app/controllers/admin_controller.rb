@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
 
-  before_filter :require_admin
+  load_and_authorize_resource
 
   def index
     @enabled_users = User.enabled.sorted

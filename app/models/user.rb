@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     !@new_password.blank?
   end
 
+  def admin?
+    admin
+  end
+  
   def name_or_email
     if self.name.nil? || self.name.empty?
       return self.email

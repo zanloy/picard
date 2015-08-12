@@ -9,7 +9,7 @@
   h1.col-md-10
     ' Engineering Change Details
     .pull-right
-      - if is_admin? || @change.poc == @current_user
+      - if can? :edit, @change
         = button_to 'Edit', edit_engineering_change_path(@change), { method: :get, class: 'btn btn-primary', role: 'button' }
         | &nbsp;
         = button_to 'Delete', engineering_change_path(@change), { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
@@ -42,7 +42,7 @@ br
   .row
     .col-md-3.text-right = comment.user.name_or_email
     .col-md-7
-      - if comment.user == @current_user
+      - if can? :destroy, comment
         .pull-right
           = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
            == delete_icon

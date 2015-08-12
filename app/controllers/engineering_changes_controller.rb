@@ -3,6 +3,8 @@ class EngineeringChangesController < ApplicationController
   before_filter :set_change, except: [:index, :new, :create, :quickadd]
   before_filter :require_permission_to_edit, only: [:edit, :update, :destroy]
 
+  load_and_authorize_resource
+
   def index
     @changes = EngineeringChange.timeline.page(page_param)
   end

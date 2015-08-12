@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
 
-  skip_before_filter :require_login, only: [:new, :create]
+  #skip_before_filter :require_login, only: [:new, :create]
   before_filter :current_user, only: [:new, :create]
 
   before_filter :set_user, only: [:show, :edit, :update, :destroy, :generate_apikey]
-  before_filter :require_admin_or_self, only: [:edit, :destroy, :update, :generate_apikey]
+  #before_filter :require_admin_or_self, only: [:edit, :destroy, :update, :generate_apikey]
 
-  helper_method :is_admin_or_self?
+  load_and_authorize_resource
 
   def index
     @users = User.enabled.sorted
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 
       respond_to do |format|
         if @user.save
-          if current_user
+          if @current_user
             format.html { redirect_to user_path(@user) }
           else
             session[:user_id] = @user.id
@@ -69,22 +69,10 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_path, notice: 'User was successfully deleted.'
-  end
-
-  def is_admin_or_self?
-    return true if is_admin?
-    return true if @current_user == @user
-    return false
+    redirect_to users_path, notice: 'User was deleted.'
   end
 
   private
-
-  def require_admin_or_self
-    if not is_admin_or_self?
-      redirect_to :back, error: "You can't edit this user."
-    end
-  end
 
   def set_user
     id = params[:id] || params[:user_id]
