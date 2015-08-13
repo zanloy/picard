@@ -1,24 +1,13 @@
 class UsersController < ApplicationController
 
-  #skip_before_filter :require_login, only: [:new, :create]
-  before_filter :current_user, only: [:new, :create]
+  skip_before_filter :require_login, only: [:new, :create]
 
-  before_filter :set_user, only: [:show, :edit, :update, :destroy, :generate_apikey]
-  #before_filter :require_admin_or_self, only: [:edit, :destroy, :update, :generate_apikey]
+  # We run :current_user before :new and :create because if the user is created
+  # by an admin, then it behaves differently.
+  before_filter :current_user, only: [:new, :create]
+  before_filter :set_user, except: [:create, :index, :new]
 
   load_and_authorize_resource
-
-  def index
-    @users = User.enabled.sorted
-  end
-
-  def show
-    @changes = @user.engineering_changes.timeline.limit(10)
-  end
-
-  def new
-    @user = User.new
-  end
 
   def create
     if create_params[:email] =~ /.*@sparcedge.com/i
@@ -43,17 +32,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    redirect_to users_path, notice: 'User was deleted.'
+  end
+
   def edit
   end
 
-  def update
+  def enable
+    @user.enabled = true
     respond_to do |format|
-      if @user.update(update_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+      if @user.save
+        Emailer.account_enabled(@user).deliver_later
+        format.html { redirect_to admin_path, notice: "#{@user.name_or_email} has been enabled." }
+        format.json { render 'users/show', status: :ok, location: @user }
       else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.html { redirect_to admin_path, alert: 'Failed to enable account.' }
+        format.json { render @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,9 +63,28 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    @user.destroy
-    redirect_to users_path, notice: 'User was deleted.'
+  def index
+    @users = User.enabled.sorted
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def show
+    @changes = @user.engineering_changes.timeline.limit(10)
+  end
+
+  def update
+    respond_to do |format|
+      if @user.update(update_params)
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :ok, location: @user }
+      else
+        format.html { render :edit }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

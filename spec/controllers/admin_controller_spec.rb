@@ -27,15 +27,6 @@ RSpec.describe AdminController, type: :controller do
 
     end
 
-    describe 'GET #enable_user' do
-      it 'enables the account' do
-        disabled_user = create(:user, :disabled)
-        post :enable_user, {user_id: disabled_user.to_param}, @session
-        disabled_user.reload
-        expect(disabled_user.enabled).to eq(true)
-      end
-    end
-
   end # context 'as an admin'
 
   context 'as a user' do
@@ -45,14 +36,7 @@ RSpec.describe AdminController, type: :controller do
     describe 'GET #index' do
       it 'redirects to :back' do
         get :index, {}, @session
-        expect(response).to redirect_to(:back)
-      end
-    end
-    describe 'GET #enable_user' do
-      it 'redirects to :back' do
-        disabled_user = create(:user, :disabled)
-        get :enable_user, {user_id: disabled_user.to_param}, @session
-        expect(response).to redirect_to(:back)
+        expect(response).to redirect_to(root_path)
       end
     end
   end # context 'as a user'

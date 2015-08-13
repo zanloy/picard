@@ -12,7 +12,7 @@ html
           td Name:
           td = @new_user.name
 
-    p To ENABLE this user: #{link_to 'ENABLE USER', enable_user_url(@new_user)}
+    p To ENABLE this user: #{link_to 'ENABLE USER', user_enable_url(@new_user)}
     p You can view the user details for this user by clicking #{link_to 'here', user_url(@new_user)}.
     p You received this email because you have asked to be notified on new users.
       You can update your settings by clicking #{link_to 'here', user_url(@user)}.

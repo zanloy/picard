@@ -11,6 +11,15 @@ RSpec.describe UsersController, type: :controller do
       @disabled_user = create(:user, :disabled)
     end
 
+    describe 'GET #enable' do
+      it 'enables the account' do
+        disabled_user = create(:user, :disabled)
+        post :enable, {user_id: disabled_user.to_param}, @session
+        disabled_user.reload
+        expect(disabled_user.enabled).to eq(true)
+      end
+    end
+
     describe 'GET #index' do
       it 'assigns enabled users as @users' do
         get :index, {}, @session
