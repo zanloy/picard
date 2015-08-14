@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :store_path, :require_login
 
-  helper_method :is_admin?, :require_admin, :is_active?
+  helper_method :is_admin?, :is_active?
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -22,11 +22,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_admin
-    if not is_admin?
-      redirect_to :back, alert: 'Admin rights are required to perform that activity.'
-    end
-  end
+  #def require_admin
+  #  if not is_admin?
+  #    redirect_to :back, alert: 'Admin rights are required to perform that activity.'
+  #  end
+  #end
 
   def is_active?(controller)
     'active' if controller_name == controller.to_s

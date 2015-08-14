@@ -46,6 +46,7 @@ class Ability
 
       # Engineering changes
       can [:new, :create, :read], EngineeringChange
+      can :manage, EngineeringChange, entered_by: user
       can :manage, EngineeringChange, poc: user
 
       # Environments

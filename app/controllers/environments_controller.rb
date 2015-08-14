@@ -1,8 +1,7 @@
 class EnvironmentsController < ApplicationController
 
   before_action :set_environment, only: [:show, :edit, :update, :destroy]
-  before_filter :require_admin, except: [:index, :show]
-
+  
   load_and_authorize_resource
 
   def index
