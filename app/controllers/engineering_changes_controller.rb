@@ -1,7 +1,8 @@
 class EngineeringChangesController < ApplicationController
 
   before_filter :set_change, except: [:index, :new, :create, :quickadd]
-  before_filter :require_permission_to_edit, only: [:edit, :update, :destroy]
+
+  load_and_authorize_resource
 
   def index
     @changes = EngineeringChange.timeline.page(page_param)
@@ -65,7 +66,7 @@ class EngineeringChangesController < ApplicationController
   def destroy
     @change.destroy
     respond_to do |format|
-      format.html { redirect_to engineering_changes_path, notice: 'Engineering change deleted.' }
+      format.html { redirect_to engineering_changes_path, notice: 'Change deleted.' }
       format.json { head :no_content }
     end
   end
@@ -77,46 +78,26 @@ class EngineeringChangesController < ApplicationController
   private
 
   def set_change
-    @change = EngineeringChange.find(params.require(:id))
-  end
-
-  def require_permission_to_edit
-    if is_admin? or @change.poc_id == @current_user.id or @change.entered_by_id == @current_user.id
-      return
-    else
-      redirect_to :back, alert: 'You do not have permissions to do that.'
-    end
+    @change = EngineeringChange.find(params[:id])
   end
 
   def page_param
-    if params.has_key? :page
-      return params[:page]
-    else
-      return 1
-    end
+    (params.has_key? :page) ? params[:page] : 1
   end
 
   def create_params
-    p = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description, :server_ids => [])
-    p[:entered_by_id] = session[:user_id]
-    p[:poc_id] = session[:user_id] if (p[:poc_id].nil? or p[:poc_id].empty?)
-    p[:when] = Time.now if not p.has_key? :when
+    p = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description)
+    p[:entered_by_id] = @current_user[:id]
+    p[:poc_id] = @current_user[:id] if (p[:poc_id].nil? or p[:poc_id].empty?)
+    p[:when] = Time.zone.now if not p.has_key? :when
     p
   end
 
   def from_quick_add?
-    if params[:engineering_change].has_key? 'quick_add'
-      return true
-    else
-      return false
-    end
+    params[:engineering_change].has_key? 'quick_add'
   end
 
   def add_details?
-    if from_quick_add? and params[:commit] != 'Quick Add'
-      return true
-    else
-      return false
-    end
+    from_quick_add? and params[:commit] != 'Quick Add'
   end
 end

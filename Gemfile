@@ -50,6 +50,8 @@ gem 'will_paginate', '~> 3.0.5'
 gem 'jquery-datetimepicker-rails'
 # Allow us to set delayed_jobs
 gem 'delayed_job_active_record'
+# Use CanCanCan for role based access
+gem 'cancancan'
 # Generates simple forms (bootstrap compatible)
 gem 'simple_form'
 # Use jquery-ui for pretty ui shit

@@ -2,8 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'engineering_changes/show.html.slim', type: :view do
   before do
+    @user = create(:user)
     controller.singleton_class.class_eval do
       protected
+      def current_user
+        @user
+      end
       def is_admin?
         true
       end
@@ -12,7 +16,7 @@ RSpec.describe 'engineering_changes/show.html.slim', type: :view do
   end
 
   before(:each) do
-    assign(:current_user, create(:user))
+    assign(:current_user, @user)
     @poc = create(:user)
     @environment = create(:environment)
     @change = assign(:change, create(:engineering_change, poc_id: @poc.id, environment_id: @environment.id))

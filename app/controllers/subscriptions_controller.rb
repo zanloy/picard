@@ -2,6 +2,8 @@ class SubscriptionsController < ApplicationController
 
   before_action :set_subscription, only: :destroy
 
+  load_and_authorize_resource
+
   def index
   end
 
@@ -9,7 +11,7 @@ class SubscriptionsController < ApplicationController
     @subscribable = find_subscribable
     @subscription = @subscribable.subscriptions.build({user_id: @current_user[:id]})
     if @subscription.save
-      redirect_to :back, notice: 'You are now subscribed.'
+      redirect_to :back, notice: 'Subscribed.'
     else
       redirect_to :back, error: 'There was an error while trying to save your subscription.'
     end
@@ -17,14 +19,9 @@ class SubscriptionsController < ApplicationController
 
   def destroy
     respond_to do |format|
-      if is_admin? or @subscription.user == @current_user
-        @subscription.destroy
-        format.html { redirect_to :back, notice: 'Subscription deleted.' }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to :back, error: 'You do not have access to do that.' }
-        format.json { head :no_content, status: :unauthorized }
-      end
+      @subscription.destroy
+      format.html { redirect_to :back }
+      format.json { head :no_content }
     end
   end
 
