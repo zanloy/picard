@@ -1,6 +1,10 @@
 .row
   .col-md-9.col-md-offset-3
-    h1 Certificate ##{@certificate.id}
+    h1
+      ' Certificate ##{@certificate.id}
+      .pull-right
+        - if can? :destroy, @change
+          = button_to 'Delete', @certificate, { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
 
 .row
   .col-md-3.text-right
