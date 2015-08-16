@@ -4,6 +4,20 @@ RSpec.describe "certificates/show.html.slim", type: :view do
 
   include RSpecHtmlMatchers
 
+  before do
+    @user = create(:user)
+    controller.singleton_class.class_eval do
+      protected
+      def current_user
+        @user
+      end
+      def is_admin?
+        true
+      end
+      helper_method :is_admin?
+    end
+  end
+
   before(:each) do
     @certificate = assign(:certificate, create(:certificate))
     render

@@ -6,7 +6,7 @@ RSpec.describe TagsController, type: :controller do
 
   describe 'GET #index' do
     it 'assigns all tags to @tags' do
-      tags = create_pair(:tag)
+      tags = [create(:tag, name: 'tag1'), create(:tag, name: 'tag2')]
       get :index, {}, @session
       expect(assigns(:tags)).to match_array(tags)
     end
