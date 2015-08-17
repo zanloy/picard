@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810171018) do
+ActiveRecord::Schema.define(version: 20150817161057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,19 @@ ActiveRecord::Schema.define(version: 20150810171018) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
+  create_table "servers", force: :cascade do |t|
+    t.string   "name",           null: false
+    t.integer  "environment_id"
+    t.string   "ip_address"
+    t.string   "ports"
+    t.string   "api_key"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "servers", ["api_key"], name: "index_servers_on_api_key", using: :btree
+  add_index "servers", ["environment_id"], name: "index_servers_on_environment_id", using: :btree
+
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "subscribable_id",   null: false
     t.string   "subscribable_type", null: false
@@ -206,4 +219,5 @@ ActiveRecord::Schema.define(version: 20150810171018) do
   add_foreign_key "engineering_changes", "environments"
   add_foreign_key "list_items", "lists"
   add_foreign_key "notifications", "users"
+  add_foreign_key "servers", "environments"
 end
