@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817161057) do
+ActiveRecord::Schema.define(version: 20150817185746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20150817161057) do
   end
 
   add_index "alerts", ["list_id"], name: "index_alerts_on_list_id", using: :btree
+
+  create_table "certificate_locations", force: :cascade do |t|
+    t.integer  "server_id"
+    t.integer  "certificate_id"
+    t.string   "location"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "certificate_locations", ["certificate_id"], name: "index_certificate_locations_on_certificate_id", using: :btree
+  add_index "certificate_locations", ["server_id"], name: "index_certificate_locations_on_server_id", using: :btree
 
   create_table "certificates", force: :cascade do |t|
     t.string   "subject"
@@ -216,6 +227,8 @@ ActiveRecord::Schema.define(version: 20150817161057) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
   add_foreign_key "alerts", "lists"
+  add_foreign_key "certificate_locations", "certificates"
+  add_foreign_key "certificate_locations", "servers"
   add_foreign_key "engineering_changes", "environments"
   add_foreign_key "list_items", "lists"
   add_foreign_key "notifications", "users"

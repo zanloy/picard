@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :certificate_location do
-    server nil
-certificate nil
-location "MyString"
+    server
+    certificate
+    location "MyString"
   end
 
 end

@@ -2,6 +2,7 @@ class Server < ActiveRecord::Base
 
   # Associations
   belongs_to :environment
+  has_many :certificate_locations, dependent: :destroy
 
   # Validations
   validates_presence_of :name

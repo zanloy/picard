@@ -1,5 +1,8 @@
 class Certificate < ActiveRecord::Base
 
+  # Associations
+  has_many :certificate_locations
+  
   # Validations
   validates_presence_of :pem
   validates_uniqueness_of :pem
