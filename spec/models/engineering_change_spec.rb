@@ -6,10 +6,6 @@ RSpec.describe EngineeringChange, type: :model do
     expect(build(:engineering_change)).to be_valid
   end
 
-  it 'is invalid without a date' do
-    expect(build(:engineering_change, when: nil)).to_not be_valid
-  end
-
   it 'is invalid without a title' do
     expect(build(:engineering_change, title: nil)).to_not be_valid
   end

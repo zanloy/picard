@@ -57,8 +57,8 @@ class EngineeringChangesController < ApplicationController
         format.html { redirect_to engineering_change_path(@change), notice: 'Update successful.' }
         format.json { render :show, status: :ok, location: @change }
       else
-        format.html { render :edit, error: 'Update failed.' }
-        format.json { render json: @change.errors, status: :unprocessable_entity }
+        format.html { render :edit, alert: @change.errors.full_messages.join('. ') }
+        format.json { render json: @change.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -86,11 +86,7 @@ class EngineeringChangesController < ApplicationController
   end
 
   def create_params
-    p = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description)
-    p[:entered_by_id] = @current_user[:id]
-    p[:poc_id] = @current_user[:id] if (p[:poc_id].nil? or p[:poc_id].empty?)
-    p[:when] = Time.zone.now if not p.has_key? :when
-    p
+    params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description)
   end
 
   def from_quick_add?
