@@ -70,6 +70,10 @@ gem 'slack-notifier'
 gem "jqcloud-rails"
 # Use Crono for scheduled tasks
 gem 'crono'
+# Use friendly_id for prettier urls
+gem 'friendly_id', '~> 5.1.0'
+# Use RedCarpet for markdown parsing
+gem 'redcarpet'
 
 group :production do
   gem 'mailgun_rails'

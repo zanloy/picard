@@ -19,6 +19,10 @@ RSpec.describe User, type: :model do
   end
 
   context 'on create' do
+    it 'downcases email address' do
+      user = create(:user, email: 'this@That.com')
+      expect(user.email).to eql('this@that.com')
+    end
     it 'starts disabled' do
       user = User.new
       expect(user.enabled).to eql(false)

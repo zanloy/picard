@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   before_create :build_profile, if: :missing_profile?
   before_create :build_notification
   after_create :send_notifications
+  before_save :downcase_email
 
   # Associations
   has_one :profile, autosave: true, dependent: :destroy
@@ -53,6 +54,7 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(email, password)
+    email.downcase!
     if user = find_by_email(email)
       if BCrypt::Password.new(user.hashed_password).is_password? password
         return user
@@ -97,6 +99,10 @@ class User < ActiveRecord::Base
 
   def missing_profile?
     return self.profile.nil?
+  end
+
+  def downcase_email
+    self.email.downcase!
   end
 
 end

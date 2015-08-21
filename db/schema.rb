@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810171018) do
+ActiveRecord::Schema.define(version: 20150821165609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20150810171018) do
 
   add_index "alerts", ["list_id"], name: "index_alerts_on_list_id", using: :btree
 
+  create_table "certificate_locations", force: :cascade do |t|
+    t.integer  "server_id"
+    t.integer  "certificate_id"
+    t.string   "location"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "certificate_locations", ["certificate_id"], name: "index_certificate_locations_on_certificate_id", using: :btree
+  add_index "certificate_locations", ["server_id"], name: "index_certificate_locations_on_server_id", using: :btree
+
   create_table "certificates", force: :cascade do |t|
     t.string   "subject"
     t.string   "cn"
@@ -36,9 +47,10 @@ ActiveRecord::Schema.define(version: 20150810171018) do
     t.string   "signature_algorithm"
     t.integer  "key_length"
     t.string   "modulus"
-    t.text     "pem",                 null: false
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.text     "pem",                             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "locations_count",     default: 0
   end
 
   create_table "comments", force: :cascade do |t|
@@ -155,6 +167,19 @@ ActiveRecord::Schema.define(version: 20150810171018) do
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
+  create_table "servers", force: :cascade do |t|
+    t.string   "name",           null: false
+    t.integer  "environment_id"
+    t.string   "ip_address"
+    t.string   "ports"
+    t.string   "api_key"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "servers", ["api_key"], name: "index_servers_on_api_key", using: :btree
+  add_index "servers", ["environment_id"], name: "index_servers_on_environment_id", using: :btree
+
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "subscribable_id",   null: false
     t.string   "subscribable_type", null: false
@@ -203,7 +228,10 @@ ActiveRecord::Schema.define(version: 20150810171018) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
   add_foreign_key "alerts", "lists"
+  add_foreign_key "certificate_locations", "certificates"
+  add_foreign_key "certificate_locations", "servers"
   add_foreign_key "engineering_changes", "environments"
   add_foreign_key "list_items", "lists"
   add_foreign_key "notifications", "users"
+  add_foreign_key "servers", "environments"
 end

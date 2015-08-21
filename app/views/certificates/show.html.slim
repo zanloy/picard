@@ -40,3 +40,17 @@
   .col-md-3.text-right
     strong Valid Until:
   .col-md-9 = @certificate.not_after.strftime('%Y-%m-%d %H:%M %Z')
+
+- if @certificate.locations_count > 0
+  .row
+    .col-md-11.col-md-offset-1
+      table.table.table-striped
+        thead
+          tr
+            th Server
+            th Location
+        tbody
+          - for location in @certificate.locations
+            tr
+              td = location.server.name
+              td = location.location

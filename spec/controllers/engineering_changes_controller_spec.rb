@@ -63,6 +63,16 @@ RSpec.describe EngineeringChangesController, type: :controller do
           expect(assigns(:change)).to be_persisted
         end
 
+        it 'assigns :entered_by to @current_user' do
+          post :create, { engineering_change: attributes_for(:engineering_change) }, @session
+          expect(EngineeringChange.last.entered_by).to eq(@current_user)
+        end
+
+        it 'assigns :poc if attribute is empty' do
+          post :create, { engineering_change: attributes_for(:engineering_change, poc: '') }, @session
+          expect(EngineeringChange.last.poc).to eq(@current_user)
+        end
+        
         it "redirects to the created change" do
           post :create, {engineering_change:  attributes_for(:engineering_change)}, @session
           expect(response).to redirect_to(engineering_change_url(EngineeringChange.last))

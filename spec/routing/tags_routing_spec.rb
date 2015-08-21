@@ -8,7 +8,7 @@ RSpec.describe TagsController, type: :routing do
     end
 
     it 'routes to #show' do
-      expect(get: '/tags/production').to route_to('tags#show', name: 'production')
+      expect(get: '/tags/production').to route_to('tags#show', id: 'production')
     end
 
   end

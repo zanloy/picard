@@ -1,5 +1,8 @@
 class Certificate < ActiveRecord::Base
 
+  # Associations
+  has_many :locations, class_name: :CertificateLocation, foreign_key: 'certificate_id'
+
   # Validations
   validates_presence_of :pem
   validates_uniqueness_of :pem
