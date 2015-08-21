@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817185746) do
+ActiveRecord::Schema.define(version: 20150821165609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,9 +47,10 @@ ActiveRecord::Schema.define(version: 20150817185746) do
     t.string   "signature_algorithm"
     t.integer  "key_length"
     t.string   "modulus"
-    t.text     "pem",                 null: false
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.text     "pem",                             null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "locations_count",     default: 0
   end
 
   create_table "comments", force: :cascade do |t|

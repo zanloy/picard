@@ -1,5 +1,8 @@
 class Tag < ActiveRecord::Base
 
+  include FriendlyId
+  friendly_id :name, use: :finders
+
   # Associations
   has_many :taggings
   has_many :engineering_changes, through: :taggings

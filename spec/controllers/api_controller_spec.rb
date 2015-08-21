@@ -37,16 +37,11 @@ RSpec.describe ApiController, type: :controller do
         location = server.certificate_locations.create(certificate: certificate, location: '/tmp/test.crt')
         original = location.updated_at
         post :add_cert, add_cert_payload
-        #puts "original = #{original}, new = #{location.updated_at}"
-        #puts original == location.updated_at ? "TRUE" : "FALSE"
+        location.reload
         expect(location.updated_at).not_to eq(original)
       end
     end
 
-    #it 'returns http success' do
-    #  post :add_cert
-    #  expect(response).to have_http_status(:success)
-    #end
   end
 
 end

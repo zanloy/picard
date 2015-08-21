@@ -9,6 +9,7 @@ class ApiController < ApplicationController
       begin
         cert = Certificate.where(pem: cert_params[:pem]).first_or_create
         location = CertificateLocation.where(server: @server, certificate: cert, location: cert_params[:filename]).first_or_create
+        location.touch
         format.html { render text: cert.to_json }
         format.json { render text: cert.to_json }
       end

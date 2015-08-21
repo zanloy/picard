@@ -8,7 +8,7 @@ class TagsController < ApplicationController
     @tags.each do |tag|
       @tags_with_weight << {
         text: tag.name,
-        weight: tag.taggings.count,
+        weight: tag.taggings.count, #TODO: Add taggings_count to Tag
         link: tag_path(tag),
       }
     end
@@ -33,6 +33,6 @@ class TagsController < ApplicationController
   private
 
   def name_param
-    params.require(:name)
+    params.require(:id)
   end
 end

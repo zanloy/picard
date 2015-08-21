@@ -15,7 +15,7 @@ RSpec.describe TagsController, type: :controller do
   describe 'GET #show' do
     it 'assigns requested tag as @tag' do
       tag = create(:tag)
-      get :show, {name: tag.name}, @session
+      get :show, {id: tag.name}, @session
       expect(assigns(:tag)).to eq(tag)
     end
   end
