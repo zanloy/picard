@@ -30,10 +30,14 @@ module ApplicationHelper
   end
 
   def linkify_tags(body)
-    return body if body.nil?
-    body.gsub(/#[\w]*/) do |hashtag|
+    return nil unless body
+    body.gsub(/#\w+/) do |hashtag|
       tag = hashtag[1..-1]
-      link_to(hashtag, tag_path(tag.downcase))
+      if tag == nil
+        hashtag
+      else
+        link_to hashtag, tag_path(tag.downcase.strip)
+      end
     end
   end
 

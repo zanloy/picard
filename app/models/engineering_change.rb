@@ -97,14 +97,12 @@ class EngineeringChange < ActiveRecord::Base
   end
 
   def tagify
-    words = self.title.split
-    words += self.description.split if self.description != nil
-    hashtags = words.select { |word| word[0] == '#' }
+    payload = self.title + ' '
+    payload += self.description unless self.description.nil?
+    hashtags = payload.scan(/#(\w+)/).flatten
     tags = hashtags.uniq.map do |hashtag|
-      hashtag.gsub!(/[^a-zA-Z0-9]/, '')
       Tag.where(name: hashtag.downcase.strip).first_or_create!
     end
-    logger.debug "tags = #{tags.inspect}"
     self.tags = tags
   end
 

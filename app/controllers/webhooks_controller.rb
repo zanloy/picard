@@ -24,7 +24,7 @@ class WebhooksController < ApplicationController
         render text: {text: 'No matching username in database. Please add your Slack username to your profile and retry.'}.to_json
         return
       end
-      change = EngineeringChange.create({entered_by: user, poc: user, environment: Environment.first, title: body, :when => Time.zone.now})
+      change = EngineeringChange.create(entered_by: user, poc: user, environment: Environment.first, title: body)
       if change.save
         response = {text: 'Success!'}
       else
