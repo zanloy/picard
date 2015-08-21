@@ -1,6 +1,6 @@
 class EngineeringChange < ActiveRecord::Base
 
-  before_create :parse_defaults
+  before_create :add_when
   after_create :send_notifications, :notify_slack, :setup_subscriptions
 
   before_save :parse_title
@@ -92,9 +92,7 @@ class EngineeringChange < ActiveRecord::Base
 
   private
 
-  def parse_defaults
-    self.entered_by ||= @current_user
-    self.poc ||= @current_user
+  def add_when
     self.when ||= Time.zone.now
   end
 
