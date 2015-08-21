@@ -71,7 +71,7 @@ RSpec.describe Emailer, type: :mailer do
       it { is_expected.to have_content(user.email) }
       it { is_expected.to have_content(user.name) }
       it { is_expected.to have_tag(:a, href: user_path(user)) }
-      it { is_expected.to have_tag(:a, href: enable_user_url(user)) }
+      it { is_expected.to have_tag(:a, href: user_enable_url(user)) }
     end
   end
 

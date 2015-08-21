@@ -10,7 +10,7 @@
 server '130.211.184.65', user: 'apps', roles: %w{app web}
 
 # Change the default location for the crono pid file.
-set :crono_pid, -> { File.join(shared_path, 'pids', 'crono.pid') }
+#set :crono_pid, -> { File.join(shared_path, 'pids', 'crono.pid') }
 
 # role-based syntax
 # ==================

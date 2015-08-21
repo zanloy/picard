@@ -1,24 +1,13 @@
 class UsersController < ApplicationController
 
   skip_before_filter :require_login, only: [:new, :create]
+
+  # We run :current_user before :new and :create because if the user is created
+  # by an admin, then it behaves differently.
   before_filter :current_user, only: [:new, :create]
+  before_filter :set_user, except: [:create, :index, :new]
 
-  before_filter :set_user, only: [:show, :edit, :update, :destroy, :generate_apikey]
-  before_filter :require_admin_or_self, only: [:edit, :destroy, :update, :generate_apikey]
-
-  helper_method :is_admin_or_self?
-
-  def index
-    @users = User.enabled.sorted
-  end
-
-  def show
-    @changes = @user.engineering_changes.timeline.limit(10)
-  end
-
-  def new
-    @user = User.new
-  end
+  load_and_authorize_resource
 
   def create
     if create_params[:email] =~ /.*@sparcedge.com/i
@@ -28,7 +17,7 @@ class UsersController < ApplicationController
 
       respond_to do |format|
         if @user.save
-          if current_user
+          if @current_user
             format.html { redirect_to user_path(@user) }
           else
             session[:user_id] = @user.id
@@ -43,7 +32,47 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    redirect_to users_path, notice: 'User was deleted.'
+  end
+
   def edit
+  end
+
+  def enable
+    @user.enabled = true
+    respond_to do |format|
+      if @user.save
+        Emailer.account_enabled(@user).deliver_later
+        format.html { redirect_to admin_path, notice: "#{@user.name_or_email} has been enabled." }
+        format.json { render 'users/show', status: :ok, location: @user }
+      else
+        format.html { redirect_to admin_path, alert: 'Failed to enable account.' }
+        format.json { render @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def generate_apikey
+    @user.profile.apikey = SecureRandom.hex(32)
+    if @user.profile.save!
+      redirect_to user_path(@user), notice: 'New APIKey was generated. The old key will no longer work.'
+    else
+      redirect_to :back, notice: 'There was an error updating your apikey.'
+    end
+  end
+
+  def index
+    @users = User.enabled.sorted
+  end
+
+  def new
+    @user = User.new
+  end
+
+  def show
+    @changes = @user.engineering_changes.timeline.limit(10)
   end
 
   def update
@@ -58,33 +87,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def generate_apikey
-    @user.profile.apikey = SecureRandom.hex(32)
-    if @user.profile.save!
-      redirect_to user_path(@user), notice: 'New APIKey was generated. The old key will no longer work.'
-    else
-      redirect_to :back, notice: 'There was an error updating your apikey.'
-    end
-  end
-
-  def destroy
-    @user.destroy
-    redirect_to users_path, notice: 'User was successfully deleted.'
-  end
-
-  def is_admin_or_self?
-    return true if is_admin?
-    return true if @current_user == @user
-    return false
-  end
-
   private
-
-  def require_admin_or_self
-    if not is_admin_or_self?
-      redirect_to :back, error: "You can't edit this user."
-    end
-  end
 
   def set_user
     id = params[:id] || params[:user_id]

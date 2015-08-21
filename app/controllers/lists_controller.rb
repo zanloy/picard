@@ -1,4 +1,5 @@
 class ListsController < ApplicationController
+
   before_action :set_list, except: [:index, :new, :create]
 
   # GET /lists

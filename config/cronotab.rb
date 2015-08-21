@@ -14,4 +14,4 @@
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
 
-Crono.perform(DailyAlertsJob).every 1.day, at: {hour: 8}
+Crono.perform(DailyAlertsJob).every 1.week, on: :monday, at: '08:00'

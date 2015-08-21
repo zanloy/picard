@@ -7,6 +7,10 @@ RSpec.describe UsersController, type: :routing do
       expect(get: "/users").to route_to("users#index")
     end
 
+    it 'routes to #enable' do
+      expect(get: '/users/1/enable').to route_to('users#enable', user_id: '1')
+    end
+
     it "routes to #create" do
       expect(post: "/users").to route_to("users#create")
     end
@@ -38,6 +42,6 @@ RSpec.describe UsersController, type: :routing do
     it "routes to #new" do
       expect(get: "/signup").to route_to("users#new")
     end
-    
+
   end
 end

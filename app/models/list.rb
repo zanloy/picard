@@ -14,11 +14,7 @@ class List < ActiveRecord::Base
   end
 
   def fields
-    begin
-      parsed.keys
-    rescue
-      []
-    end
+    parsed.keys
   end
 
   def date_fields
@@ -38,7 +34,7 @@ class List < ActiveRecord::Base
     list_items.each do |item|
       alerts.each do |alert|
         # Doing eval is always dangerous with user provided variables so
-        # caution should be taken to valid them before using them.
+        # caution should be taken to validate them before using them.
 
         # Setup variables for the test
         # TODO: change this so it works on non-date fields as well

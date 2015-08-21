@@ -1,8 +1,10 @@
 class EngineeringChange < ActiveRecord::Base
 
+  before_create :parse_defaults
+  after_create :send_notifications, :notify_slack, :setup_subscriptions
+
   before_save :parse_title
   after_save :tagify
-  after_create :send_notifications, :notify_slack, :setup_subscriptions
 
   # Associations
   belongs_to :entered_by, class_name: User
@@ -14,10 +16,11 @@ class EngineeringChange < ActiveRecord::Base
   has_many :subscriptions, as: :subscribable, dependent: :destroy
 
   # Scopes
+  default_scope { order(when: :desc) }
   scope :timeline, -> { order(when: :desc) }
 
   # Validation
-  validates_presence_of :when, :title
+  validates_presence_of :title
   validates_length_of :title, maximum: 142
 
   self.per_page = 15
@@ -88,6 +91,12 @@ class EngineeringChange < ActiveRecord::Base
   end
 
   private
+
+  def parse_defaults
+    self.entered_by ||= @current_user
+    self.poc ||= @current_user
+    self.when ||= Time.zone.now
+  end
 
   def tagify
     words = self.title.split

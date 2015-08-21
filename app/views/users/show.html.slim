@@ -1,7 +1,7 @@
 .col-md-offset-2.col-md-10
   h1
     = @user.name_or_email
-    - if is_admin_or_self?
+    - if can? :edit, @user
       .pull-right
         = button_to 'Edit', edit_user_path(@user), { method: :get, class: 'btn btn-primary' }
 
@@ -55,7 +55,7 @@ br
     strong Slack Username:
   .col-md-9
     = @user.profile.slack_username
-- if is_admin_or_self?
+- if can? :generate_apikey, @user
   br
   .row
     .col-md-3.text-right

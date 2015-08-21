@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :list_items, shallow: true, except: [:index, :show]
   end
   resources :users do
+    get 'enable', to: 'users#enable'
     get 'generate_apikey', to: 'users#generate_apikey'
   end
   resources :comments, only: :destroy
@@ -27,7 +28,6 @@ Rails.application.routes.draw do
   #get 'tags/:name', to: 'tags#show', as: :tag
 
   get 'admin', to: 'admin#index'
-  get 'admin/enable_user/:user_id', to: 'admin#enable_user', as: :enable_user
 
   # API
   post 'api/add_cert', to: 'api#add_cert'
