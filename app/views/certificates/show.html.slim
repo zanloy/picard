@@ -3,7 +3,9 @@
     h1
       ' Certificate ##{@certificate.id}
       .pull-right
-        - if can? :destroy, @change
+        - if can? :edit, @certificate
+          => button_to 'Edit', edit_certificate_path(@certificate), class: 'btn btn-primary', role: 'button', method: :get
+        - if can? :destroy, @certificate
           = button_to 'Delete', @certificate, { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
 
 .row
@@ -40,6 +42,11 @@
   .col-md-3.text-right
     strong Valid Until:
   .col-md-9 = @certificate.not_after.strftime('%Y-%m-%d %H:%M %Z')
+
+.row
+  .col-md-3.text-right
+    strong POC:
+  .col-md-9 = @certificate.poc
 
 - if @certificate.locations_count > 0
   .row

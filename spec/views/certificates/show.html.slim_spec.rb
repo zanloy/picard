@@ -30,5 +30,6 @@ RSpec.describe "certificates/show.html.slim", type: :view do
   it { expect(rendered).to match(@certificate.not_after.strftime('%Y-%m-%d')) }
   it { expect(rendered).to match(@certificate.signature_algorithm) }
   it { expect(rendered).to match(@certificate.key_length.to_s) }
+  it { expect(rendered).to match(@certificate.poc) }
 
 end

@@ -3,7 +3,7 @@ class CertificatesController < ApplicationController
   before_action :set_certificate, except: [:index, :new, :create]
 
   load_and_authorize_resource
-  
+
   def index
     @certificates = Certificate.sorted
   end
@@ -60,7 +60,7 @@ class CertificatesController < ApplicationController
   end
 
   def create_params
-    params.require(:certificate).permit(:pem)
+    params.require(:certificate).permit(:pem, :poc)
   end
 
 end

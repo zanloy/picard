@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :certificate do
+    poc 'Test Person'
     pem <<-END
 -----BEGIN CERTIFICATE-----
 MIIDrzCCApegAwIBAgIJANiYpmeIw5eRMA0GCSqGSIb3DQEBCwUAMG4xCzAJBgNV
@@ -26,6 +27,7 @@ LYlcyZCW8tylcF3txojskA6FPqHyXMLLpo/IVtzd87FSl1o=
 END
 
     trait :test2 do
+      poc 'Test Person2'
       pem <<-END
 -----BEGIN CERTIFICATE-----
 MIIDszCCApugAwIBAgIJAKr/O01+Bz+HMA0GCSqGSIb3DQEBCwUAMHAxCzAJBgNV
@@ -53,6 +55,7 @@ END
     end
 
     trait :expired do
+      poc 'Test Person3'
       pem <<-END
 -----BEGIN CERTIFICATE-----
 MIIGsDCCBZigAwIBAgIHPQABAAUyYDANBgkqhkiG9w0BAQUFADBQMRMwEQYKCZIm

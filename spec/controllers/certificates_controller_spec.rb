@@ -56,13 +56,13 @@ RSpec.describe CertificatesController, type: :controller do
 
     describe 'PUT #update' do
       let(:location) { :update }
-      let(:update_params) { attributes_for(:certificate, :test2) }
+      let(:update_params) { { poc: 'Testy Tester'} }
       it_behaves_like 'it assigns @certificate'
 
-      it 'updates the certificate' do
+      it 'updates the poc' do
         put :update, { id: @certificate.to_param, certificate: update_params }, @session
         @certificate.reload
-        expect(@certificate.cn).to eql('Picard Test Certificate 2')
+        expect(@certificate.poc).to eql(update_params[:poc])
       end
 
       it 'redirects to #show' do

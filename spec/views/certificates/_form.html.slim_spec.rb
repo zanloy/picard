@@ -8,7 +8,7 @@ RSpec.describe '/certificates/_form', type: :view do
     assign(:certificate, Certificate.new)
     render partial: 'form'
     expect(rendered).to have_tag('form', with: {action: certificates_path(@list), method: 'post'}) do
-      with_text_area 'certificate[pem]'
+      with_text_field 'certificate[poc]'
     end
   end
 end
