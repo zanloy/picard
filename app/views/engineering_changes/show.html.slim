@@ -16,25 +16,30 @@
 
 br
 .row
-  .col-md-3.text-right Title:
+  .col-md-3.text-right
+    strong Title:
   .col-md-9
-    strong == raw linkify_tags @change.title
+    == raw linkify_tags @change.title
 br
 .row
-  .col-md-3.text-right POC:
+  .col-md-3.text-right
+    strong POC:
   .col-md-9 == display_name(@change.poc) if @change.poc
 br
 .row.
-  .col-md-3.text-right Date:
+  .col-md-3.text-right
+    strong Date:
   .col-md-9 = @change.when.strftime('%A, %m/%d/%Y @ %l:%M%P')
 br
 .row
-  .col-md-3.text-right Environment:
+  .col-md-3.text-right
+    strong Environment:
   .col-md-9 == display_environment(@change.environment) if @change.environment
 br
 .row
-  .col-md-3.text-right Description:
-  .col-md-9 == simple_format(linkify_tags(@change.description))
+  .col-md-3.text-right
+    strong Description:
+  .col-md-9 == markdown(linkify_tags(@change.description))
 
 h2.col-md-offset-2.col-md-10 Comments
 br
@@ -46,7 +51,7 @@ br
         .pull-right
           = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
            == delete_icon
-      == linkify_tags(comment.comment)
+      == markdown(linkify_tags(comment.comment))
   br
 br
 = form_for [@change, Comment.new], html: { class: 'form' } do |f|
