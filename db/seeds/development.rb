@@ -1,10 +1,9 @@
 users = [
   {
-    email: 'zan.loy@gmail.com',
+    email: 'test@test.com',
     new_password: 'test',
-    name: 'Zan Gmail',
+    name: 'Tester McTesterson',
     enabled: true,
-    admin: false,
   }
 ]
 

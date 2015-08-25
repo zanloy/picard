@@ -7,9 +7,10 @@ table class='table table-hover'
   tbody
     - for user in users
       tr id="user_#{user.id}"
-        td = user.name
+        td = link_to(user.name, user)
         td = user.email
         td.text-right
-          = button_to 'Enable', user_enable_path(user), {method: :get, class: 'btn btn-primary', id: "enable_user_#{user.id}", role: 'button'}
-          | &nbsp;
+          - if user.banned == false
+            = button_to 'Enable', user_enable_path(user), {method: :get, class: 'btn btn-primary', id: "enable_user_#{user.id}", role: 'button'}
+            | &nbsp;
           = button_to 'Delete', user_path(user), {method: :delete, class: 'btn btn-danger', id: "delete_user_#{user.id}", role: 'button'}

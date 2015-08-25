@@ -12,6 +12,7 @@ class Emailer < ActionMailer::Base
   def new_change(user, change)
     @user = user
     @change = change
+    return false if user.enabled == false or user.banned == true
     mail(to: @user.email, subject: "New Change: #{@change.title.truncate(50)}")
   end
 

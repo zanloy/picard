@@ -24,6 +24,10 @@
 @import "bootstrap-pull";
 @import "*";
 
+body {
+  padding-top: 70px;
+}
+
 .dropdown:hover .dropdown-menu {
   display: block;
 }
@@ -35,14 +39,6 @@
   font-size: 18px;
   line-height: 1.33;
 }
-
-/*
-.actions {
-  .glyphicon {
-    padding-right: 10px;
-  }
-}
-*/
 
 span.tag {
   /* display: inline; */

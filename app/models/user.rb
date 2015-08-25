@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   def admin?
     admin
   end
-  
+
   def name_or_email
     if self.name.nil? || self.name.empty?
       return self.email
@@ -93,7 +93,9 @@ class User < ActiveRecord::Base
 
   def send_notifications
     Notification.where(on_new_user: true).each do |notification|
-      Emailer.new_user(notification.user, self).deliver_later
+      unless notification.user.enabled? == false
+        Emailer.new_user(notification.user, self).deliver_later
+      end
     end
   end
 
