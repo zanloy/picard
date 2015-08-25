@@ -7,7 +7,7 @@
       = link_to engineering_change_subscriptions_path(@change), method: :post do
         i.glyphicon.glyphicon-star-empty
   h1.col-md-10
-    ' Engineering Change Details
+    ' Change Details
     .pull-right
       - if can? :edit, @change
         = button_to 'Edit', edit_engineering_change_path(@change), { method: :get, class: 'btn btn-primary', role: 'button' }

@@ -18,7 +18,7 @@
 
 # Ignore local environment variables.
 .env
-.env.*
+.env.production
 
 # Ignore shared logs and sockets
 /shared
