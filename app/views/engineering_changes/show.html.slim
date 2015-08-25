@@ -16,28 +16,28 @@
 
 br
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Title:
   .col-md-9
     == raw linkify_tags @change.title
 br
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong POC:
   .col-md-9 == display_name(@change.poc) if @change.poc
 br
 .row.
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Date:
   .col-md-9 = @change.when.strftime('%A, %m/%d/%Y @ %l:%M%P')
 br
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Environment:
   .col-md-9 == display_environment(@change.environment) if @change.environment
 br
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Description:
   .col-md-9 == markdown(linkify_tags(@change.description))
 
@@ -45,7 +45,7 @@ h2.col-md-offset-2.col-md-10 Comments
 br
 - for comment in @change.comments.order(:created_at)
   .row
-    .col-md-3.text-right = comment.user.name_or_email
+    .col-md-3.pull-right-md = comment.user.name_or_email
     .col-md-7
       - if can? :destroy, comment
         .pull-right

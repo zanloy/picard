@@ -9,42 +9,42 @@
           = button_to 'Delete', @certificate, { method: :delete, class: 'btn btn-danger', role: 'button', data: { confirm: 'Are you sure?' } }
 
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong CN:
   .col-md-9 = @certificate.cn
 
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Subject:
   .col-md-9 = @certificate.subject
 
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Issuer:
   .col-md-9 = @certificate.issuer
 
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Signature Algorithm:
   .col-md-9 = @certificate.signature_algorithm
 
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Key Length:
   .col-md-9 = @certificate.key_length
 
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Valid From:
   .col-md-9 = @certificate.not_before.strftime('%Y-%m-%d %H:%M %Z')
 
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong Valid Until:
   .col-md-9 = @certificate.not_after.strftime('%Y-%m-%d %H:%M %Z')
 
 .row
-  .col-md-3.text-right
+  .col-md-3.pull-right-md
     strong POC:
   .col-md-9 = @certificate.poc
 

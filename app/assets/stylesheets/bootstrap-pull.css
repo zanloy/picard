@@ -1,0 +1,47 @@
+@media (max-width: 767px) {
+  /** Pull left xs **/
+  .pull-left-xs {
+    text-align: left;
+  }
+
+  /** Pull right xs **/
+  .pull-right-xs {
+    text-align: right;
+  }
+}
+
+@media (min-width: 768px) {
+  /** Pull left sm **/
+  .pull-left-sm {
+    text-align: left;
+  }
+
+  /** Pull right sm **/
+  .pull-right-sm {
+    text-align: right;
+  }
+}
+
+@media (min-width: 992px) {
+  /** Pull left **/
+  .pull-left-md {
+    text-align: left;
+  }
+
+  /** Pull right **/
+  .pull-right-md {
+    text-align: right;
+  }
+}
+
+@media (min-width: 1200px) {
+  /** Pull left **/
+  .pull-left-lg {
+    text-align: left;
+  }
+
+  /** Pull right **/
+  .pull-right-lg {
+    text-align: right;
+  }
+}
