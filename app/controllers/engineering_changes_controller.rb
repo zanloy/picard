@@ -30,6 +30,16 @@ class EngineeringChangesController < ApplicationController
       else
         @change.environment = Environment.first unless @change.environment
         if @change.save
+          # Notify Slack
+          begin
+            if ENV.has_key? 'SLACK_WEBHOOKS'
+              ENV['SLACK_WEBHOOKS'].split(',').each do |webhook|
+                notifier = Slack::Notifier.new webhook
+                notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}"
+              end
+            end
+          rescue
+          end
           format.html do
             if from_quick_add?
               redirect_to engineering_changes_path

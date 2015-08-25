@@ -1,7 +1,9 @@
 class EngineeringChange < ActiveRecord::Base
 
+  include Rails.application.routes.url_helpers
+
   before_create :add_when
-  after_create :send_notifications, :notify_slack, :setup_subscriptions
+  after_create :send_notifications, :setup_subscriptions
 
   before_save :parse_title
   after_save :tagify
@@ -52,13 +54,6 @@ class EngineeringChange < ActiveRecord::Base
       return false
     end
   end
-
-  #def all_tags=(names)
-  #  names = names.split(',').map { |x| x.strip }.uniq
-  #  self.tags = names.map do |name|
-  #    Tag.where(name: name.strip).first_or_create!
-  #  end
-  #end
 
   def tags_csv
     self.tags.map(&:name).join(', ')
@@ -118,18 +113,6 @@ class EngineeringChange < ActiveRecord::Base
     self.subscriptions.build({user: self.entered_by}).save
     unless self[:poc] == self.entered_by
       self.subscriptions.build({user_id: self[:poc_id]}).save
-    end
-  end
-
-  def notify_slack
-    begin
-      if ENV.has_key? 'SLACK_WEBHOOKS'
-        ENV['SLACK_WEBHOOKS'].split(',').each do |webhook|
-          notifier = Slack::Notifier.new webhook, channel: '#general', username: 'Jean-Luc Picard'
-          notifier.ping "New Change: #{view_context.link_to(self.title, engineering_change_url(self))}"
-        end
-      end
-    rescue
     end
   end
 
