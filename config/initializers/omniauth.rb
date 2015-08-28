@@ -5,10 +5,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     { hd: 'sparcedge.com' }
 
   if Rails.env.demo?
-    use OmniAuth::Builder do
-      configure do |config|
-        config.path_prefix = '/picard/auth'
-      end
-    end
+    provider :google_oauth2, callback_path: '/picard/auth/google_oauth2/callback'
   end
 end
