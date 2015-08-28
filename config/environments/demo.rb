@@ -78,6 +78,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   Rails.application.routes.default_url_options = { host: 'demo.zanloy.com/picard' }
+  Rails.application.default_url_options = { host: 'demo.zanloy.com/picard' }
 
   # Settings for email
   config.action_mailer.default_url_options = { protocol: 'https', host: 'demo.zanloy.com/picard' }
