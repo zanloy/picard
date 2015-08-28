@@ -96,7 +96,7 @@ class EngineeringChangesController < ApplicationController
   end
 
   def create_params
-    parms = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description)
+    parms = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description, attachments_attributes: [:id, :file, :_destroy])
     parms[:entered_by] = @current_user
     parms[:poc] = @current_user if (parms[:poc_id].nil? or parms[:poc_id].empty?)
     return parms

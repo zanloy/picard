@@ -54,6 +54,8 @@ gem 'delayed_job_active_record'
 gem 'cancancan'
 # Generates simple forms (bootstrap compatible)
 gem 'simple_form'
+# Use Cocoon for dynamic nested forms
+gem 'cocoon'
 # Use jquery-ui for pretty ui shit
 gem 'jquery-ui-rails'
 # Pretty alert windows
@@ -74,6 +76,8 @@ gem 'crono'
 gem 'friendly_id', '~> 5.1.0'
 # Use RedCarpet for markdown parsing
 gem 'redcarpet'
+# Use Paperclip for file attachments
+gem 'paperclip', '~> 4.3'
 
 group :production do
   gem 'mailgun_rails'
