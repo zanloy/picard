@@ -88,9 +88,3 @@ Rails.application.configure do
   config.active_job.queue_adapter = :delayed_job
 
 end
-
-use OmniAuth::Builder do
-  configure do |config|
-    config.path_prefix = '/picard/auth'
-  end
-end
