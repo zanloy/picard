@@ -20,5 +20,9 @@ test:
   <<: *default
   database: picard_test
 
+demo:
+  <<: *default
+  database: picard_demo
+
 production:
   <<: *default

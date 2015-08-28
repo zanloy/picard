@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :certificate do
-    poc { "#{FFaker::Name.name} (#{FFaker::Internet.email})" }
+    poc { "#{FFaker::Name.name}" }
     pem <<-END
 -----BEGIN CERTIFICATE-----
 MIIDrzCCApegAwIBAgIJANiYpmeIw5eRMA0GCSqGSIb3DQEBCwUAMG4xCzAJBgNV
