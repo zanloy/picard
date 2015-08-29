@@ -11,7 +11,7 @@ class EngineeringChange < ActiveRecord::Base
   belongs_to :poc, class_name: User
   belongs_to :environment
   has_many :attachments
-  accepts_nested_attributes_for :attachments, allow_destroy: true
+  accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: :all_blank
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
   has_many :comments, as: :commentable, dependent: :destroy

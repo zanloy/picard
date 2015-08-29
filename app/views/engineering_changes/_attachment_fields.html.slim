@@ -1,7 +1,9 @@
 .nested-fields
   .row
-    .col-md-11
-      = f.input :file, as: :file
-    .col-md-1
-      = link_to_remove_association f, class: 'btn btn-default btn-xs' do
-        i.glyphicon.glyphicon-remove
+    .col-md-9.col-md-offset-3
+      - if f.object.file.exists?
+        = link_to_remove_association f, class: 'btn btn-default btn-xs' do
+          i.glyphicon.glyphicon-remove
+        = f.template.image_tag(f.object.file.url(:thumb))
+      - else
+        = f.input_field :file, as: :file

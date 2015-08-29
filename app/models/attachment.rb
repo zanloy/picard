@@ -9,6 +9,7 @@ class Attachment < ActiveRecord::Base
 
   # Validations
   validates :engineering_change, presence: true
+  validates_attachment :file, content_type: { content_type: ['image/jpg', 'image/jpeg', 'image/gif', 'image/png', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']}
 
   private
     def assign_reference

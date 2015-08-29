@@ -8,11 +8,16 @@
     = f.association :environment, include_blank: false, collection: Environment.order(:id)
     = f.input :description, input_html: { rows: 25, placeholder: 'Full Description' }
     #attachments
+      h2.col-md-9.col-md-offset-3 Attachments
       = f.simple_fields_for :attachments do |attachment|
         = render 'attachment_fields', f: attachment
-      .links
-        = link_to_add_association f, :attachments, class: 'btn btn-default btn-xs' do
-          i.glyphicon.glyphicon-plus
+      .row
+        .col-md-9.col-md-offset-3
+          = link_to_add_association f, :attachments, class: 'btn btn-default' do
+            i.glyphicon.glyphicon-plus>
+            ' Add File Attachment
+
   .form-actions
-    .col-md-offset-3.col-md-9
-      = f.submit class: 'btn btn-primary'
+    .row
+      .col-md-9.col-md-offset-3
+        = f.submit class: 'btn btn-primary'

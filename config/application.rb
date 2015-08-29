@@ -29,5 +29,9 @@ module Picard
 
     # Items to filter out of logging due to sensativity
     config.filter_parameters << :password
+
+    # Adopt new behavior and remove deprecation warning.
+    config.active_record.raise_in_transactional_callbacks = true
+
   end
 end
