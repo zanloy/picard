@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825004414) do
+ActiveRecord::Schema.define(version: 20150826115809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,19 @@ ActiveRecord::Schema.define(version: 20150825004414) do
   end
 
   add_index "alerts", ["list_id"], name: "index_alerts_on_list_id", using: :btree
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer  "engineering_change_id"
+    t.integer  "reference",             default: 0
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "attachments", ["engineering_change_id"], name: "index_attachments_on_engineering_change_id", using: :btree
 
   create_table "certificate_locations", force: :cascade do |t|
     t.integer  "server_id"
@@ -229,6 +242,7 @@ ActiveRecord::Schema.define(version: 20150825004414) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
   add_foreign_key "alerts", "lists"
+  add_foreign_key "attachments", "engineering_changes"
   add_foreign_key "certificate_locations", "certificates"
   add_foreign_key "certificate_locations", "servers"
   add_foreign_key "engineering_changes", "environments"

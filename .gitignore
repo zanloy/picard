@@ -29,3 +29,7 @@
 
 # Ignore coveralls output
 coverage/
+
+# We don't need to keep the images in the git repo.
+_dirname
+public/system/

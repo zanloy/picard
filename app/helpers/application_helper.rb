@@ -95,4 +95,24 @@ module ApplicationHelper
     markdown.render(text).html_safe
   end
 
+  def display_attachment_inline(attachment)
+    if attachment.file_content_type =~ /^image/
+      return image_tag(attachment.file.url(:original))
+    else
+      return link_to(attachment.file_file_name, attachment.file.url(:original, false), target: '_blank')
+    end
+  end
+
+  def display_description(change)
+    # Link tags
+    text = linkify_tags(change.description)
+    # Parse markdown
+    text = markdown(text)
+    # Embed attachments
+    change.attachments.each do |attachment|
+      text.sub!("[#{attachment.reference}]", display_attachment_inline(attachment))
+    end
+    return text
+  end
+
 end

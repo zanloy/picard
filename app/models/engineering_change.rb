@@ -1,7 +1,5 @@
 class EngineeringChange < ActiveRecord::Base
 
-  include Rails.application.routes.url_helpers
-
   before_create :add_when
   after_create :send_notifications, :setup_subscriptions
 
@@ -12,6 +10,8 @@ class EngineeringChange < ActiveRecord::Base
   belongs_to :entered_by, class_name: User
   belongs_to :poc, class_name: User
   belongs_to :environment
+  has_many :attachments, dependent: :destroy
+  accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: :all_blank
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
   has_many :comments, as: :commentable, dependent: :destroy
@@ -22,33 +22,28 @@ class EngineeringChange < ActiveRecord::Base
   scope :timeline, -> { order(when: :desc) }
 
   # Validation
-  validates_presence_of :title
-  validates_length_of :title, maximum: 142
+  validates :title, presence: true, length: { maximum: 142 }
 
   self.per_page = 15
 
+  def has_attachments?
+    attachments.count > 0
+  end
+
   def has_description?
-    if self.description.nil? or self.description.empty?
-      return false
-    else
-      return true
-    end
+    ! (description.nil? or description.empty?)
   end
 
   def has_comments?
-    if self.comments.count > 0
-      return true
-    else
-      return false
-    end
+    comments.count > 0
   end
 
   def subscription_for(id)
-    self.subscriptions.find_by_user_id(id)
+    subscriptions.find_by_user_id(id)
   end
 
   def subscribed?(id)
-    if self.subscription_for(id)
+    if subscription_for(id)
       return true
     else
       return false
@@ -74,14 +69,6 @@ class EngineeringChange < ActiveRecord::Base
           self.environment = environment
         end
       end
-    end
-  end
-
-  def affects?(server)
-    if self.affections.where(server_id: server.id).count != 0
-      return true
-    else
-      return false
     end
   end
 

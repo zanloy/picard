@@ -13,7 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= autocomplete-rails
+//= require sweet-alert
+//= require sweet-alert-confirm
+//= require cocoon
+//= require autocomplete-rails
 //= require jqcloud
 //= require bootstrap-sprockets
 //= require jquery.datetimepicker

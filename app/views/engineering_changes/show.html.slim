@@ -39,7 +39,12 @@ br
 .row
   .col-md-3.pull-right-md
     strong Description:
-  .col-md-9 == markdown(linkify_tags(@change.description))
+  .col-md-9 == display_description(@change)
+br
+#attachments
+  - if @change.attachments
+    h2.col-md-offset-2.col-md-10 Attachments
+    = render partial: 'attachment', collection: @change.attachments
 
 h2.col-md-offset-2.col-md-10 Comments
 br
