@@ -10,7 +10,7 @@ class EngineeringChange < ActiveRecord::Base
   belongs_to :entered_by, class_name: User
   belongs_to :poc, class_name: User
   belongs_to :environment
-  has_many :attachments
+  has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: :all_blank
   has_many :taggings, as: :taggable
   has_many :tags, through: :taggings
@@ -25,6 +25,10 @@ class EngineeringChange < ActiveRecord::Base
   validates :title, presence: true, length: { maximum: 142 }
 
   self.per_page = 15
+
+  def has_attachments?
+    attachments.count > 0
+  end
 
   def has_description?
     ! (description.nil? or description.empty?)

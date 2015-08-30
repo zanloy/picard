@@ -15,9 +15,9 @@ class Attachment < ActiveRecord::Base
     def assign_reference
       max = engineering_change.attachments.order('reference DESC').first
       begin
-        self.reference ||= max + 1
+        self.reference = max.reference + 1
       rescue
-        self.reference ||= 1
+        self.reference = 1
       end
     end
 

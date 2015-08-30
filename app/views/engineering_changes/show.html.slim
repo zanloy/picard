@@ -39,7 +39,7 @@ br
 .row
   .col-md-3.pull-right-md
     strong Description:
-  .col-md-9 == markdown(linkify_tags(@change.description))
+  .col-md-9 == display_description(@change)
 br
 #attachments
   - if @change.attachments

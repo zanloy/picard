@@ -32,6 +32,8 @@ table.table.table-striped
             .pull-right
               - if item.has_description?
                 ==> glyphicon :file
+              - if item.has_attachments?
+                ==> glyphicon :paperclip
               - if item.has_comments?
                 ==> glyphicon :comment
         td[class='text-nowrap']
