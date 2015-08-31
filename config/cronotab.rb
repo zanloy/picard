@@ -17,5 +17,5 @@
 Crono.perform(DailyAlertsJob).every 1.week, on: :monday, at: '08:00'
 
 if Rails.env.demo?
-  Crono.perform(ResetDatabase).every 1.day, at: '04:00'
+  Crono.perform(ResetDatabaseJob).every 1.day, at: '04:00'
 end

@@ -41,7 +41,8 @@ Here is the format:
 GOOGLE_CLIENT_ID="SUPERSECRETCLIENTID"
 GOOGLE_SECRET="SUPERSECRETSECRET"
 
-SECRET_KEY_BASE='BLAH' # (This is only needed in Production. Use rake secret to generate a secret key)
+# This is only needed in Production. Use rake secret to generate a secret key.
+SECRET_KEY_BASE='BLAH'
 ```
 
 * Use bundler to install packages
