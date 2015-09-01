@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   before_create :build_profile, if: :missing_profile?
   before_create :build_notification
-  after_create :send_notifications
+  after_create :handle_new_user
   before_save :downcase_email
 
   # Associations
@@ -85,6 +85,14 @@ class User < ActiveRecord::Base
 
   def hash_new_password
     self.hashed_password = BCrypt::Password.create(@new_password)
+  end
+
+  def handle_new_user
+    if Rails.env.demo?
+      enabled = true
+      save
+    end
+    send_notifications
   end
 
   def send_notifications

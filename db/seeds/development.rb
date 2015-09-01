@@ -1,4 +1,5 @@
-users = [
+# Users
+[
   {
     email: 'admin@test.com',
     new_password: 'test123test123',
@@ -12,16 +13,18 @@ users = [
     name: 'Tester McTesterson',
     enabled: true,
   },
-]
+].each { |user| User.create(user) }
 
-environments = [
+# Environments
+[
   { name: 'Production', domain: 'example.com' },
   { name: 'Pre-Prod', domain: 'pre.example.com' },
   { name: 'Dev', domain: 'dev.example.com' },
   { name: 'All', domain: '' },
-]
+].each { |env| Environment.create(env) }
 
-engineering_changes = [
+# Changes
+[
   {
     entered_by_id: 1,
     poc_id: 1,
@@ -64,36 +67,54 @@ I formatted the drive again and the error cleared.],
     environment_id: 4,
     title: 'Updated #splunk license and rebooted',
   }
-]
+].each { |change| EngineeringChange.create(change) }
 
 10.times do |i|
-  engineering_changes << {
+  EngineeringChange.create({
     entered_by_id: 1,
     poc_id: 1,
     when: '2015-01-01 12:34 PM',
     environment_id: rand(1..4),
-    title: "Log Item #{i}",
-  }
+    title: "Random Log Item #{i}",
+  })
 end
 
-attachments = [
+# Attachments
+[
   {
     engineering_change_id: 1,
     reference: 1,
-    file: File.new(Rails.root + 'spec/fixtures/images/error_msg.png')
+    file: File.new(Rails.root + 'spec/fixtures/images/error_msg.png'),
   }
-]
+].each { |attachment| Attachment.create(attachment) }
 
-comments = [
+# Comments
+[
   {
     commentable_id: 1,
     commentable_type: 'EngineeringChange',
     comment: 'Good job on this.',
     user_id: 2,
   }
-]
-users.each { |user| User.create(user) } if defined? users
-environments.each { |env| Environment.create(env) } if defined? environments
-engineering_changes.each { |change| EngineeringChange.create(change) } if defined? engineering_changes
-attachments.each { |attachment| Attachment.create(attachment) } if defined? attachments
-comments.each { |comment| Comment.create(comment) } if defined? comments
+].each { |comment| Comment.create(comment) }
+
+# Certificates
+FactoryGirl.create(:certificate)
+
+# Lists
+[
+  {
+    name: 'Software Versions',
+    schema: '{ "name": "string", "version": "string", "eol": "datetime" }',
+  }
+].each { |list| List.create(list) }
+
+# List Items
+[
+  {
+    list: List.first,
+    name: "Ruby",
+    version: "v1.9.2",
+    eol: "2014-07-31",
+  }
+].each { |list_item| ListItem.create(list_item) }
