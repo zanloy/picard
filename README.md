@@ -5,6 +5,14 @@ Picard is a website designed to track engineering changes made by a team against
 an application. It was designed to facilitate management tracking changes and
 for accountability in case something breaks the application.
 
+# Demo
+
+You can demo Picard at [http://picard.zanloy.com/](http://picard.zanloy.com/).
+You can use your gmail login to create an account or use the username
+'test@test.com' and the password 'test123test123' to test the application.
+
+**The database for this demo site gets reset every morning.**
+
 # Installation
 
 If you want to install the application on your own computer, you will need to be
