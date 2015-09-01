@@ -55,7 +55,7 @@ SECRET_KEY_BASE='BLAH'
 
 * Use bundler to install packages
 
-Run the following command in the vitae directory.
+Run the following command in the picard directory.
 
 ```
 bundle install --path .bundle
