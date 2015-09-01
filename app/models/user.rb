@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   before_create :build_notification
   after_create :send_notifications
   before_save :downcase_email
-  before_save :enable_user, if: Rails.env.demo?
+  before_save(:enable_user) if Rails.env.demo?
 
   # Associations
   has_one :profile, autosave: true, dependent: :destroy
