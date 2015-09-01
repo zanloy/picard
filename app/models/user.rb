@@ -4,9 +4,9 @@ class User < ActiveRecord::Base
 
   before_create :build_profile, if: :missing_profile?
   before_create :build_notification
-  before_create :enable_user, if: Rails.env.demo?
   after_create :send_notifications
   before_save :downcase_email
+  before_save :enable_user, if: Rails.env.demo?
 
   # Associations
   has_one :profile, autosave: true, dependent: :destroy
