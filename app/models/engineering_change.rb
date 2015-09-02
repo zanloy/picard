@@ -12,7 +12,7 @@ class EngineeringChange < ActiveRecord::Base
   belongs_to :environment
   has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: :all_blank
-  has_many :taggings, as: :taggable
+  has_many :taggings, as: :taggable, dependent: :destroy
   has_many :tags, through: :taggings
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :subscriptions, as: :subscribable, dependent: :destroy
