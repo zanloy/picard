@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   before_create :build_notification
   after_create :send_notifications
   before_save :downcase_email
+  before_save(:enable_user) if Rails.env.demo?
 
   # Associations
   has_one :profile, autosave: true, dependent: :destroy
@@ -85,6 +86,10 @@ class User < ActiveRecord::Base
 
   def hash_new_password
     self.hashed_password = BCrypt::Password.create(@new_password)
+  end
+
+  def enable_user
+    self.enabled = true
   end
 
   def send_notifications
