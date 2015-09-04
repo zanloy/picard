@@ -38,7 +38,7 @@ class Ability
       end
 
       # Certificates
-      can :read, Certificate
+      can [:read, :edit, :update], Certificate
 
       # Comments
       can :create, Comment
