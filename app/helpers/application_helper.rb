@@ -75,22 +75,24 @@ module ApplicationHelper
 
   def markdown(text)
     return nil if text.nil?
-    options = {
+    renderer_options = {
       filter_html: true,
       hard_wrap: true,
       link_attributes: { rel: 'nofollow', target: '_blank' },
-      space_after_headers: true,
-      fenced_code_blocks: true,
+      prettify: true,
     }
 
-    extensions = {
+    markdown_options = {
       autolink: true,
-      superscript: true,
       disable_indented_code_blocks: false,
+      fenced_code_blocks: true,
+      no_intra_emphasis: true,
+      space_after_headers: true,
+      superscript: true,
     }
 
-    renderer = Redcarpet::Render::HTML.new(options)
-    markdown = Redcarpet::Markdown.new(renderer, extensions)
+    renderer = Redcarpet::Render::HTML.new(renderer_options)
+    markdown = Redcarpet::Markdown.new(renderer, markdown_options)
 
     markdown.render(text).html_safe
   end
