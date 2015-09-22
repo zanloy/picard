@@ -1,5 +1,6 @@
 .col-md-offset-2.col-md-10
   h1
+    => image_tag @user.avatar.url(:icon), class: 'avatar-icon'
     = @user.name_or_email
     - if can? :edit, @user
       .pull-right

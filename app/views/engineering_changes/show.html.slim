@@ -48,16 +48,7 @@ br
 
 h2.col-md-offset-2.col-md-10 Comments
 br
-- for comment in @change.comments.order(:created_at)
-  .row
-    .col-md-3.pull-right-md = comment.user.name_or_email
-    .col-md-7
-      - if can? :destroy, comment
-        .pull-right
-          = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
-           == delete_icon
-      == markdown(linkify_tags(comment.comment))
-  br
+= render partial: 'comment', collection: @change.comments.order(:created_at)
 br
 = form_for [@change, Comment.new], html: { class: 'form' } do |f|
   .row

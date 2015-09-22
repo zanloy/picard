@@ -1,11 +1,17 @@
 = simple_form_for @user, wrapper: :horizontal_form do |u|
   = u.input :name
   = u.input :new_password
+  .form-group
+    label.file.optional.col-sm-3.control-label[for='user_avatar']
+      ' Avatar
+    .col-sm-9
+      = u.input_field :avatar, as: :file
   - if is_admin?
     = u.input :enabled
     = u.input :banned
     = u.input :admin
-  h2 Profile
+  .row
+    h2.col-md-9.col-md-offset-3 Profile
   = u.simple_fields_for :profile_attributes, @user.profile do |p|
     = p.input :company
     = p.input :phone
@@ -13,7 +19,8 @@
     = p.input :va_email
     = p.input :alternative_contact
     = p.input :slack_username
-  h2 Notifications
+  .row
+    h2.col-md-9.col-md-offset-3 Notifications
   = u.simple_fields_for :notification_attributes, @user.notification do |n|
     - if is_admin? and @user.admin
       = n.input :on_new_user, label: 'On new user'
