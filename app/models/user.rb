@@ -9,11 +9,12 @@ class User < ActiveRecord::Base
   before_save(:enable_user) if Rails.env.demo?
 
   # Associations
+  has_attached_file :avatar, styles: { icon: '50x50>', thumb: '100x100>' }, default_url: 'missing/avatar-:style.jpg'
   has_one :profile, autosave: true, dependent: :destroy
   has_one :notification, autosave: true, dependent: :destroy
   has_many :engineering_changes, foreign_key: :poc_id, dependent: :nullify
   has_many :subscriptions, dependent: :destroy
-  has_many :comments
+  has_many :comments, dependent: :nullify
 
   accepts_nested_attributes_for :profile
   accepts_nested_attributes_for :notification
@@ -22,6 +23,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email
   validates_uniqueness_of :email
   validates_presence_of :name
+  validates_attachment_content_type :avatar, content_type: /\Aimage/
 
   # Scopes
   scope :sorted,   -> { order(:name) }
@@ -69,6 +71,7 @@ class User < ActiveRecord::Base
       user.provider = auth.provider
       user.uid = auth.uid
       user.name = auth.info.name
+      user.avatar = URI.parse(auth.info.image) if auth.info.image?
       user.email = auth.info.email
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)

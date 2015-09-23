@@ -7,7 +7,7 @@
       = link_to engineering_change_subscriptions_path(@change), method: :post do
         i.glyphicon.glyphicon-star-empty
   h1.col-md-10
-    ' Change Details
+    == raw linkify_tags @change.title
     .pull-right
       - if can? :edit, @change
         = button_to 'Edit', edit_engineering_change_path(@change), { method: :get, class: 'btn btn-primary', role: 'button' }
@@ -17,14 +17,10 @@
 br
 .row
   .col-md-3.pull-right-md
-    strong Title:
-  .col-md-9
-    == raw linkify_tags @change.title
-br
-.row
-  .col-md-3.pull-right-md
     strong POC:
-  .col-md-9 == display_name(@change.poc) if @change.poc
+  .col-md-9
+    => image_tag @change.poc.avatar(:icon), class: 'avatar-icon'
+    = @change.poc.name_or_email
 br
 .row.
   .col-md-3.pull-right-md
@@ -48,16 +44,7 @@ br
 
 h2.col-md-offset-2.col-md-10 Comments
 br
-- for comment in @change.comments.order(:created_at)
-  .row
-    .col-md-3.pull-right-md = comment.user.name_or_email
-    .col-md-7
-      - if can? :destroy, comment
-        .pull-right
-          = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
-           == delete_icon
-      == markdown(linkify_tags(comment.comment))
-  br
+= render partial: 'comment', collection: @change.comments.order(:created_at)
 br
 = form_for [@change, Comment.new], html: { class: 'form' } do |f|
   .row

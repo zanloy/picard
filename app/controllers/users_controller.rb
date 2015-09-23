@@ -100,7 +100,7 @@ class UsersController < ApplicationController
   end
 
   def update_params
-    params.require(:user).permit(:new_password, :name).tap do |whitelist|
+    params.require(:user).permit(:name, :new_password, :avatar).tap do |whitelist|
       if params[:user].has_key? :profile_attributes
         whitelist[:profile_attributes] = params[:user][:profile_attributes].permit(:company, :phone, :im_address, :va_email, :alternative_contact, :slack_username)
       end

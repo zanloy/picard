@@ -1,0 +1,12 @@
+.comment
+  .row
+    .col-md-3.pull-right-md
+      => image_tag comment.user.avatar.url(:icon), class: 'avatar-icon'
+    .col-md-7
+      - if can? :destroy, comment
+        .pull-right
+          = link_to comment_path(comment), data: { method: :delete, confirm: 'Are you sure?' } do
+           == delete_icon
+      .username = comment.user.name_or_email
+      .text == markdown(linkify_tags(comment.comment))
+  br
