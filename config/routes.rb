@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'api/add-cert'
-
   root to: 'engineering_changes#index'
 
   get 'changes/quickadd', to: 'engineering_changes#quickadd'
@@ -22,16 +20,14 @@ Rails.application.routes.draw do
   resources :comments, only: :destroy
   resources :subscriptions, only: [:index, :destroy]
   resources :sessions, only: [:login, :create, :destroy]
-
   resources :tags, only: [:index, :show]
-  #get 'tags', to: 'tags#index'
-  #get 'tags/:name', to: 'tags#show', as: :tag
-
   get 'admin', to: 'admin#index'
+  get 'search', to: 'search#index'
+  get 'search/:query', to: 'search#index'
 
   # API
   post 'api/add_cert', to: 'api#add_cert'
-  
+
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'signin', to: 'sessions#login', as: 'signin'

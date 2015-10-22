@@ -22,7 +22,7 @@ table.table.table-hover
                 i.glyphicon.glyphicon-star-empty
           td.text-nowrap
             = item.when.strftime('%l:%M %P')
-          td[class='text-nowrap']
+          td.text-nowrap
             - if item.environment
               = link_to(item.environment.name, environment_path(item.environment))
             - else
@@ -37,7 +37,7 @@ table.table.table-hover
                   ==> glyphicon :paperclip
                 - if item.has_comments?
                   ==> glyphicon :comment
-          td[class='text-nowrap']
+          td.text-nowrap
             - if item.poc
               = link_to item.poc.name, user_path(item.poc)
             - else

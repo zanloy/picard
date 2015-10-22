@@ -52,6 +52,9 @@ class Ability
       # Environments
       can :read, Environment
 
+      # search
+      can :search, :all
+      
       # Subscription
       can :manage, Subscription, user: user
 

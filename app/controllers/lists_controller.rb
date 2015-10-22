@@ -2,6 +2,8 @@ class ListsController < ApplicationController
 
   before_action :set_list, except: [:index, :new, :create]
 
+  load_and_authorize_resource
+  
   # GET /lists
   # GET /lists.json
   def index
