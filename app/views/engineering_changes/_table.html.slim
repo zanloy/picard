@@ -1,4 +1,4 @@
-table.table.table-striped
+table.table.table-hover
   thead
     tr
       th &nbsp;
@@ -7,37 +7,38 @@ table.table.table-striped
       th[class='col-md-7'] What
       th Who
   tbody
-    - for item in table
-      tr[id="item_#{item[:id]}"]
-        td
-          - if item.subscribed? @current_user[:id]
-            = link_to subscription_path(item.subscription_for(@current_user[:id])), method: :delete do
-              i.glyphicon.glyphicon-star
-          - else
-            = link_to engineering_change_subscriptions_path(item), method: :post do
-              i.glyphicon.glyphicon-star-empty
-        td.text-nowrap
-          - if defined?(shortdate)
+    - for date in table.group_by { |c| c.when.to_date }
+      tr
+        th[colspan=5]
+          h4.text-center = date[0].strftime('%A, %m/%d/%Y')
+      - for item in date[1]
+        tr[id="item_#{item[:id]}"]
+          td
+            - if item.subscribed? @current_user[:id]
+              = link_to subscription_path(item.subscription_for(@current_user[:id])), method: :delete do
+                i.glyphicon.glyphicon-star
+            - else
+              = link_to engineering_change_subscriptions_path(item), method: :post do
+                i.glyphicon.glyphicon-star-empty
+          td.text-nowrap
             = item.when.strftime('%l:%M %P')
-          - else
-            = item.when.strftime('%m/%d/%Y %l:%M %p')
-        td[class='text-nowrap']
-          - if item.environment
-            = link_to(item.environment.name, environment_path(item.environment))
-          - else
-            | &nbsp;
-        td
-          = link_to item.title, engineering_change_path(item)
-          - if item.has_description? or item.has_comments?
-            .pull-right
-              - if item.has_description?
-                ==> glyphicon :file
-              - if item.has_attachments?
-                ==> glyphicon :paperclip
-              - if item.has_comments?
-                ==> glyphicon :comment
-        td[class='text-nowrap']
-          - if item.poc
-            = link_to item.poc.name, user_path(item.poc)
-          - else
-            | &nbsp;
+          td[class='text-nowrap']
+            - if item.environment
+              = link_to(item.environment.name, environment_path(item.environment))
+            - else
+              | &nbsp;
+          td
+            = link_to item.title, engineering_change_path(item)
+            - if item.has_description? or item.has_comments?
+              .pull-right
+                - if item.has_description?
+                  ==> glyphicon :file
+                - if item.has_attachments?
+                  ==> glyphicon :paperclip
+                - if item.has_comments?
+                  ==> glyphicon :comment
+          td[class='text-nowrap']
+            - if item.poc
+              = link_to item.poc.name, user_path(item.poc)
+            - else
+              | &nbsp;
