@@ -119,6 +119,14 @@ GEM
       json
       thread
       thread_safe
+    elasticsearch (1.0.14)
+      elasticsearch-api (= 1.0.14)
+      elasticsearch-transport (= 1.0.14)
+    elasticsearch-api (1.0.14)
+      multi_json
+    elasticsearch-transport (1.0.14)
+      faraday
+      multi_json
     erubis (2.7.0)
     execjs (2.5.2)
     factory_girl (4.5.0)
@@ -327,6 +335,10 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    searchkick (0.9.1)
+      activemodel
+      elasticsearch (>= 1)
+      hashie
     shellany (0.0.1)
     simple_form (3.1.0)
       actionpack (~> 4.0)
@@ -448,6 +460,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   sdoc
+  searchkick
   simple_form
   slack-notifier
   slim-rails
@@ -462,4 +475,4 @@ DEPENDENCIES
   will_paginate (~> 3.0.5)
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
