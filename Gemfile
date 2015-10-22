@@ -78,6 +78,8 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'redcarpet'
 # Use Paperclip for file attachments
 gem 'paperclip', '~> 4.3'
+# Use searchkick for search and autocomplete
+gem 'searchkick'
 
 group :production do
   gem 'mailgun_rails'

@@ -1,5 +1,7 @@
 class EngineeringChange < ActiveRecord::Base
 
+  searchkick
+
   before_create :add_when
   after_create :send_notifications, :setup_subscriptions
 
