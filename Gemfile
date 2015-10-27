@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
+# Omniauth (Specifying 1.3.1 because 1.4 breaks auth)
+gem 'omniauth-oauth2', '~> 1.3.1'
 # Use Google OAuth for authentication
 gem 'omniauth-google-oauth2'
 # Load environment variables from .env files
