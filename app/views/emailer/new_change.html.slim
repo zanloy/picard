@@ -21,8 +21,9 @@ html
           td Tags:
           td = @change.tags_csv
         tr
-          td style='vertical-align: text-top;
+          td style='vertical-align: text-top;'
             ' Description:
-          td = simple_format @change.description
+          td style='vertical-align: text-top;'
+            = simple_format @change.description
     p You received this email because you have asked to be notified on new changes.
       You can update your settings by clicking #{link_to 'here', user_url(@user)}

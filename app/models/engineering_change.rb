@@ -1,6 +1,13 @@
 class EngineeringChange < ActiveRecord::Base
 
-  searchkick
+  search_synonyms = [
+    ['production', 'prd', 'prod'],
+    ['preprod', 'pre', 'pre-prod'],
+    ['prodtest', 'prdtst', 'prod-test'],
+    ['performance', 'perf'],
+  ]
+  
+  searchkick synonyms: search_synonyms
 
   before_create :add_when
   after_create :send_notifications, :setup_subscriptions
@@ -26,7 +33,7 @@ class EngineeringChange < ActiveRecord::Base
   # Validation
   validates :title, presence: true, length: { maximum: 142 }
 
-  self.per_page = 15
+  self.per_page = 50
 
   def has_attachments?
     attachments.count > 0
