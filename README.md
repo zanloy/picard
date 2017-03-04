@@ -21,10 +21,13 @@ on Windows.
 
 ## Requirements
 
-You will need to have Ruby 2.1.4+ installed. You will need to have PostgreSQL
+You will need to have Ruby 2.3.1 installed. You will need to have PostgreSQL
 installed and setup for your user to have admin (or at a minimum 'create
 database') access (the application needs to build the database). You will need
 to have ImageMagick installed as well for image processing of file attachments.
+You will also need ElasticSearch installed and running to seed the database.
+The application uses ES for full text searching and will not run without a
+proper connection setup on port 9200.
 
 ## Steps
 
