@@ -1,8 +1,6 @@
-# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe '/certificates/_form', type: :view do
-
   include RSpecHtmlMatchers
 
   it 'renders a certificate form' do

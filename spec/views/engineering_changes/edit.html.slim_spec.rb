@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 require 'rails_helper'
 
 RSpec.describe 'engineering_changes/edit.html.slim', type: :view do
