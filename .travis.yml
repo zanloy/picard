@@ -5,9 +5,9 @@ rvm:
   - 2.3.3
 services:
   - elasticsearch
-script:
-  - bundle exec rake --trace db:migrate
-  - bundle exec spec
 before_script:
   - sleep 10
   - psql -c 'create database picard_test' -U postgres
+  - bundle exec rake --trace db:migrate
+script:
+  - bundle exec rake rspec
