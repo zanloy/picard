@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class Emailer < ActionMailer::Base
-
-  default from: ENV['GMAIL_ADDRESS']
+  default from: ENV.fetch 'GMAIL_ADDRESS', 'test@test.com'
 
   def new_comment(user, comment)
     @user = user
@@ -9,7 +8,7 @@ class Emailer < ActionMailer::Base
     @commentable = @comment.commentable
     mail(to: @user.email, subject: "New Comment: #{@commentable.title.truncate(50)}")
   end
-  #handle_asynchronously :new_comment
+  handle_asynchronously :new_comment
 
   def new_change(user, change)
     @user = user
@@ -17,24 +16,24 @@ class Emailer < ActionMailer::Base
     return false if user.enabled == false or user.banned == true
     mail(to: @user.email, subject: "New Change: #{@change.title.truncate(100)}")
   end
-  #handle_asynchronously :new_change
+  handle_asynchronously :new_change
 
   def new_user(user, new_user)
     @user = user
     @new_user = new_user
     mail(to: @user.email, subject: "New User: #{@new_user.name_or_email}")
   end
-  #handle_asynchronously :new_user
+  handle_asynchronously :new_user
 
   def account_enabled(user)
     @user = user
     mail(to: @user.email, subject: 'Picard Account Enabled')
   end
-  #handle_asynchronously :account_enabled
+  handle_asynchronously :account_enabled
 
   def daily_alerts(email, certificates)
     @certificates = certificates
     mail(to: email, subject: "Picard Certificate Expirations - #{Date.today.strftime('%Y-%m-%d')}")
   end
-  #handle_asynchronously :daily_alerts
+  handle_asynchronously :daily_alerts
 end
