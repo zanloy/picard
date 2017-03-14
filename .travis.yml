@@ -4,7 +4,6 @@ env:
 rvm:
   - '2.3.1'
 script:
-  - 'RAILS_ENV=test bundle exec rake --trace db:migrate spec'
+  - 'RAILS_ENV=test bundle exec rake --trace db:migrate rspec'
 before_script:
-  - mysql -e 'create database picard_test'
   - psql -c 'create database picard_test' -U postgres
