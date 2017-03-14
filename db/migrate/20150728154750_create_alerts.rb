@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class CreateAlerts < ActiveRecord::Migration
+class CreateAlerts < ActiveRecord::Migration[5.0]
   def change
     create_table :alerts do |t|
       t.belongs_to :list, index: true, foreign_key: true

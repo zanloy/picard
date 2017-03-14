@@ -1,9 +1,14 @@
 language: 'ruby'
 env:
-  - EMAIL_ADDRESS=picard@test.com
+  - GMAIL_ADDRESS=picard@test.com
+  - RAILS_ENV=test
 rvm:
-  - '2.3.3'
+  - 2.3.3
+services:
+  - elasticsearch
 script:
-  - 'RAILS_ENV=test bundle exec rake --trace db:migrate spec'
+  - bundle exec rake --trace db:migratespec
+  - bundle exec rspec
 before_script:
+  - sleep 10
   - psql -c 'create database picard_test' -U postgres

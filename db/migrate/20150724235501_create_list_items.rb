@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class CreateListItems < ActiveRecord::Migration
+class CreateListItems < ActiveRecord::Migration[5.0]
   def change
     create_table :list_items do |t|
       t.belongs_to :list, index: true, foreign_key: true

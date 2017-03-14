@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class CreateEngineeringChanges < ActiveRecord::Migration
+class CreateEngineeringChanges < ActiveRecord::Migration[5.0]
   def change
     create_table :engineering_changes do |t|
       t.belongs_to :entered_by, class_name: :user, index: true
