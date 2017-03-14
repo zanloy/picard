@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.7.2'
 
 set :stage, :production
 
@@ -36,6 +36,10 @@ set :deploy_to, '/srv/rails/picard'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+set :nginx_server_name, 'picard.sparcedge.com'
+set :puma_bind, "unix://#{shared_path}/sockets/puma.sock"
+
+set :rbenv_path, '/home/apps/.rbenv'
 set :rbenv_ruby, File.read('.ruby-version').strip
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 
@@ -52,7 +56,7 @@ namespace :foreman do
   task :export do
     on roles(:app) do
       within release_path do
-        execute :sudo, "/home/apps/.rbenv/shims/foreman export upstart /etc/init -a picard -u apps -l /srv/rails/picard/shared/log"
+        execute :sudo, "/home/apps/.rbenv/shims/foreman export systemd /etc/systemd/system -p 5000 -a picard -u apps -l /srv/rails/picard/shared/log"
       end
     end
   end
@@ -60,21 +64,21 @@ namespace :foreman do
   desc 'Start the application services'
   task :start do
     on roles(:app) do
-      execute :sudo, "service picard start"
+      execute :sudo, "systemctl start picard.target"
     end
   end
 
   desc 'Stop the application services'
   task :stop do
     on roles(:app) do
-      execute :sudo, "service picard stop"
+      execute :sudo, "systemctl stop picard.target"
     end
   end
 
   desc 'Restart the application services'
   task :restart do
     on roles(:app) do
-      execute :sudo, "service picard restart"
+      execute :sudo, "systemctl restart picard.target"
     end
   end
 
@@ -120,5 +124,4 @@ namespace :deploy do
       end
     end
   end
-
 end

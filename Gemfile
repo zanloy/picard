@@ -90,10 +90,13 @@ end
 group :development do
   gem 'awesome_print'
   # Deploy with capistrano!
-  gem 'capistrano-crono'
-  gem 'capistrano-rails'
-  gem 'capistrano-rbenv'
-  #gem 'capistrano-file-permissions'
+  gem 'capistrano', '~> 3.5', require: false
+  gem 'capistrano-crono',     require: false
+  gem 'capistrano3-puma',     require: false
+  gem 'capistrano-rails',     require: false
+  gem 'capistrano-rbenv',     require: false
+  gem 'capistrano-systemd',   require: false
+  #gem 'capistrano-file-permissions', required: false
   # Use guard for continous testing
   gem 'guard-rspec'
   gem 'pry-rails'

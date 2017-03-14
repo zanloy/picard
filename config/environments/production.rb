@@ -77,10 +77,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  Rails.application.routes.default_url_options = { host: 'picard.sparcedge.com' }
+  Rails.application.routes.default_url_options = { host: 'picard.charlestondigitalhub.com' }
 
   # Settings for email
-  config.action_mailer.default_url_options = { protocol: 'https', host: 'picard.sparcedge.com' }
+  config.action_mailer.default_url_options = { protocol: 'https', host: 'picard.charlestondigitalhub.com' }
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: ENV['MAILGUN_APIKEY'],
