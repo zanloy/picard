@@ -111,6 +111,8 @@ end
 group :development, :test do
   # Test with capybara
   gem 'capybara'
+  # Use capybara-screenshot to get screenshots during rspec tests
+  gem 'capybara-screenshot'
   # Use coveralls for code coverage testing
   gem 'coveralls', require: false
   # Used to truncate databases between tests
@@ -129,9 +131,6 @@ group :development, :test do
   gem 'rspec-rails'
   # Display notifications in mac os x
   #gem 'ruby_gntp', require: false
-end
-
-group :test do
-  gem 'capybara-screenshot'
+  # Use shoulda matchers
   gem 'shoulda-matchers'
 end
