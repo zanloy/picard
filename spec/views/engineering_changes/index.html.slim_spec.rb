@@ -26,9 +26,4 @@ RSpec.describe 'engineering_changes/index', type: :view do
       assert_select 'input#engineering_change_title[name=?]', 'engineering_change[title]'
     end
   end
-
-  it 'renders the _table template' do
-    expect(rendered).to render_template(partial: '_table')
-  end
-
 end

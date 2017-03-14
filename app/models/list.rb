@@ -7,7 +7,8 @@ class List < ActiveRecord::Base
   has_many :alerts, dependent: :destroy
 
   # Validations
-  validates :name, presence: true, uniqueness: true
+  validates_presence_of :name
+  validates_uniqueness_of :name, case_sensitive: false
   validates :schema, presence: true, json: true
 
   def parsed

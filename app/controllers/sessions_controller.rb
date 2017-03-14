@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class SessionsController < ApplicationController
 
-  skip_before_filter :store_path, :require_login
+  skip_before_action :store_path, :require_login
 
   def login
   end

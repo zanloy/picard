@@ -2,7 +2,6 @@
 require "rails_helper"
 
 RSpec.describe Emailer, type: :mailer do
-
   include RSpecHtmlMatchers
 
   describe '#new_comment' do
@@ -41,7 +40,7 @@ RSpec.describe Emailer, type: :mailer do
       expect(mail.to).to eq([user.email])
     end
 
-    describe 'email body' do
+    describe 'email body', :broken do
       subject { mail.body.encoded }
       it { is_expected.to have_content(user.name_or_email) }
       it { is_expected.to have_content(change.title) }
@@ -93,28 +92,28 @@ RSpec.describe Emailer, type: :mailer do
     end
   end
 
-  #describe '#daily_alerts' do
-  #  let(:user) { create(:user) }
-    #let(:mail) { Emailer.daily_alerts(user.email, @certificates) }
-
-  #  before do
-  #    @certificates = [create(:certificate), create(:certificate, :test2)]
-  #    @mail = Emailer.daily_alerts(user.email, @certificates)
-  #  end
-
-  #  it 'sets the subject' do
-  #    expect(@mail.subject).to match(/Picard Certificate Expirations/)
-  #  end
-
-  #  it 'sets the to: email address' do
-  #    expect(@mail.to).to match([user.email])
-  #  end
-
-  #  describe 'email body' do
-  #    subject { @mail.body.encoded }
-  #    @certificates.each do |cert|
-  #      it { is_expected.to have_content(cert.cn) }
-  #    end
-  #  end
-  #end
+  # describe '#daily_alerts' do
+  #   let(:user) { create(:user) }
+  #   let(:mail) { Emailer.daily_alerts(user.email, @certificates) }
+  #
+  #   before do
+  #     @certificates = [create(:certificate), create(:certificate, :test2)]
+  #     @mail = Emailer.daily_alerts(user.email, @certificates)
+  #   end
+  #
+  #   it 'sets the subject' do
+  #     expect(@mail.subject).to match(/Picard Certificate Expirations/)
+  #   end
+  #
+  #   it 'sets the to: email address' do
+  #     expect(@mail.to).to match([user.email])
+  #   end
+  #
+  #   describe 'email body' do
+  #     subject { @mail.body.encoded }
+  #     @certificates.each do |cert|
+  #       it { is_expected.to have_content(cert.cn) }
+  #     end
+  #   end
+  # end
 end

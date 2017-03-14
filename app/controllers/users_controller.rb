@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 class UsersController < ApplicationController
 
-  skip_before_filter :require_login, only: [:new, :create]
+  skip_before_action :require_login, only: [:new, :create]
 
   # We run :current_user before :new and :create because if the user is created
   # by an admin, then it behaves differently.
-  before_filter :current_user, only: [:new, :create]
-  before_filter :set_user, except: [:create, :index, :new]
+  before_action :current_user, only: [:new, :create]
+  before_action :set_user, except: [:create, :index, :new]
 
   load_and_authorize_resource
 
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     @user.enabled = true
     respond_to do |format|
       if @user.save
-        Emailer.account_enabled(@user).deliver_later
+        Emailer.account_enabled(@user).deliver_now
         format.html { redirect_to admin_path, notice: "#{@user.name_or_email} has been enabled." }
         format.json { render 'users/show', status: :ok, location: @user }
       else

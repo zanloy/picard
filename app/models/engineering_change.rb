@@ -101,15 +101,15 @@ class EngineeringChange < ActiveRecord::Base
   def send_notifications
     Notification.where(on_new_change: true).each do |notification|
       unless notification.user == self.entered_by
-        Emailer.new_change(notification.user, self).deliver_later
+        Emailer.new_change(notification.user, self).deliver_now
       end
     end
   end
 
   def setup_subscriptions
-    self.subscriptions.build({user: self.entered_by}).save
-    unless self[:poc] == self.entered_by
-      self.subscriptions.build({user_id: self[:poc_id]}).save
+    self.subscriptions.create(user: self.entered_by)
+    unless self.poc_id == self.entered_by_id
+      self.subscriptions.create(user: self.poc)
     end
   end
 

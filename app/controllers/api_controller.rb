@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class ApiController < ApplicationController
 
-  skip_before_filter :require_login
+  skip_before_action :require_login
 
   before_action :set_server_from_api_key
 

@@ -11,7 +11,7 @@ class Comment < ActiveRecord::Base
   has_many :tags, through: :taggings
 
   # Validation
-  validates_presence_of :commentable_id, :commentable_type, :user_id, :comment
+  validates_presence_of :commentable_id, :commentable_type, :user, :comment
 
   private
 
@@ -28,7 +28,7 @@ class Comment < ActiveRecord::Base
   def send_notifications
     self.commentable.subscriptions.each do |subscription|
       unless subscription.user == self.user
-        Emailer.new_comment(subscription.user, self).deliver_later
+        Emailer.new_comment(subscription.user, self).deliver_now
       end
     end
   end

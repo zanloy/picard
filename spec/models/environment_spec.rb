@@ -2,15 +2,9 @@
 require 'rails_helper'
 
 RSpec.describe Environment, type: :model do
+  context 'validations' do
+    subject { build(:environment) }
 
-  it 'has a valid environment' do
-    expect(build(:environment)).to be_valid
+    it { should validate_presence_of :name }
   end
-
-  it 'is invalid without a name' do
-    expect(build(:environment, name: nil)).to_not be_valid
-  end
-
-  subject { create(:environment) }
-
 end

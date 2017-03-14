@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   # Validation
   validates_presence_of :email
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, case_sensitive: false, message: 'Email is already associated with another user'
   validates_presence_of :name
   validates_attachment_content_type :avatar, content_type: /\Aimage/
 
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   def send_notifications
     Notification.where(on_new_user: true).each do |notification|
       unless notification.user.enabled? == false
-        Emailer.new_user(notification.user, self).deliver_later
+        Emailer.new_user(notification.user, self).deliver_now
       end
     end
   end

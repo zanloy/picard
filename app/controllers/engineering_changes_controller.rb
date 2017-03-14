@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class EngineeringChangesController < ApplicationController
 
-  before_filter :set_change, except: [:index, :new, :create, :quickadd]
+  before_action :set_change, except: [:index, :new, :create, :quickadd]
 
   load_and_authorize_resource
 

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '~> 5.0.0'
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 # Use i18n-tasks gem for i18n testing
@@ -22,7 +22,7 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', group: :doc
 # Use ActiveModel has_secure_password
@@ -42,13 +42,13 @@ gem 'puma'
 # Use Slim templates instead of ERB
 gem 'slim-rails'
 # Use bootstrap css (http://getbootstrap.com)
-gem 'bootstrap-sass', '~> 3.3.4'
+gem 'bootstrap-sass'
 # Awesome font?
 gem 'font-awesome-sass'
 # Easy sign-in with social icons and buttons
 gem 'bootstrap-social-rails'
 # Use will_paginate for pagination helpers
-gem 'will_paginate', '~> 3.0.5'
+gem 'will_paginate'
 # Use jquery datetimepicker
 gem 'jquery-datetimepicker-rails'
 # Allow us to set delayed_jobs
@@ -68,7 +68,7 @@ gem 'sweet-alert-confirm'
 # Use jquery autocomplete to make shit nice
 gem 'rails-jquery-autocomplete'
 # Check password strength
-gem 'strong_password', '~> 0.0.3'
+gem 'strong_password'
 # Use slack-notifier to alert the slack channel of new changes
 gem 'slack-notifier'
 # Use jqcloud for word clouds
@@ -76,11 +76,11 @@ gem "jqcloud-rails"
 # Use Crono for scheduled tasks
 gem 'crono'
 # Use friendly_id for prettier urls
-gem 'friendly_id', '~> 5.1.0'
+gem 'friendly_id'
 # Use RedCarpet for markdown parsing
 gem 'redcarpet'
 # Use Paperclip for file attachments
-gem 'paperclip', '~> 4.3'
+gem 'paperclip'
 # Use searchkick for search and autocomplete
 gem 'searchkick'
 
@@ -104,6 +104,8 @@ group :development do
   gem 'rb-readline'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Access an IRB console on exception pages or by using <%= console %> in views
+  gem 'web-console'
 end
 
 group :development, :test do
@@ -119,18 +121,17 @@ group :development, :test do
   gem 'ffaker'
   # Allow you to use save_and_open_page in rspec tests
   gem 'launchy'
-  # Display notifications in linux
-  gem 'libnotify', require: false
   # Allow you to create mock items in testing
   gem 'rspec-activemodel-mocks'
   # Add RSpec html matchers
   gem 'rspec-html-matchers'
   # Use RSpec instead of testunit
   gem 'rspec-rails'
-  # Use sqlite3 for database locally
-  gem 'sqlite3'
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console'
   # Display notifications in mac os x
   #gem 'ruby_gntp', require: false
+end
+
+group :test do
+  gem 'capybara-screenshot'
+  gem 'shoulda-matchers'
 end

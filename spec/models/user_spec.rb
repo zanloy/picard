@@ -2,21 +2,20 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  context 'validations' do
+    subject { build(:user) }
+
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :email }
+    it do
+      should validate_uniqueness_of(:email)
+        .with_message('Email is already associated with another user')
+        .case_insensitive
+    end
+  end
+
   it 'creates a valid user' do
     expect(build(:user)).to be_valid
-  end
-
-  it 'is invalid without a name' do
-    expect(build(:user, name: nil)).not_to be_valid
-  end
-
-  it 'is invalid without an email address' do
-    expect(build(:user, email: nil)).not_to be_valid
-  end
-
-  it 'is invalid without a unique email address' do
-    create(:user, email: 'test@test.com')
-    expect(build(:user, email: 'test@test.com')).not_to be_valid
   end
 
   context 'on create' do
@@ -33,25 +32,25 @@ RSpec.describe User, type: :model do
       expect(user.banned).to eql(false)
     end
     it 'creates a profile' do
-      expect{create(:user)}.to change {Profile.count}.by(1)
+      expect { create(:user) } .to change { Profile.count } .by(1)
     end
     it 'creates notifications' do
-      expect{create(:user)}.to change {Notification.count}.by(1)
+      expect { create(:user) } .to change { Notification.count } .by(1)
     end
   end
 
   context 'on destroy' do
     before(:each) { @user = create(:user) }
     it 'destroys profile' do
-      expect{@user.destroy}.to change {Profile.count}.by(-1)
+      expect { @user.destroy } .to change { Profile.count } .by(-1)
     end
     it 'destroys notifications' do
-      expect{@user.destroy}.to change {Notification.count}.by(-1)
+      expect { @user.destroy } .to change { Notification.count } .by(-1)
     end
     it 'destroys subscriptions' do
       change = create(:engineering_change)
       create(:subscription, subscribable: change, user: @user)
-      expect{@user.destroy}.to change {Subscription.count}.by(-1)
+      expect { @user.destroy } .to change { Subscription.count } .by(-1)
     end
     it 'nullifies associated changes' do
       change = create(:engineering_change, poc_id: @user.id)
@@ -69,10 +68,9 @@ RSpec.describe User, type: :model do
       expect(User.sorted).to eq([user2, user3, user1])
     end
     it '#enabled returns a list of enabled users' do
-      user1 = create(:user)
-      user2 = create(:user, :disabled)
-      user3 = create(:user)
-      expect(User.enabled).to match_array([user1, user3])
+      enabled_users = create_pair(:user)
+      create(:user, :disabled)
+      expect(User.enabled).to match_array(enabled_users)
     end
   end
 

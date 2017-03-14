@@ -2,21 +2,14 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
+  # Validations
+  it { should validate_presence_of :commentable_id }
+  it { should validate_presence_of :commentable_type }
+  it { should validate_presence_of :user }
+  it { should validate_presence_of :comment }
 
   it 'creates a valid object' do
     expect(build(:comment)).to be_valid
-  end
-
-  it 'is invalid without a commentable object' do
-    expect(build(:comment, commentable: nil)).not_to be_valid
-  end
-
-  it 'is invalid without a user' do
-    expect(build(:comment, user: nil)).not_to be_valid
-  end
-
-  it 'is invalid without a comment' do
-    expect(build(:comment, comment: nil)).not_to be_valid
   end
 
   context 'when tagged' do

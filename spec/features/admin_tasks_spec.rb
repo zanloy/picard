@@ -17,7 +17,7 @@ RSpec.feature 'Admin Tasks', type: :feature do
     scenario 'deleting the user' do
       visit admin_path
       click_on "delete_user_#{@disabled_user.id}"
-      expect{@disabled_user.reload}.to raise_exception
+      expect { @disabled_user.reload } .to raise_exception ActiveRecord::RecordNotFound
     end
   end
 end

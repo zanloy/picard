@@ -9,10 +9,6 @@ RSpec.describe 'engineering_changes/edit.html.slim', type: :view do
     render
   end
 
-  it 'renders the _form partial' do
-    expect(rendered).to render_template(partial: '_form')
-  end
-
   it 'pre-populates the form' do
     assert_select 'form[action=?][method=?]', engineering_changes_path, 'post' do
       assert_select 'select#engineering_change_poc_id[name=?]', 'engineering_change[poc_id]', value: @poc.name

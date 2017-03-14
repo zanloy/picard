@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 FactoryGirl.define do
   factory :engineering_change do
-    title { FFaker::BaconIpsum.words(5).join(' ') }
+    title { FFaker::Company.catch_phrase }
     environment
-    poc
+    association :entered_by, factory: :user
+    association :poc, factory: :user
     self.when { Time.now }
     description { FFaker::BaconIpsum.words(500).join(' ') }
     transient do

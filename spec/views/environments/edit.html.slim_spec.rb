@@ -6,10 +6,6 @@ RSpec.describe 'environments/edit.html.slim', type: :view do
     render
   end
 
-  it 'renders the _form partial' do
-    expect(response).to render_template('_form')
-  end
-
   it 'pre-populates the form' do
     assert_select "form[action=?][method=?]", environments_path, "post" do
       assert_select "input#environment_name[name=?]", "environment[name]", value: @environment.name

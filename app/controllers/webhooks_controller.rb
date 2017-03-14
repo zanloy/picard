@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class WebhooksController < ApplicationController
 
-  skip_before_filter :store_path, :require_login
+  skip_before_action :store_path, :require_login
   skip_before_action :verify_authenticity_token
 
   before_filter :validate_token, only: :slack

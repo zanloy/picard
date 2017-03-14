@@ -2,7 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe DailyAlertsJob, type: :job do
-
   include ActiveJob::TestHelper
 
   before(:each) do

@@ -3,7 +3,7 @@ class ListItem < ActiveRecord::Base
 
   # Associations
   belongs_to :list, counter_cache: true
-  belongs_to :updated_by, class: User
+  belongs_to :updated_by, class_name: User
 
   # Validations
   validates :payload, presence: true, json: true
@@ -13,7 +13,7 @@ class ListItem < ActiveRecord::Base
 
   # We override super.initialize because we need to create the methods for
   # our meta fields before initialization
-  def initialize(attributes = nil, options = {})
+  def initialize(attributes = nil)
     if attributes
       if attributes.has_key? :list
         raise 'list is not type List' unless attributes[:list].is_a? List

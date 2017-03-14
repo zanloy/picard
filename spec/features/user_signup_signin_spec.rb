@@ -38,7 +38,7 @@ feature 'User signs up' do
       fill_in 'Name', with: FFaker::Name.name
       click_on 'Create User'
 
-      expect(page).to have_content('New password is too weak')
+      expect(page).to have_content('is too weak')
     end
   end
 end
