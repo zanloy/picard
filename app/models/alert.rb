@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Alert < ActiveRecord::Base
 
   # Class Variables

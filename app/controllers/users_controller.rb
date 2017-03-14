@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class UsersController < ApplicationController
 
   skip_before_filter :require_login, only: [:new, :create]

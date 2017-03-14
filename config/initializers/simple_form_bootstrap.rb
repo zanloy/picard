@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Use this setup block to configure all options available in SimpleForm.
 SimpleForm.setup do |config|
   config.error_notification_class = 'alert alert-danger'
@@ -132,6 +133,6 @@ SimpleForm.setup do |config|
     check_boxes: :horizontal_radio_and_checkboxes,
     radio_buttons: :horizontal_radio_and_checkboxes,
     file: :horizontal_file_input,
-    boolean: :horizontal_boolean,
+    boolean: :horizontal_boolean
   }
 end

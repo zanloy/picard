@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class EngineeringChangesController < ApplicationController
 
   before_filter :set_change, except: [:index, :new, :create, :quickadd]

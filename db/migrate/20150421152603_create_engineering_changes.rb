@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CreateEngineeringChanges < ActiveRecord::Migration
   def change
     create_table :engineering_changes do |t|

@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads 1, threads_count
 
-app_dir = File.expand_path("../..", __FILE__)
+app_dir = File.expand_path('../..', __FILE__)
 directory app_dir
-shared_dir = "#{app_dir}/shared"
+# shared_dir = "#{app_dir}/shared"
 
 bind "unix://#{app_dir}/sockets/puma.sock"
 

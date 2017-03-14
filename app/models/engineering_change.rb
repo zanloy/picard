@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class EngineeringChange < ActiveRecord::Base
 
   search_synonyms = [
@@ -6,7 +7,7 @@ class EngineeringChange < ActiveRecord::Base
     ['prodtest', 'prdtst', 'prod-test'],
     ['performance', 'perf'],
   ]
-  
+
   searchkick synonyms: search_synonyms
 
   before_create :add_when

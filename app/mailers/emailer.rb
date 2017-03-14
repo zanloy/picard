@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Emailer < ActionMailer::Base
 
   default from: ENV['GMAIL_ADDRESS']

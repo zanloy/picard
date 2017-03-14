@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ResetDatabaseJob < ActiveJob::Base
 
   Picard::Application.load_tasks

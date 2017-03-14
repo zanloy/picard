@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Put this code in lib/validators/json_validator.rb
 # Usage in your model:
 #   validates :json_attribute, presence: true, json: true

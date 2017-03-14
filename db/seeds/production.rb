@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 environments = [
   { name: 'Production', domain: 'vbms.vba.va.gov' },
   { name: 'Share', domain: 'shr.vbms.vba.va.gov' },

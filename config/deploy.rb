@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # config valid only for current version of Capistrano
 lock '3.7.2'
 
@@ -41,22 +42,21 @@ set :puma_bind, "unix://#{shared_path}/sockets/puma.sock"
 
 set :rbenv_path, '/home/apps/.rbenv'
 set :rbenv_ruby, File.read('.ruby-version').strip
-set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_map_bins, %w(rake gem bundle ruby rails)
 
 set :linked_dirs, fetch(:linked_dirs, []).push('pids', 'log', 'sockets', 'public/system')
-set :linked_files, %w{.env}
+set :linked_files, %w(.env)
 
 # Fix permissions
 set :file_permissions_paths, ['/srv/rails/picard/shared']
 set :file_permissions_user, 'apps'
 
 namespace :foreman do
-
   desc 'Export the Procfile to upstart'
   task :export do
     on roles(:app) do
       within release_path do
-        execute :sudo, "/home/apps/.rbenv/shims/foreman export systemd /etc/systemd/system -p 5000 -a picard -u apps -l /srv/rails/picard/shared/log"
+        execute :sudo, '/home/apps/.rbenv/shims/foreman export systemd /etc/systemd/system -p 5000 -a picard -u apps -l /srv/rails/picard/shared/log'
       end
     end
   end
@@ -64,36 +64,34 @@ namespace :foreman do
   desc 'Start the application services'
   task :start do
     on roles(:app) do
-      execute :sudo, "systemctl start picard.target"
+      execute :sudo, 'systemctl start picard.target'
     end
   end
 
   desc 'Stop the application services'
   task :stop do
     on roles(:app) do
-      execute :sudo, "systemctl stop picard.target"
+      execute :sudo, 'systemctl stop picard.target'
     end
   end
 
   desc 'Restart the application services'
   task :restart do
     on roles(:app) do
-      execute :sudo, "systemctl restart picard.target"
+      execute :sudo, 'systemctl restart picard.target'
     end
   end
-
 end
 
 namespace :deploy do
-
   task :restart do
     on roles(:app) do
       invoke 'foreman:export'
-      #on roles(:app) do
-      #  within release_path do
-      #    execute :rake, "assets:precompile"
-      #  end
-      #end
+      # on roles(:app) do
+      #   within release_path do
+      #     execute :rake, "assets:precompile"
+      #   end
+      # end
       invoke 'foreman:restart'
     end
   end
@@ -114,7 +112,7 @@ namespace :deploy do
   #   bundle exec cap uat deploy:invoke task=users:update_defaults
   desc 'Invoke rake task on the server'
   task :invoke do
-    fail 'no task provided' unless ENV['task']
+    raise 'no task provided' unless ENV['task']
 
     on roles(:app) do
       within release_path do

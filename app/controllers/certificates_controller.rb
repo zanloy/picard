@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class CertificatesController < ApplicationController
 
   before_action :set_certificate, except: [:index, :new, :create]

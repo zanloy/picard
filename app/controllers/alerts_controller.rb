@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AlertsController < ApplicationController
 
   before_action :set_alert, only: :destroy

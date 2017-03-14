@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 users = [
   {
     email: 'zan.loy@gmail.com',

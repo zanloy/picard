@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :list do
     name { FFaker::BaconIpsum.words(5).join(' ') }
