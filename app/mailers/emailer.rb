@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Emailer < ActionMailer::Base
-  default from: ENV.fetch 'GMAIL_ADDRESS', 'test@test.com'
+  default from: ENV.fetch('GMAIL_ADDRESS', 'test@test.com')
 
   def new_comment(user, comment)
     @user = user
