@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     @user.enabled = true
     respond_to do |format|
       if @user.save
-        Emailer.account_enabled(@user).deliver_now
+        Emailer.delay.account_enabled(@user)
         format.html { redirect_to admin_path, notice: "#{@user.name_or_email} has been enabled." }
         format.json { render 'users/show', status: :ok, location: @user }
       else

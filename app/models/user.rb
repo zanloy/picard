@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   def send_notifications
     Notification.where(on_new_user: true).each do |notification|
       unless notification.user.enabled? == false
-        Emailer.new_user(notification.user, self).deliver_now
+        Emailer.delay.new_user(notification.user, self)
       end
     end
   end

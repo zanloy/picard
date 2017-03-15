@@ -99,9 +99,15 @@ class EngineeringChange < ActiveRecord::Base
   end
 
   def send_notifications
+    # if ENV.has_key? 'SLACK_WEBHOOKS'
+    #   ENV['SLACK_WEBHOOKS'].split(',').each do |webhook|
+    #     notifier = Slack::Notifier.new webhook
+    #     notifier.ping "New Change: #{ActionController::Base.helpers.link_to(self.title, engineering_change_url(self))}"
+    #   end
+    # end
     Notification.where(on_new_change: true).each do |notification|
       unless notification.user == self.entered_by
-        Emailer.new_change(notification.user, self).deliver_now
+        Emailer.delay.new_change(notification.user, self)
       end
     end
   end

@@ -28,7 +28,7 @@ class Comment < ActiveRecord::Base
   def send_notifications
     self.commentable.subscriptions.each do |subscription|
       unless subscription.user == self.user
-        Emailer.new_comment(subscription.user, self).deliver_now
+        Emailer.delay.new_comment(subscription.user, self)
       end
     end
   end
