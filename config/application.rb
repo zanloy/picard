@@ -23,5 +23,7 @@ module Picard
 
     # Items to filter out of logging due to sensativity
     config.filter_parameters << :password
+
+    config.serve_static_assets = true
   end
 end
