@@ -15,6 +15,8 @@ gem 'sass-rails'
 gem 'uglifier'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
+# For slack bot to monitor via websocket
+gem 'faye-websocket'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
@@ -27,10 +29,13 @@ gem 'jbuilder'
 gem 'sdoc', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
-# Omniauth (Specifying 1.3.1 because 1.4 breaks auth)
-gem 'omniauth-oauth2', '~> 1.3.1'
+# Omniauth
+gem 'omniauth-oauth2'
 # Use Google OAuth for authentication
 gem 'omniauth-google-oauth2'
+# Use Slack for authentication
+#gem 'omniauth-slack', git: 'file:///home/zan/dev/omniauth-slack'
+gem 'omniauth-slack', git: 'https://github.com/zanloy/omniauth-slack.git'
 # Load environment variables from .env files
 gem 'dotenv-rails'
 # Detect end user timezone
@@ -57,6 +62,8 @@ gem 'delayed_job_active_record'
 gem 'cancancan'
 # Generates simple forms (bootstrap compatible)
 gem 'simple_form'
+# For slack bot
+gem 'slack-ruby-bot'
 # Use Cocoon for dynamic nested forms
 gem 'cocoon'
 # Use jquery-ui for pretty ui shit

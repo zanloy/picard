@@ -5,7 +5,10 @@
   = label_tag :password, nil, class: 'sr-only'
   = password_field_tag :password, nil, { class: 'form-control', placeholder: 'Password' }
   = submit_tag 'Sign in', { class: 'btn btn-lg btn-primary btn-block' }
-  a.btn.btn-block.btn-social.btn-google href='auth/google_oauth2'
+  a.btn.btn-block.btn-social.btn-slack href='auth/slack'
+    i.fa.fa-slack
+    ' Sign in with Slack
+  /a.btn.btn-block.btn-social.btn-google href='auth/google_oauth2'
     i.fa.fa-google
     ' Sign in with Google
   p #{link_to 'Sign up.', new_user_path}
