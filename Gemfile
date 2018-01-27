@@ -87,7 +87,7 @@ gem 'friendly_id'
 # Use RedCarpet for markdown parsing
 gem 'redcarpet'
 # Use Paperclip for file attachments
-gem 'paperclip'
+gem 'paperclip', '>=5.1.0'
 # Use searchkick for search and autocomplete
 gem 'searchkick'
 

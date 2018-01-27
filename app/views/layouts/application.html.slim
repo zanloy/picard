@@ -21,7 +21,7 @@ html
                     ul class='dropdown-menu'
                       li #{link_to 'Add New Change', new_engineering_change_path}
                   li class="#{is_active? :environments}" = link_to 'Environments', environments_path
-                  li class="#{is_active? :certificates}" = link_to 'Certificates', certificates_path
+                  / li class="#{is_active? :certificates}" = link_to 'Certificates', certificates_path
                   li class="#{is_active? :lists}"
                     = link_to lists_path do
                       ==> glyphicon 'th-list'
@@ -53,4 +53,4 @@ html
       .container
         p.text-muted
           ==> glyphicon :'copyright-mark'
-          ' 2015 Sparc, LLC
+          ' 2017 Sparc, LLC
