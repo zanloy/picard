@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 source 'https://rubygems.org'
 
-ruby '2.3.3'
+ruby '2.5.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
 # Use PostgreSQL as the database for Active Record
-gem 'pg'
+gem 'pg', '= 0.21.0' #TODO: once 1.0.0 bug with Rails has been resolved then remove the exact version requirement
 # Use i18n-tasks gem for i18n testing
 gem 'i18n-tasks'
 # Use SCSS for stylesheets
@@ -124,8 +124,8 @@ group :development, :test do
   gem 'coveralls', require: false
   # Used to truncate databases between tests
   gem 'database_cleaner'
-  # Use factory_girl to create mock models for testing
-  gem 'factory_girl_rails'
+  # Used to create mock models for testing
+  gem 'factory_bot_rails'
   # Use ffaker gem to generate fake data for testing
   gem 'ffaker'
   # Allow you to use save_and_open_page in rspec tests

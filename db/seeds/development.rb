@@ -100,7 +100,7 @@ end
 ].each { |comment| Comment.create(comment) }
 
 # Certificates
-FactoryGirl.create(:certificate)
+FactoryBot.create(:certificate)
 
 # Lists
 [

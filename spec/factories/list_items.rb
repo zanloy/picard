@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :list_item do
     list
     payload { JSON.generate({ cn: FFaker::Internet.http_url, expires_on: Date.today })}

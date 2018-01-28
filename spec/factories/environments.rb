@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :environment do
     name 'Production'
     domain { FFaker::Internet.domain_name }
