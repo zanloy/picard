@@ -38,7 +38,7 @@ set :deploy_to, '/srv/rails/picard'
 # set :keep_releases, 5
 
 set :nginx_server_name, 'picard.charlestondigitalhub.com'
-set :puma_bind, "unix://#{shared_path}/sockets/puma.sock"
+set :puma_bind, %w(tcp://127.0.0.1:5000 unix://#{shared_path}/sockets/puma.sock)
 
 set :rbenv_path, '/home/apps/.rbenv'
 set :rbenv_ruby, File.read('.ruby-version').strip
