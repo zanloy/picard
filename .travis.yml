@@ -2,7 +2,7 @@ language: 'ruby'
 env:
   - GMAIL_ADDRESS=picard@test.com RAILS_ENV=test
 rvm:
-  - 2.3.3
+  - 2.5.0
 services:
   - elasticsearch
 before_script:
