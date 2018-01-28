@@ -3,7 +3,12 @@ class SearchController < ApplicationController
 
   def index
     authorize! :search, EngineeringChange
-    @results = EngineeringChange.search query
+    begin
+      @results = EngineeringChange.search query
+    rescue Searchkick::MissingIndexError
+      EngineeringChange.reindex
+      @results = EngineeringChange.search query
+    end
   end
 
   private
