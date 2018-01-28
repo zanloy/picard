@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 # config valid only for current version of Capistrano
-lock '3.8.0'
+lock '3.10.1'
 
 set :stage, :production
 
@@ -37,7 +37,7 @@ set :deploy_to, '/srv/rails/picard'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :nginx_server_name, 'picard.sparcedge.com'
+set :nginx_server_name, 'picard.charlestondigitalhub.com'
 set :puma_bind, "unix://#{shared_path}/sockets/puma.sock"
 
 set :rbenv_path, '/home/apps/.rbenv'
