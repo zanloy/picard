@@ -10,8 +10,11 @@ require 'capistrano/rbenv'
 require 'capistrano/bundler'
 #require 'capistrano/crono'
 #require 'capistrano/file-permissions'
+
+# Puma deployment tasks
 require 'capistrano/puma'
-require 'capistrano/puma/nginx'
+install_plugin Capistrano::Puma # Default puma tasks
+install_plugin Capistrano::Puma::Nginx # Needed to install nginx template
 
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
