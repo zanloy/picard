@@ -61,6 +61,7 @@ namespace :foreman do
     on roles(:app) do
       within release_path do
         execute :sudo, '/home/apps/.rbenv/shims/foreman export systemd /etc/systemd/system -a picard -u apps -l /srv/rails/picard/shared/log'
+        execute :sudo, 'systemctl daemon-reload'
       end
     end
   end
