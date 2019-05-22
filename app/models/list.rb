@@ -2,7 +2,7 @@
 class List < ActiveRecord::Base
 
   # Associations
-  belongs_to :last_added_by, class_name: User
+  belongs_to :last_added_by, class_name: 'User'
   has_many :list_items, dependent: :destroy
   has_many :alerts, dependent: :destroy
 

@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 ruby '2.5.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0'
 # Use PostgreSQL as the database for Active Record
 gem 'pg', '= 0.21.0' #TODO: once 1.0.0 bug with Rails has been resolved then remove the exact version requirement
 # Use i18n-tasks gem for i18n testing

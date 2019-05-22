@@ -3,7 +3,7 @@ class ListItem < ActiveRecord::Base
 
   # Associations
   belongs_to :list, counter_cache: true
-  belongs_to :updated_by, class_name: User
+  belongs_to :updated_by, class_name: 'User'
 
   # Validations
   validates :payload, presence: true, json: true

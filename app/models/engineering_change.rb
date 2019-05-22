@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class EngineeringChange < ActiveRecord::Base
-
   search_synonyms = [
     ['production', 'prd', 'prod'],
     ['preprod', 'pre', 'pre-prod'],
@@ -17,8 +16,8 @@ class EngineeringChange < ActiveRecord::Base
   after_save :tagify
 
   # Associations
-  belongs_to :entered_by, class_name: User
-  belongs_to :poc, class_name: User
+  belongs_to :entered_by, class_name: 'User'
+  belongs_to :poc, class_name: 'User'
   belongs_to :environment
   has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments, allow_destroy: true, reject_if: :all_blank
@@ -118,5 +117,4 @@ class EngineeringChange < ActiveRecord::Base
       self.subscriptions.create(user: self.poc)
     end
   end
-
 end
