@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-Rails.application.configure do
 
+Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -87,5 +87,4 @@ Rails.application.configure do
 
   # Use delayed jobs queue
   config.active_job.queue_adapter = :delayed_job
-
 end

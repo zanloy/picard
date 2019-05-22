@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-Rails.application.routes.draw do
 
+Rails.application.routes.draw do
   root to: 'engineering_changes#index'
 
   get 'changes/quickadd', to: 'engineering_changes#quickadd'
@@ -11,17 +11,17 @@ Rails.application.routes.draw do
   resources :environments
   resources :certificates
   resources :lists do
-    resources :alerts, shallow: true, except: [:index, :show, :edit, :update]
-    resources :list_items, shallow: true, except: [:index, :show]
+    resources :alerts, shallow: true, except: %i[index show edit update]
+    resources :list_items, shallow: true, except: %i[index show]
   end
   resources :users do
     get 'enable', to: 'users#enable'
     get 'generate_apikey', to: 'users#generate_apikey'
   end
   resources :comments, only: :destroy
-  resources :subscriptions, only: [:index, :destroy]
-  resources :sessions, only: [:login, :create, :destroy]
-  resources :tags, only: [:index, :show]
+  resources :subscriptions, only: %i[index destroy]
+  resources :sessions, only: %i[login create destroy]
+  resources :tags, only: %i[index show]
   get 'admin', to: 'admin#index'
   get 'search', to: 'search#index'
   get 'search/:query', to: 'search#index'
@@ -39,5 +39,4 @@ Rails.application.routes.draw do
   get 'disabled', to: 'sessions#disabled', as: 'disabled'
 
   post 'webhooks/slack'
-
 end

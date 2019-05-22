@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 workers Integer(ENV['WEB_CONCURRENCY'] || 2)
 threads_count = Integer(ENV['MAX_THREADS'] || 5)
 threads threads_count, threads_count
 
-app_dir = File.expand_path("../..", __FILE__)
-shared_dir = "#{app_dir}/shared"
+# app_dir = File.expand_path('..', __dir__)
+# shared_dir = "#{app_dir}/shared"
 
 preload_app!
 

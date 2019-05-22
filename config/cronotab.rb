@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-# cronotab.rb — Crono configuration file
+
+# cronotab.rb - Crono configuration file
 #
 # Here you can specify periodic jobs and schedule.
 # You can use ActiveJob's jobs from `app/jobs/`
@@ -15,8 +16,6 @@
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
 
-#Crono.perform(DailyAlertsJob).every 1.week, on: :monday, at: '08:00'
+# Crono.perform(DailyAlertsJob).every 1.week, on: :monday, at: '08:00'
 
-if Rails.env.demo?
-  Crono.perform(ResetDatabaseJob).every 1.day, at: '04:00'
-end
+Crono.perform(ResetDatabaseJob).every 1.day, at: '04:00' if Rails.env.demo?

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # config valid only for current version of Capistrano
 lock '3.10.1'
 
@@ -38,7 +39,7 @@ set :deploy_to, '/srv/rails/picard'
 # set :keep_releases, 5
 
 # Puma and Nginx configuration
-#set :puma_bind, %w(tcp://127.0.0.1:5000 unix://#{shared_path}/tmp/sockets/puma.sock)
+# set :puma_bind, %w(tcp://127.0.0.1:5000 unix://#{shared_path}/tmp/sockets/puma.sock)
 set :nginx_server_name, 'picard.charlestondigitalhub.com'
 set :nginx_ssl_certificate, '/etc/letsencrypt/live/picard.charlestondigitalhub.com/cert.pem'
 set :nginx_ssl_certificate_key, '/etc/letsencrypt/live/picard.charlestondigitalhub.com/privkey.pem'
@@ -46,10 +47,10 @@ set :nginx_use_ssl, true
 
 set :rbenv_path, '/home/apps/.rbenv'
 set :rbenv_ruby, File.read('.ruby-version').strip
-set :rbenv_map_bins, %w(rake gem bundle ruby rails)
+set :rbenv_map_bins, %w[rake gem bundle ruby rails]
 
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'public/system', 'tmp')
-set :linked_files, %w(.env)
+set :linked_files, %w[.env]
 
 # Fix permissions
 set :file_permissions_paths, ['/srv/rails/picard/shared']
