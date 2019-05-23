@@ -5,7 +5,7 @@ table class='table table-hover user-table'
       th Name
       th Email
       th Phone
-      - if is_admin?
+      - if admin?
         th Actions
   tbody
     - for user in table
@@ -14,7 +14,7 @@ table class='table table-hover user-table'
         td == display_name user
         td == display_email user.email
         td = display_phone_number(user.profile.phone)
-        - if is_admin?
+        - if admin?
           td class='actions'
             = link_to edit_user_path(user) do
               i.glyphicon.glyphicon-edit

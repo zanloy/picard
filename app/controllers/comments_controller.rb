@@ -1,10 +1,10 @@
 # frozen_string_literal: true
-class CommentsController < ApplicationController
 
-  before_action :set_comment, only: [:update, :destroy]
+class CommentsController < ApplicationController
+  before_action :set_comment, only: %i[update destroy]
 
   load_and_authorize_resource
-  
+
   def create
     @commentable = find_commentable
     parameters = comment_params
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
 
   def destroy
     respond_to do |format|
-      if is_admin? or @comment.user == @current_user
+      if admin? or @comment.user == @current_user
         @comment.destroy
         format.html { redirect_to :back, notice: 'Comment deleted.' }
         format.json { head :no_content }

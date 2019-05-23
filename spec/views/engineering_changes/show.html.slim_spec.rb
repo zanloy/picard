@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'engineering_changes/show.html.slim', type: :view do
@@ -9,10 +10,10 @@ RSpec.describe 'engineering_changes/show.html.slim', type: :view do
       def current_user
         @user
       end
-      def is_admin?
+      def admin?
         true
       end
-      helper_method :is_admin?
+      helper_method :admin?
     end
   end
 

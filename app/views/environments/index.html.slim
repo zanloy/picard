@@ -1,5 +1,5 @@
 h1
-  - if is_admin?
+  - if admin?
     .pull-right
       = button_to 'Add New', new_environment_path, { method: :get, class: 'btn btn-primary' }
   ' Environments
@@ -9,7 +9,7 @@ table[class='table table-hover']
       th Name
       th Domain
       th Changes
-      - if is_admin?
+      - if admin?
         th Actions
   tbody
     - for environment in @environments
@@ -17,7 +17,7 @@ table[class='table table-hover']
         td #{link_to(environment.name, environment_path(environment))}
         td #{environment.domain}
         td #{environment.engineering_changes.count}
-        - if is_admin?
+        - if admin?
           td
             = link_to edit_environment_path(environment) do
               == glyphicon :edit

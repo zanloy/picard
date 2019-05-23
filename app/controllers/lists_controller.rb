@@ -1,10 +1,11 @@
 # frozen_string_literal: true
-class ListsController < ApplicationController
 
-  before_action :set_list, except: [:index, :new, :create]
+# Controller for Lists
+class ListsController < ApplicationController
+  before_action :set_list, except: %i[index new create]
 
   load_and_authorize_resource
-  
+
   # GET /lists
   # GET /lists.json
   def index
@@ -18,21 +19,13 @@ class ListsController < ApplicationController
     @list_items = @list.list_items
   end
 
-  def edit
-  end
-
-  def update
-
-  end
-
   # GET /lists/new
   def new
     @list = List.new
   end
 
   # GET /lists/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /lists
   # POST /lists.json
@@ -75,13 +68,14 @@ class ListsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_list
-      @list = List.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def list_params
-      params.require(:list).permit(:name, :description, :schema)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_list
+    @list = List.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def list_params
+    params.require(:list).permit(:name, :description, :schema)
+  end
 end

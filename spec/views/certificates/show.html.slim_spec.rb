@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe "certificates/show.html.slim", type: :view do
-
   include RSpecHtmlMatchers
 
   before do
@@ -12,10 +12,10 @@ RSpec.describe "certificates/show.html.slim", type: :view do
       def current_user
         @user
       end
-      def is_admin?
+      def admin?
         true
       end
-      helper_method :is_admin?
+      helper_method :admin?
     end
   end
 

@@ -1,12 +1,13 @@
 # frozen_string_literal: true
-class UsersController < ApplicationController
 
-  skip_before_action :require_login, only: [:new, :create]
+# Controller for Users
+class UsersController < ApplicationController
+  skip_before_action :require_login, only: %i[new create]
 
   # We run :current_user before :new and :create because if the user is created
   # by an admin, then it behaves differently.
-  before_action :current_user, only: [:new, :create]
-  before_action :set_user, except: [:create, :index, :new]
+  before_action :current_user, only: %i[new create]
+  before_action :set_user, except: %i[create index new]
 
   load_and_authorize_resource
 
@@ -108,7 +109,7 @@ class UsersController < ApplicationController
       if params[:user].has_key? :notification_attributes
         whitelist[:notification_attributes] = params[:user][:notification_attributes].permit(:on_new_change, :on_new_event)
       end
-      if is_admin?
+      if admin?
         whitelist[:enabled] = params[:user][:enabled]
         whitelist[:banned] = params[:user][:banned]
         whitelist[:admin] = params[:user][:admin]

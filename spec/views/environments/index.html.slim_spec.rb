@@ -1,17 +1,18 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe "environments/index.html.slim", type: :view do
   before do
     controller.singleton_class.class_eval do
       protected
-      def is_admin?
+      def admin?
         true
       end
       def will_paginate(items)
         nil
       end
-      helper_method :is_admin?, :will_paginate
+      helper_method :admin?, :will_paginate
     end
   end
 

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-class SearchController < ApplicationController
 
+# Controller for Search
+class SearchController < ApplicationController
   def index
     authorize! :search, EngineeringChange
     begin
@@ -16,5 +17,4 @@ class SearchController < ApplicationController
   def query
     params.require(:query)
   end
-
 end

@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   before_action :store_path, :require_login
 
-  helper_method :is_admin?, :is_active?
+  helper_method :admin?, :active?
 
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def is_admin?
+  def admin?
     if @current_user && @current_user.admin
       return true
     else
@@ -23,13 +23,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  #def require_admin
-  #  if not is_admin?
-  #    redirect_to :back, alert: 'Admin rights are required to perform that activity.'
+  # def require_admin
+  #   if not admin?
+  #     redirect_to :back, alert: 'Admin rights are required to perform that activity.'
   #  end
-  #end
+  # end
 
-  def is_active?(controller)
+  def active?(controller)
     'active' if controller_name == controller.to_s
   end
 
@@ -38,16 +38,16 @@ class ApplicationController < ActionController::Base
   def current_user
     begin
       user = User.find(session[:user_id]) if session[:user_id]
-    rescue
+    rescue StandardError => e
       return nil
     end
-    user ||= authenticate_with_http_token { |t,o| user = Profile.find_by_apikey(t).user }
+    user ||= authenticate_with_http_token { |t, _o| user = Profile.find_by_apikey(t).user }
     @current_user ||= user
   end
 
   def require_login
     user = current_user
-    if user == nil
+    if user.nil?
       respond_to do |format|
         format.html { redirect_to signin_path }
         format.json { render nothing: true, status: :unauthorized }
@@ -63,5 +63,4 @@ class ApplicationController < ActionController::Base
   def store_path
     session[:last_path] = request.env['PATH_INFO']
   end
-
 end
