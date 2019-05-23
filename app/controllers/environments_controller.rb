@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-class EnvironmentsController < ApplicationController
 
-  before_action :set_environment, only: [:show, :edit, :update, :destroy]
+# Controller for Environments
+class EnvironmentsController < ApplicationController
+  before_action :set_environment, only: %i[show edit update destroy]
 
   load_and_authorize_resource
 
@@ -32,8 +33,7 @@ class EnvironmentsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def destroy
     @environment.destroy
@@ -64,5 +64,4 @@ class EnvironmentsController < ApplicationController
   def create_params
     params.require(:environment).permit(:name, :domain, :shortname)
   end
-
 end

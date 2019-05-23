@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-class CertificatesController < ApplicationController
 
-  before_action :set_certificate, except: [:index, :new, :create]
+# Controller for Certificates
+class CertificatesController < ApplicationController
+  before_action :set_certificate, except: %i[index new create]
 
   load_and_authorize_resource
 
@@ -9,8 +10,7 @@ class CertificatesController < ApplicationController
     @certificates = Certificate.sorted
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @certificate = Certificate.new
@@ -30,8 +30,7 @@ class CertificatesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def destroy
     @certificate.destroy
@@ -63,5 +62,4 @@ class CertificatesController < ApplicationController
   def create_params
     params.require(:certificate).permit(:pem, :poc)
   end
-
 end

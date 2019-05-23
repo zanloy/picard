@@ -1,8 +1,9 @@
 # frozen_string_literal: true
-class AlertsController < ApplicationController
 
+# Controller for Alerts
+class AlertsController < ApplicationController
   before_action :set_alert, only: :destroy
-  before_action :set_list, only: [:new, :create]
+  before_action :set_list, only: %i[new create]
 
   def new
     @alert = Alert.new(list: @list)
@@ -40,5 +41,4 @@ class AlertsController < ApplicationController
   def alert_params
     params.require(:alert).permit(:field, :operator, :value)
   end
-
 end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-class AdminController < ApplicationController
 
+# Controller for Admin
+class AdminController < ApplicationController
   authorize_resource class: false
 
   def index
@@ -8,5 +9,4 @@ class AdminController < ApplicationController
     @disabled_users = User.all.disabled
     @banned_users = User.banned.sorted
   end
-
 end

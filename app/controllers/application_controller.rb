@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# Controller for Application
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -8,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :admin?, :active?
 
-  rescue_from CanCan::AccessDenied do |exception|
+  rescue_from CanCan::AccessDenied do
     respond_to do |format|
       format.html { redirect_to root_path, alert: 'You do not have access to do that.' }
       format.json { render nothing: true, status: :forbidden }
@@ -16,11 +18,7 @@ class ApplicationController < ActionController::Base
   end
 
   def admin?
-    if @current_user && @current_user.admin
-      return true
-    else
-      return false
-    end
+    return true if @current_user.try(:admin)
   end
 
   # def require_admin
@@ -38,7 +36,7 @@ class ApplicationController < ActionController::Base
   def current_user
     begin
       user = User.find(session[:user_id]) if session[:user_id]
-    rescue StandardError => e
+    rescue StandardError
       return nil
     end
     user ||= authenticate_with_http_token { |t, _o| user = Profile.find_by_apikey(t).user }

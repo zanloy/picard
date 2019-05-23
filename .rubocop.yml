@@ -1,8 +1,10 @@
 AllCops:
   Exclude:
     - 'bin/*'
-Metrics/LineLength:
-  Enabled: false
 Metrics/BlockLength:
   Exclude:
     - 'config/**/*.rb'
+Metrics/LineLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false

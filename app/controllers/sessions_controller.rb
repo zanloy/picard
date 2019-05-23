@@ -1,21 +1,21 @@
 # frozen_string_literal: true
-class SessionsController < ApplicationController
 
+# Controller for Sessions
+class SessionsController < ApplicationController
   skip_before_action :store_path, :require_login
 
-  def login
-  end
+  def login; end
 
   def disabled
     user = current_user
-    redirect_to root_path if user and user.enabled
+    redirect_to root_path if user&.enabled
   end
 
   def login_attempt
     user = User.authenticate(email_param, password_param)
     if user
       session[:user_id] = user.id
-      if not session[:last_path].nil?
+      if !session[:last_path].nil?
         redirect_to session[:last_path]
       else
         redirect_to root_path
@@ -46,5 +46,4 @@ class SessionsController < ApplicationController
   def password_param
     params.require(:password)
   end
-
 end

@@ -39,8 +39,7 @@ class UsersController < ApplicationController
     redirect_to users_path, notice: 'User was deleted.'
   end
 
-  def edit
-  end
+  def edit; end
 
   def enable
     @user.enabled = true
@@ -103,21 +102,16 @@ class UsersController < ApplicationController
 
   def update_params
     params.require(:user).permit(:name, :new_password, :avatar).tap do |whitelist|
-      if params[:user].has_key? :profile_attributes
-        whitelist[:profile_attributes] = params[:user][:profile_attributes].permit(:company, :phone, :im_address, :va_email, :alternative_contact, :slack_username)
-      end
-      if params[:user].has_key? :notification_attributes
-        whitelist[:notification_attributes] = params[:user][:notification_attributes].permit(:on_new_change, :on_new_event)
-      end
+      whitelist[:profile_attributes] = params[:user][:profile_attributes].permit(:company, :phone, :im_address, :va_email, :alternative_contact, :slack_username) if params[:user].key? :profile_attributes
+      whitelist[:notification_attributes] = params[:user][:notification_attributes].permit(:on_new_change, :on_new_event) if params[:user].key? :notification_attributes
       if admin?
         whitelist[:enabled] = params[:user][:enabled]
         whitelist[:banned] = params[:user][:banned]
         whitelist[:admin] = params[:user][:admin]
-        if params[:user].has_key? :notification_attributes
+        if params[:user].key? :notification_attributes
           whitelist[:notification_attributes][:on_new_user] = params[:user][:notification_attributes][:on_new_user] if @user.admin
         end
       end
     end
   end
-
 end
