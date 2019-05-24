@@ -55,7 +55,7 @@ class Ability
 
       # search
       can :search, :all
-      
+
       # Subscription
       can :manage, Subscription, user: user
 
@@ -64,7 +64,7 @@ class Ability
 
       # User
       can :read, User
-      can [:edit, :update], User, id: user.id
+      can %i[edit generate_apikey update], User, id: user.id
 
     end
 
