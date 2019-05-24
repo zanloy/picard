@@ -1,14 +1,12 @@
 # frozen_string_literal: true
-class ResetDatabaseJob < ActiveJob::Base
 
+# ActiveJob to reset database
+class ResetDatabaseJob < ActiveJob::Base
   Picard::Application.load_tasks
 
   queue_as :default
 
-  def perform(*args)
-    if Rails.env.demo?
-      Rake::Task['db:reset'].invoke
-    end
+  def perform(*)
+    Rake::Task['db:reset'].invoke if Rails.env.demo?
   end
-
 end

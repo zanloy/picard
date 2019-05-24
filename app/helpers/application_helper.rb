@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-module ApplicationHelper
 
+# Helper functions for all application level controllers and views
+module ApplicationHelper
   def flash_class(level)
     case level
     when :notice then 'alert alert-info'
@@ -11,7 +12,7 @@ module ApplicationHelper
   end
 
   def glyphicon(icon)
-    content_tag :i, nil, class: "glyphicon glyphicon-#{icon.to_s}"
+    content_tag :i, nil, class: "glyphicon glyphicon-#{icon}"
   end
 
   def delete_icon
@@ -32,9 +33,10 @@ module ApplicationHelper
 
   def linkify_tags(body)
     return nil unless body
+
     body.gsub(/#\w+/) do |hashtag|
       tag = hashtag[1..-1]
-      if tag == nil
+      if tag.nil?
         hashtag
       else
         link_to hashtag, tag_path(tag.downcase.strip)
@@ -43,7 +45,8 @@ module ApplicationHelper
   end
 
   def display_name(user)
-    return '' if user == nil
+    return '' if user.nil?
+
     if user.admin
       "#{glyphicon(:king)} #{link_to user.name, user_path(user)}"
     else
@@ -56,31 +59,34 @@ module ApplicationHelper
   end
 
   def display_email(value)
-    return if value.nil? or value.empty?
+    return if value.nil? || value.empty?
+
     link_to value, "mailto:#{value}"
   end
 
   def display_tags(item)
-    return if not item.respond_to? :tags
+    return unless item.respond_to? :tags
+
     result = ''
     item.tags.each do |tag|
       result += "<span class='tag'>#{tag.name}</span> "
     end
-    return result
   end
 
   def display_phone_number(value)
-    return if value.nil? or value.empty?
+    return if value.nil? || value.empty?
+
     link_to value, "tel:#{value}"
   end
 
   def markdown(text)
     return nil if text.nil?
+
     renderer_options = {
       filter_html: true,
       hard_wrap: true,
       link_attributes: { rel: 'nofollow', target: '_blank' },
-      prettify: true,
+      prettify: true
     }
 
     markdown_options = {
@@ -89,7 +95,7 @@ module ApplicationHelper
       fenced_code_blocks: true,
       no_intra_emphasis: true,
       space_after_headers: true,
-      superscript: true,
+      superscript: true
     }
 
     renderer = Redcarpet::Render::HTML.new(renderer_options)
@@ -115,7 +121,6 @@ module ApplicationHelper
     change.attachments.each do |attachment|
       text.sub!("[#{attachment.reference}]", display_attachment_inline(attachment))
     end
-    return text
+    text
   end
-
 end

@@ -1,7 +1,8 @@
 # frozen_string_literal: true
-class EngineeringChangesController < ApplicationController
 
-  before_action :set_change, except: [:index, :new, :create, :quickadd]
+# Controller for Changes
+class EngineeringChangesController < ApplicationController
+  before_action :set_change, except: %i[index new create quickadd]
 
   load_and_authorize_resource
 
@@ -9,8 +10,7 @@ class EngineeringChangesController < ApplicationController
     @changes = EngineeringChange.timeline.page(page_param)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @change = EngineeringChange.new
@@ -24,7 +24,7 @@ class EngineeringChangesController < ApplicationController
     @change = EngineeringChange.new create_params
 
     respond_to do |format|
-      if from_quick_add? and add_details?
+      if from_quick_add? && add_details?
         @change.parse_title
         @environments = Environment.all
         format.html { render :new, location: @change }
@@ -33,7 +33,7 @@ class EngineeringChangesController < ApplicationController
         if @change.save
           # Notify Slack
           begin
-            if ENV.has_key? 'SLACK_WEBHOOKS'
+            if ENV.key? 'SLACK_WEBHOOKS'
               ENV['SLACK_WEBHOOKS'].split(',').each do |webhook|
                 notifier = Slack::Notifier.new webhook
                 notifier.ping "New Change: #{view_context.link_to(@change.title, engineering_change_url(@change))}"
@@ -93,21 +93,21 @@ class EngineeringChangesController < ApplicationController
   end
 
   def page_param
-    (params.has_key? :page) ? params[:page] : 1
+    params.key?(:page) ? params[:page] : 1
   end
 
   def create_params
-    parms = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description, attachments_attributes: [:id, :file, :_destroy])
+    parms = params.require(:engineering_change).permit(:poc_id, :when, :environment_id, :title, :description, attachments_attributes: %i[id file _destroy])
     parms[:entered_by] = @current_user
-    parms[:poc] = @current_user if (parms[:poc_id].nil? or parms[:poc_id].empty?)
+    parms[:poc] = @current_user if parms[:poc_id].nil? || parms[:poc_id].empty?
     return parms
   end
 
   def from_quick_add?
-    params[:engineering_change].has_key? 'quick_add'
+    params[:engineering_change].key? 'quick_add'
   end
 
   def add_details?
-    from_quick_add? and params[:commit] != 'Quick Add'
+    from_quick_add? && params[:commit] != 'Quick Add'
   end
 end

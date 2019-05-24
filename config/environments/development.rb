@@ -58,8 +58,8 @@ Rails.application.configure do
 
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  Rails.application.routes.default_url_options = { host: 'localhost:5000' }
-  config.action_mailer.default_url_options = { host: 'localhost:5000' }
+  Rails.application.routes.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
 
   # Settings for email
   config.action_mailer.delivery_method = :smtp

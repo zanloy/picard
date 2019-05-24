@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-class ListItemsController < ApplicationController
 
+# Controller for ListItems
+class ListItemsController < ApplicationController
   before_action :set_list_item, except: [:create]
   before_action :set_list, only: :create
 
@@ -16,8 +17,7 @@ class ListItemsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     respond_to do |format|
@@ -57,5 +57,4 @@ class ListItemsController < ApplicationController
   def list_item_params
     params.require(:list_item).permit(permitted_fields)
   end
-
 end

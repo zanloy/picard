@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Controller for Comments
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[update destroy]
 
@@ -19,14 +20,13 @@ class CommentsController < ApplicationController
 
   def destroy
     respond_to do |format|
-      if admin? or @comment.user == @current_user
+      if admin? || @comment.user == @current_user
         @comment.destroy
         format.html { redirect_to :back, notice: 'Comment deleted.' }
-        format.json { head :no_content }
       else
         format.html { redirect_to :back, error: 'You do not have access to do that.' }
-        format.json { head :no_content }
       end
+      format.json { head :no_content }
     end
   end
 
@@ -35,9 +35,7 @@ class CommentsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def find_commentable
     params.each do |name, value|
-      if name =~ /(.+)_id$/
-        return $1.classify.constantize.find(value)
-      end
+      return Regex.last_match(1).classify.constantize.find(value) if name =~ /(.+)_id$/
     end
     nil
   end
@@ -50,5 +48,4 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:comment)
   end
-
 end

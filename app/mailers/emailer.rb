@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+# This is the main email handler.
 class Emailer < ActionMailer::Base
   default from: ENV.fetch('GMAIL_ADDRESS') { 'test@test.com' }
 
@@ -12,7 +14,8 @@ class Emailer < ActionMailer::Base
   def new_change(user, change)
     @user = user
     @change = change
-    return false if user.enabled == false or user.banned == true
+    return false if user.enabled == false || user.banned == true
+
     mail(to: @user.email, subject: "New Change: #{@change.title.truncate(100)}")
   end
 

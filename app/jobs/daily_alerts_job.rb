@@ -1,11 +1,11 @@
 # frozen_string_literal: true
+
+# ActiveJob for daily alert emails
 class DailyAlertsJob < ActiveJob::Base
   queue_as :default
 
-  def perform(*args)
+  def perform(*)
     expiring_certs = Certificate.expires_soon
-    if expiring_certs.count > 0
-      User.emails.each { |email| Emailer.delay.daily_alerts(email, expiring_certs.to_a) }
-    end
+    User.emails.each { |email| Emailer.delay.daily_alerts(email, expiring_certs.to_a) } if expiring_certs.count.positive?
   end
 end

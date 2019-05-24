@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-class TagsController < ApplicationController
 
+# Controller for Tags
+class TagsController < ApplicationController
   load_and_authorize_resource
 
   def index
@@ -9,8 +10,8 @@ class TagsController < ApplicationController
     @tags.each do |tag|
       @tags_with_weight << {
         text: tag.name,
-        weight: tag.taggings.count, #TODO: Add taggings_count to Tag
-        link: tag_path(tag),
+        weight: tag.taggings.count, # TODO: Add taggings_count to Tag
+        link: tag_path(tag)
       }
     end
   end
@@ -19,7 +20,7 @@ class TagsController < ApplicationController
     @tag = Tag.find(name_param)
     @taggables = {
       changes: [],
-      comments: [],
+      comments: []
     }
     @tag.taggings.each do |tagging|
       case tagging.taggable_type

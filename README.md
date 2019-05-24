@@ -91,7 +91,7 @@ bundle exec foreman start
 * Visit the site in your web browser
 
 Finally if all has gone well, you can visit the site in your web browser by
-going to [http://localhost:5000/](http://localhost:5000/). In development, you
+going to [http://localhost:3000/](http://localhost:3000/). In development, you
 can use a test user to login. Username: admin@test.com Password: test or
 Username: test@test.com Password: test
 
