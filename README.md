@@ -1,17 +1,9 @@
 [![Build Status](https://travis-ci.org/zanloy/picard.svg)](https://travis-ci.org/zanloy/picard)
 [![Coverage Status](https://coveralls.io/repos/zanloy/picard/badge.svg?branch=master&service=github)](https://coveralls.io/github/zanloy/picard?branch=master)
 
-Picard is a website designed to track engineering changes made by a team against
+Picard is a website designed to track changes made by a team against
 an application. It was designed to facilitate management tracking changes and
 for accountability in case something breaks the application.
-
-# Demo
-
-You can demo Picard at [http://picard.zanloy.com/](http://picard.zanloy.com/).
-You can use your gmail login to create an account or use the username
-'test@test.com' and the password 'test123test123' to test the application.
-
-**The database for this demo site gets reset every morning.**
 
 # Installation
 
@@ -21,7 +13,7 @@ on Windows.
 
 ## Requirements
 
-You will need to have Ruby 2.3.1 installed. You will need to have PostgreSQL
+You will need to have Ruby 2.5.5 installed. You will need to have PostgreSQL
 installed and setup for your user to have admin (or at a minimum 'create
 database') access (the application needs to build the database). You will need
 to have ImageMagick installed as well for image processing of file attachments.
