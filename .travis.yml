@@ -5,6 +5,7 @@ rvm:
   - 2.5.5
 services:
   - elasticsearch
+  - postgres
 before_script:
   - sleep 10
   - psql -c 'create database picard_test' -U postgres

@@ -91,10 +91,6 @@ gem 'paperclip', '>=5.1.0'
 # Use searchkick for search and autocomplete
 gem 'searchkick'
 
-group :production do
-  gem 'mailgun_rails'
-end
-
 group :development do
   gem 'awesome_print'
   # Deploy with capistrano!
