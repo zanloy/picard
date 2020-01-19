@@ -1,14 +1,18 @@
 language: 'ruby'
+dist: bionic
+sudo: false
+cache: bundler
+
 env:
   - GMAIL_ADDRESS=picard@test.com RAILS_ENV=test
-rvm:
-  - 2.5.5
+
 services:
   - elasticsearch
-  - postgres
+  - postgresql
+
 before_script:
-  - sleep 10
   - psql -c 'create database picard_test' -U postgres
   - bundle exec rake --trace db:migrate
+
 script:
   - bundle exec rake spec
