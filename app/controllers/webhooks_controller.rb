@@ -5,7 +5,7 @@ class WebhooksController < ApplicationController
   skip_before_action :store_path, :require_login
   skip_before_action :verify_authenticity_token
 
-  before_filter :validate_token, only: :slack
+  before_action :validate_token, only: :slack
 
   def slack
     payload = slack_params
