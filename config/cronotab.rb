@@ -19,3 +19,4 @@
 # Crono.perform(DailyAlertsJob).every 1.week, on: :monday, at: '08:00'
 
 Crono.perform(ResetDatabaseJob).every 1.day, at: '04:00' if Rails.env.demo?
+Crono.perform(CleanupOrphansJob).every 1.day, at: '03:00'
